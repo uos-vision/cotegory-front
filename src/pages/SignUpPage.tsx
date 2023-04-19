@@ -10,6 +10,11 @@ function SignUpPage() {
     setEmail(e.target.value);
   };
 
+  const handleClickLoginButton = async () => {
+    try {
+    } catch {}
+  };
+
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
