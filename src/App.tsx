@@ -1,13 +1,14 @@
 import React from "react";
-import MainPage from "./pages/MainPage";
-import SignInPage from "./pages/SignInPage";
-
+import { BrowserRouter } from "react-router-dom";
+import { RecoilRoot } from "recoil";
+import Router from "./router/Router";
 function App() {
   return (
-    <div className="App">
-      <SignInPage />
-      <MainPage />
-    </div>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+    </RecoilRoot>
   );
 }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { typeOf, isElement, isValidElementType } from "react-is";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function SignUpPage() {
@@ -24,28 +25,21 @@ function SignUpPage() {
       <SignInBox>
         <BoxLayout>
           <Headline>로그인</Headline>
-          <form>
-            <Text>이메일</Text>
-            <InputBox
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Text>비밀번호</Text>
-            <InputBox
-              type="text"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <SubmitButton type="submit">로그인</SubmitButton>
-            <SignUpButton type="submit">회원가입</SignUpButton>
-            <SignUpButton type="submit">홈으로</SignUpButton>
-            <Router>
-              <Routes>
-                <Route path="MainPage" element={<SignUpButton />} />
-              </Routes>
-            </Router>
-          </form>
+          <Text>이메일</Text>
+          <InputBox
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Text>비밀번호</Text>
+          <InputBox
+            type="text"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <SubmitButton type="submit">로그인</SubmitButton>
+          <SignUpButton type="submit">회원가입</SignUpButton>
+          <SignUpButton type="submit">홈으로</SignUpButton>
         </BoxLayout>
       </SignInBox>
     </SignInWrapper>

@@ -1,10 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 
 function SignInPage() {
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
+  // const navigate = useNavigate(); // Add the useNavigate hook
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -14,33 +21,29 @@ function SignInPage() {
     setPassword(e.target.value);
   };
 
+  // const handleHomeButtonClick = () => {
+  //   navigate("/MainPage"); // Call navigate with the desired path
+  // };
+
   return (
     <SignInWrapper>
       <SignInBox>
         <BoxLayout>
           <Headline>로그인</Headline>
-          <form>
-            <Text>이메일</Text>
-            <InputBox
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Text>비밀번호</Text>
-            <InputBox
-              type="text"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <SubmitButton type="submit">로그인</SubmitButton>
-            <SignUpButton type="submit">회원가입</SignUpButton>
-            <SignUpButton type="submit">홈으로</SignUpButton>
-            <Router>
-              <Routes>
-                <Route path="MainPage" element={<SignUpButton />} />
-              </Routes>
-            </Router>
-          </form>
+          <Text>이메일</Text>
+          <InputBox
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Text>비밀번호</Text>
+          <InputBox
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <SubmitButton type="submit">로그인</SubmitButton>
+          <SignUpButton type="submit">회원가입</SignUpButton>
         </BoxLayout>
       </SignInBox>
     </SignInWrapper>
