@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import {
+  BrowserRouter as Router,
+  useNavigate,
+  Routes,
+  Route,
+} from "react-router-dom";
 function Header() {
+  const handleClickLoginButton = async () => {
+    try {
+    } catch {}
+  };
+
+  const navigate = useNavigate();
+  const handleSignin = () => {
+    navigate("/signin");
+  };
   return (
     <Wrapper>
       <Head>
-        <Logo src="src\assets\cotegory_logo.png" alt="코테고리 로고" />
-
+        <LogoImg src="/logo.png" alt="cotegory logo" />
         <HeaderBox>
           <HeadText>코테고리 풀기</HeadText>
         </HeaderBox>
@@ -18,6 +32,9 @@ function Header() {
         <HeaderBox>
           <HeadText>코테고리 결과</HeadText>
         </HeaderBox>
+        <SignInButton type="button" onClick={handleSignin}>
+          <HeadText>로그인</HeadText>
+        </SignInButton>
       </Head>
     </Wrapper>
   );
@@ -36,18 +53,46 @@ const Head = styled.section`
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: 30px;
 `;
-const HeaderBox = styled.div`
-  width: 180px;
+const HeaderBox = styled.button`
+  width: 150px;
   height: 50px;
-  text-align: center;
-  justify-content: center;
+  text-align: left;
+  justify-content: left;
   font-family: "Roboto";
+  cursor: pointer;
+  background-color: transparent;
+  /* Fix hover code */
+  :hover {
+    background-color: #ececec;
+  }
+  /* border-radius: 16px; */
+  border-color: transparent;
+  /* margin-right: 10px; */
   display: flex; /* 가로로 배치되도록 수정 */
 `;
-const Logo = styled.img``;
 const HeadText = styled.h1`
   text-align: center;
-  font-size: 20px;
+  font-size: 16px;
 `;
+
+const SignInButton = styled.button`
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  background-color: #5465ff;
+  :hover {
+    background-color: #788bff;
+  }
+  border-radius: 10px;
+  border-color: transparent;
+  color: white;
+`;
+
+const LogoImg = styled.img`
+  width: 150px;
+  display: flex;
+`;
+
 export default Header;
