@@ -1,61 +1,33 @@
 import React from "react";
 import styled from "styled-components";
-import { typeOf, isElement, isValidElementType } from "react-is";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate,
   useNavigate,
 } from "react-router-dom";
 
-function SignUpPage() {
+function NotFound() {
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
+  // const navigate = useNavigate(); // Add the useNavigate hook
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-  };
-
-  const handleClickLoginButton = async () => {
-    try {
-    } catch {}
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const navigate = useNavigate(); // useNavigate로 변경
-
-  const handleGoHome = () => {
-    navigate("/"); // '/'로 페이지 이동 처리
-  };
+  // const handleHomeButtonClick = () => {
+  //   navigate("/MainPage"); // Call navigate with the desired path
+  // };
 
   return (
     <SignInWrapper>
-      <SignInBox>
-        <BoxLayout>
-          <Headline>로그인</Headline>
-          <Text>이메일</Text>
-          <InputBox
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Text>비밀번호</Text>
-          <InputBox
-            type="text"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <SubmitButton type="submit">로그인</SubmitButton>
-          <SignUpButton type="submit">회원가입</SignUpButton>
-          <SignUpButton type="submit" onClick={handleGoHome}>
-            홈으로
-          </SignUpButton>{" "}
-          {/* handleGoHome 함수 연결 */}
-        </BoxLayout>
-      </SignInBox>
+      <h1>페이지를 찾을 수 없지만, 코테 합격의 길은 Cotegory에 있습니다.</h1>
     </SignInWrapper>
   );
 }
@@ -133,4 +105,4 @@ const SignUpButton = styled.button`
     background-color: #005fa3;
   }
 `;
-export default SignUpPage;
+export default NotFound;
