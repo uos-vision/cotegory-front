@@ -17,7 +17,7 @@ function MainPage() {
   return (
     <Wrapper>
       <Header />
-      <BigImage src="logo.png" alt="큰이미지"></BigImage>
+      <BigImage src="Main.png" alt="큰이미지"></BigImage>
     </Wrapper>
   );
 }
@@ -39,8 +39,7 @@ const ImageSlide = styled.img`
 
 const BigImage = styled.img`
   width: 100%;
-  height: 500px;
-  margin-top: 20px;
+  margin-top: 50px;
 `;
 
 export default MainPage;

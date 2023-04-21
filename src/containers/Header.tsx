@@ -22,7 +22,7 @@ function Header() {
   return (
     <Wrapper>
       <Head>
-        <LogoImg onClick={handleLogo} src="logo.png" alt="cotegory logo" />
+        <LogoImg onClick={handleLogo} src="horizon.png" alt="cotegory logo" />
         <HeaderBox>
           <HeadText>코테고리 풀기</HeadText>
         </HeaderBox>
@@ -70,7 +70,7 @@ const HeaderBox = styled.button`
   :hover {
     background-color: #ececec;
   }
-  /* border-radius: 16px; */
+  border-radius: 10px;
   border-color: transparent;
   /* margin-right: 10px; */
   display: flex; /* 가로로 배치되도록 수정 */
@@ -81,7 +81,7 @@ const HeadText = styled.h1`
 `;
 
 const SignInButton = styled.button`
-  width: 150px;
+  width: 120px;
   height: 50px;
   margin-left: 50px;
   cursor: pointer;
@@ -95,8 +95,8 @@ const SignInButton = styled.button`
 `;
 
 const LogoImg = styled.img`
-  width: 150px;
-  height: 50px;
+  width: 130px;
+  margin-right: 20px;
   display: flex;
   cursor: pointer;
 `;
