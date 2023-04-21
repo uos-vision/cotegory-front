@@ -16,10 +16,13 @@ function Header() {
   const handleSignin = () => {
     navigate("/signin");
   };
+  const handleLogo = () => {
+    navigate("/");
+  };
   return (
     <Wrapper>
       <Head>
-        <LogoImg src="/logo.png" alt="cotegory logo" />
+        <LogoImg onClick={handleLogo} src="logo.png" alt="cotegory logo" />
         <HeaderBox>
           <HeadText>코테고리 풀기</HeadText>
         </HeaderBox>
@@ -58,8 +61,8 @@ const Head = styled.section`
 const HeaderBox = styled.button`
   width: 150px;
   height: 50px;
-  text-align: left;
-  justify-content: left;
+  text-align: center;
+  justify-content: center;
   font-family: "Roboto";
   cursor: pointer;
   background-color: transparent;
@@ -80,6 +83,7 @@ const HeadText = styled.h1`
 const SignInButton = styled.button`
   width: 150px;
   height: 50px;
+  margin-left: 50px;
   cursor: pointer;
   background-color: #5465ff;
   :hover {
@@ -92,7 +96,9 @@ const SignInButton = styled.button`
 
 const LogoImg = styled.img`
   width: 150px;
+  height: 50px;
   display: flex;
+  cursor: pointer;
 `;
 
 export default Header;
