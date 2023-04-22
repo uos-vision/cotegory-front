@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import GlobalStyle from "../theme/GlobalStyle";
+
 import Header from "../containers/Header";
 import Slider from "react-slick";
 // import color from "../theme/"
@@ -16,6 +18,8 @@ function MainPage() {
   };
   return (
     <Wrapper>
+      <GlobalStyle />
+
       <Header />
       <BigImage src="Main.png" alt="큰이미지"></BigImage>
     </Wrapper>

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../containers/Header";
+import GlobalStyle from "../theme/GlobalStyle";
 
 import {
   BrowserRouter as Router,
@@ -37,6 +38,7 @@ function SignInPage() {
 
   return (
     <SignInWrapper>
+      <GlobalStyle />
       <SignInBox>
         <BoxLayout>
           <Headline>로그인</Headline>
@@ -96,7 +98,7 @@ const Headline = styled.h1`
   font-size: 24px;
   margin-top: 15px;
 `;
-const Text = styled.p`
+const Text = styled.h2`
   font-size: 16px;
   margin-top: 30px;
   text-align: left;
@@ -104,8 +106,9 @@ const Text = styled.p`
 const InputBox = styled.input`
   font-size: 16px;
   width: 100%;
-  height: 30px;
+  height: 50px;
   padding: 8px;
+  box-sizing: border-box; /* 추가 */
   border: 1px solid #d9d9d9;
   border-radius: 10px;
 `;
@@ -115,7 +118,7 @@ const SubmitButton = styled.button`
   color: #fff;
   font-size: 16px;
   font-weight: bold;
-  padding: 10px 20px;
+  box-sizing: border-box; /* 추가 */
   border-radius: 10px;
   margin-top: 30px;
   width: 100%;
