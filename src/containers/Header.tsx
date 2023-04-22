@@ -27,6 +27,12 @@ function Header() {
   const handleRecommend = () => {
     navigate("/recommend");
   };
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+  const handleResult = () => {
+    navigate("/result");
+  };
   return (
     <Wrapper>
       <GlobalStyle />
@@ -38,10 +44,10 @@ function Header() {
         <HeaderBox onClick={handleRecommend}>
           <HeadText>문제 추천</HeadText>
         </HeaderBox>
-        <HeaderBox>
+        <HeaderBox onClick={handleProfile}>
           <HeadText>내 정보</HeadText>
         </HeaderBox>
-        <HeaderBox>
+        <HeaderBox onClick={handleResult}>
           <HeadText>코테고리 결과</HeadText>
         </HeaderBox>
         <SignInButton type="button" onClick={handleSignin}>

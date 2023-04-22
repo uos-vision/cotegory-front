@@ -28,7 +28,7 @@ function RecommendPage() {
             problemTitle="chat GPT를 찾아라!"
           />
           <RecommendBox
-            recommendTitle="코테 추천"
+            recommendTitle="기업 문제 추천"
             problemNumber="3000"
             problemTitle="실시간 유출 카카오 문제"
           />

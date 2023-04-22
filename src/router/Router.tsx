@@ -8,6 +8,8 @@ import {
   NotFound,
   CotegoryPage,
   RecommendPage,
+  ProfilePage,
+  ResultPage,
 } from "../pages";
 
 function Router() {
@@ -20,6 +22,8 @@ function Router() {
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/cotegory" element={<CotegoryPage />} />
       <Route path="/recommend" element={<RecommendPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/result" element={<ResultPage />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );
