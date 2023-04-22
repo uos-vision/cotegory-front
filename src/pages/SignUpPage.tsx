@@ -11,6 +11,8 @@ import {
 function SignUpPage() {
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
+  const [passwordCorrect, setPasswordCorrect] = React.useState<string>("");
+  const [baekjoon, setBaekjoon] = React.useState<string>("");
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -26,34 +28,48 @@ function SignUpPage() {
   };
 
   const navigate = useNavigate(); // useNavigate로 변경
-
-  const handleGoHome = () => {
-    navigate("/"); // '/'로 페이지 이동 처리
+  const handleLogo = () => {
+    navigate("/");
   };
 
   return (
     <SignInWrapper>
       <SignInBox>
         <BoxLayout>
-          <Headline>로그인</Headline>
-          <Text>이메일</Text>
+          <Headline>회원가입</Headline>
+          <HorizonLayout>
+            <Text>아이디 *</Text>
+            <DubButton>중복확인</DubButton>
+          </HorizonLayout>
           <InputBox
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Text>비밀번호</Text>
+          <Text>비밀번호 *</Text>
           <InputBox
             type="text"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <SubmitButton type="submit">로그인</SubmitButton>
-          <SignUpButton type="submit">회원가입</SignUpButton>
-          <SignUpButton type="submit" onClick={handleGoHome}>
-            홈으로
-          </SignUpButton>{" "}
-          {/* handleGoHome 함수 연결 */}
+          <Text>비밀번호 확인 *</Text>
+          <InputBox
+            type="password"
+            value={passwordCorrect}
+            onChange={(e) => setPasswordCorrect(e.target.value)}
+          />
+          <Text>Baekjoon ID</Text>
+          <InputBox
+            type="text"
+            value={passwordCorrect}
+            onChange={(e) => setPasswordCorrect(e.target.value)}
+          />
+          <SignUpButton type="submit">가입하기</SignUpButton>
+          <LogoImg
+            onClick={handleLogo}
+            src="vertical.png"
+            alt="cotegory logo"
+          />
         </BoxLayout>
       </SignInBox>
     </SignInWrapper>
@@ -66,9 +82,7 @@ const SignInWrapper = styled.main`
   justify-content: center;
   align-items: center;
   background-color: #cecece; /* Change background color */
-  font-family: "Roboto", sans-serif; // 'Roboto' 폰트 적용
 `;
-
 const SignInBox = styled.section`
   box-sizing: border-box;
   justify-content: center;
@@ -83,6 +97,14 @@ const BoxLayout = styled.div`
   width: 50%;
   margin: 72px;
 `;
+const HorizonLayout = styled.div`
+  display: flex;
+  flex-direction: row; /* 수정: 가로로 나란히 배치하도록 변경 */
+  align-items: center; /* 세로 정렬을 가운데로 맞춤 */
+  justify-content: space-between; /* 왼쪽과 오른쪽에 공간을 나누어 배치 */
+  margin-top: 20px; /* 수정: 상단 마진 조정 */
+`;
+
 const Headline = styled.h1`
   text-align: center;
   font-size: 24px;
@@ -100,6 +122,19 @@ const InputBox = styled.input`
   padding: 8px;
   border: 1px solid #d9d9d9;
   border-radius: 10px;
+`;
+const DubButton = styled.button`
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  width: 80px;
+  height: 30px;
+  border-color: transparent;
+  :hover {
+    background-color: #c8c8c8;
+  }
+  cursor: pointer;
+  margin-top: 15px;
+  /* margin-left: 100px; */
 `;
 const SubmitButton = styled.button`
   background-color: #5465ff;
@@ -132,5 +167,11 @@ const SignUpButton = styled.button`
   &:hover {
     background-color: #005fa3;
   }
+`;
+const LogoImg = styled.img`
+  width: 150px;
+  margin: 10px auto;
+  display: flex;
+  cursor: pointer;
 `;
 export default SignUpPage;

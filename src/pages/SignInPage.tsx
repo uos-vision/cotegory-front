@@ -13,7 +13,7 @@ import {
 function SignInPage() {
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
-  // const navigate = useNavigate(); // Add the useNavigate hook
+  const navigate = useNavigate();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -21,6 +21,14 @@ function SignInPage() {
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const handleLogo = () => {
+    navigate("/");
+  };
+
+  const handleSignUpButton = () => {
+    navigate("/signup");
   };
 
   // const handleHomeButtonClick = () => {
@@ -32,7 +40,7 @@ function SignInPage() {
       <SignInBox>
         <BoxLayout>
           <Headline>로그인</Headline>
-          <Text>이메일</Text>
+          <Text>아이디</Text>
           <InputBox
             type="text"
             value={email}
@@ -45,7 +53,14 @@ function SignInPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <SubmitButton type="submit">로그인</SubmitButton>
-          <SignUpButton type="submit">회원가입</SignUpButton>
+          <SignUpButton type="submit" onClick={handleSignUpButton}>
+            회원가입
+          </SignUpButton>
+          <LogoImg
+            onClick={handleLogo}
+            src="vertical.png"
+            alt="cotegory logo"
+          />
         </BoxLayout>
       </SignInBox>
     </SignInWrapper>
@@ -72,6 +87,7 @@ const SignInBox = styled.section`
   border-radius: 16px;
 `;
 const BoxLayout = styled.div`
+  justify-content: center;
   width: 50%;
   margin: 72px;
 `;
@@ -124,5 +140,12 @@ const SignUpButton = styled.button`
   &:hover {
     background-color: #005fa3;
   }
+`;
+
+const LogoImg = styled.img`
+  width: 150px;
+  margin: 10px auto;
+  display: flex;
+  cursor: pointer;
 `;
 export default SignInPage;
