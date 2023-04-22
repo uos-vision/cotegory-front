@@ -11,7 +11,7 @@ function CotegoryPage() {
     <Wrapper>
       <Background>
         <Header />
-        <MainBox />
+        <MainBox topText={"코테고리 풀기"} bottomText={""} />
       </Background>
     </Wrapper>
   );

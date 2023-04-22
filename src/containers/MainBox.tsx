@@ -2,42 +2,49 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 
-function MainBox() {
+interface Props {
+  topText?: string;
+  bottomText?: string;
+}
+function MainBox({ topText, bottomText }: Props) {
   return (
     <Wrapper>
       <GlobalStyle />
       <TopBox>
-        <TopText>코테고리 검사 풀기</TopText>
+        <TopText>{topText}</TopText>
       </TopBox>
       <BottomBox>
-        <BottomText>코테고리 검사</BottomText>
+        <BottomText>{bottomText}</BottomText>
       </BottomBox>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.main`
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 1em;
+  margin-top: 4em;
 `;
 
 const TopBox = styled.div`
   border-radius: 1em 1em 0em 0em;
-  background-color: #5465ff;
+  background-color: #788bff;
   box-sizing: border-box;
 `;
 
 const BottomBox = styled.div`
   border-radius: 0em 0em 1em 1em;
-  background-color: #788bff;
+  height: 3em;
+  background-color: #5465ff;
   box-sizing: border-box;
 `;
 
 const TopText = styled.h1`
   color: white;
-  font-size: 1.5em;
+  font-size: 2em;
+  margin-top: 1em;
+  margin-bottom: 1em;
   text-align: center;
 `;
 

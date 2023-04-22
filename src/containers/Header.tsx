@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
-
 import {
   BrowserRouter as Router,
   useNavigate,
@@ -9,6 +8,7 @@ import {
   Route,
 } from "react-router-dom";
 function Header() {
+  const [selectedLinkIndex, setSelectedLinkIndex] = useState(-1);
   const handleClickLoginButton = async () => {
     try {
     } catch {}
@@ -21,15 +21,21 @@ function Header() {
   const handleLogo = () => {
     navigate("/");
   };
+  const handleCotegory = () => {
+    navigate("/cotegory");
+  };
+  const handleRecommend = () => {
+    navigate("/recommend");
+  };
   return (
     <Wrapper>
       <GlobalStyle />
       <Head>
         <LogoImg onClick={handleLogo} src="horizon.png" alt="cotegory logo" />
-        <HeaderBox>
+        <HeaderBox onClick={handleCotegory}>
           <HeadText>코테고리 풀기</HeadText>
         </HeaderBox>
-        <HeaderBox>
+        <HeaderBox onClick={handleRecommend}>
           <HeadText>문제 추천</HeadText>
         </HeaderBox>
         <HeaderBox>
@@ -83,7 +89,7 @@ const HeadText = styled.h1`
 const SignInButton = styled.button`
   width: 10em;
   height: 4em;
-  margin-left: 3em;
+  margin-left: 20em;
   cursor: pointer;
   background-color: #5465ff;
   :hover {

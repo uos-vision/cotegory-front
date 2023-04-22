@@ -50,7 +50,8 @@ const ImageSlide = styled.img`
 
 const BigImage = styled.img`
   width: 100%;
-  margin-top: 50px;
+  margin-top: 4em;
+  border-radius: 1em;
 `;
 
 export default MainPage;
