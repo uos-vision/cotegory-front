@@ -12,11 +12,26 @@ function RecommendPage() {
     <Wrapper>
       <Background>
         <Header />
-        <MainBox topText={"문제 추천"} bottomText={""} />
+        <MainBox
+          topText={"문제 추천"}
+          bottomText={"오늘의 추천을 받아보세요"}
+        />
         <RecommendList>
-          <RecommendBox />
-          <RecommendBox />
-          <RecommendBox />
+          <RecommendBox
+            recommendTitle="오늘의 추천"
+            problemNumber="1000"
+            problemTitle="오늘의 사과는 몇개 일까?"
+          />
+          <RecommendBox
+            recommendTitle="백준 추천"
+            problemNumber="2000"
+            problemTitle="chat GPT를 찾아라!"
+          />
+          <RecommendBox
+            recommendTitle="코테 추천"
+            problemNumber="3000"
+            problemTitle="실시간 유출 카카오 문제"
+          />
         </RecommendList>
       </Background>
     </Wrapper>
@@ -45,6 +60,6 @@ const RecommendList = styled.section`
   grid-template-columns: repeat(3, 1fr);
   align-items: stretch;
   justify-content: space-between;
-  gap: 72px;
+  gap: 5em;
 `;
 export default RecommendPage;

@@ -2,34 +2,62 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 
-function RecommendBox() {
+interface Props {
+  recommendTitle?: string;
+  problemNumber?: string;
+  problemTitle?: string;
+}
+function RecommendBox({ recommendTitle, problemNumber, problemTitle }: Props) {
   return (
     <Wrapper>
-      <RecommendButton>문제 풀기</RecommendButton>
-      <RefreshButton>다시 추천 받기</RefreshButton>
+      <GlobalStyle />
+      <RecommendTitle>{recommendTitle}</RecommendTitle>
+      <ProblemNumber>{problemNumber}번 문제</ProblemNumber>
+      <ProblemTitle>{problemTitle}</ProblemTitle>
+      <RecommendButton>
+        <ButtonText>문제 풀기</ButtonText>
+      </RecommendButton>
+      <RefreshButton>
+        <ButtonText>다시 추천 받기</ButtonText>
+      </RefreshButton>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.section`
-  width: 20em;
+  width: 100%;
   height: 30em;
   border-radius: 1em;
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
-  background-color: #e9e9e9;
-  border-color: #5465ff;
-  border: #5465ff;
+  background-color: #eeeeee;
+  border: #cdcdcd;
+  border-style: solid;
+`;
+
+const RecommendTitle = styled.h1`
+  font-size: 2em;
+`;
+
+const ProblemNumber = styled.h2`
+  font-size: 1.5em;
+  color: #13c4a3;
+`;
+
+const ProblemTitle = styled.h2`
+  font-size: 1.25em;
+  color: #000000;
 `;
 
 const RecommendButton = styled.button`
-  width: 16em;
+  width: 60%;
   height: 4em;
   border-radius: 1em;
   background-color: #5465ff;
   color: #ffffff;
+  margin-top: 3em;
   border-color: transparent;
   :hover {
     background-color: #bbbbbb;
@@ -38,7 +66,7 @@ const RecommendButton = styled.button`
 `;
 
 const RefreshButton = styled.button`
-  width: 16em;
+  width: 60%;
   height: 4em;
   border-radius: 1em;
   background-color: #ffffff;
@@ -49,5 +77,9 @@ const RefreshButton = styled.button`
     background-color: #bbbbbb;
   }
   cursor: pointer;
+`;
+
+const ButtonText = styled.h4`
+  font-size: 1em;
 `;
 export default RecommendBox;
