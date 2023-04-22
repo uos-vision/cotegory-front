@@ -8,17 +8,27 @@ function CotegoryPage() {
   const [problem, setProblem] = React.useState<string>("");
 
   return (
-    <CotegoryWrapper>
-      <Header />
-      <MainBox />
-    </CotegoryWrapper>
+    <Wrapper>
+      <Background>
+        <Header />
+        <MainBox />
+      </Background>
+    </Wrapper>
   );
 }
 
-const CotegoryWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
+`;
+
+const Background = styled.div`
+  width: 80%;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
 `;
 export default CotegoryPage;

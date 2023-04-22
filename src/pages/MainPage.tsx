@@ -19,9 +19,10 @@ function MainPage() {
   return (
     <Wrapper>
       <GlobalStyle />
-
-      <Header />
-      <BigImage src="Main.png" alt="큰이미지"></BigImage>
+      <Background>
+        <Header />
+        <BigImage src="Main.png" alt="큰이미지"></BigImage>
+      </Background>
     </Wrapper>
   );
 }
@@ -33,9 +34,15 @@ const Wrapper = styled.main`
   justify-content: center;
   align-items: center;
   background-color: #ffffff; /* Change background color */
-  font-family: "Roboto", sans-serif; // 'Roboto' 폰트 적용
 `;
 
+const Background = styled.div`
+  width: 80%;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+`;
 const ImageSlide = styled.img`
   width: 100%;
   color: #acacac;

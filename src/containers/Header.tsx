@@ -47,7 +47,7 @@ function Header() {
 }
 
 const Wrapper = styled.main`
-  width: 1320px;
+  width: 100%;
   /* display: flex; */
   justify-content: center;
   align-items: center;
@@ -55,52 +55,48 @@ const Wrapper = styled.main`
   font-family: "Roboto", sans-serif; // 'Roboto' 폰트 적용
 `;
 const Head = styled.section`
-  box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-top: 30px;
+  justify-content: space-between; /* 왼쪽과 오른쪽에 공간을 나누어 배치 */
+
+  text-align: center;
+  margin-top: 2em;
 `;
 const HeaderBox = styled.button`
-  width: 150px;
-  height: 50px;
+  width: 10em;
+  height: 4em;
   text-align: center;
   justify-content: center;
-  font-family: "Roboto";
   cursor: pointer;
   background-color: transparent;
-  /* Fix hover code */
   :hover {
     background-color: #ececec;
   }
-  border-radius: 10px;
+  border-radius: 0.75em;
   border-color: transparent;
-  /* margin-right: 10px; */
+  margin-right: 10px;
   display: flex; /* 가로로 배치되도록 수정 */
 `;
 const HeadText = styled.h1`
-  text-align: center;
   font-size: 16px;
 `;
 
 const SignInButton = styled.button`
-  width: 120px;
-  height: 50px;
-  margin-left: 50px;
+  width: 10em;
+  height: 4em;
+  margin-left: 3em;
   cursor: pointer;
   background-color: #5465ff;
   :hover {
     background-color: #788bff;
   }
-  border-radius: 10px;
+  border-radius: 0.75em;
   border-color: transparent;
   color: white;
 `;
 
 const LogoImg = styled.img`
-  width: 130px;
-  margin-right: 20px;
-  display: flex;
+  width: 8em;
+  margin-right: 2em;
   cursor: pointer;
 `;
 

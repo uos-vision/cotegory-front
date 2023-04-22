@@ -104,7 +104,7 @@ const SignInBox = styled.section`
   margin-block: 120px;
   background: #ffffff;
   border: 2px solid #d9d9d9;
-  border-radius: 16px;
+  border-radius: 1em;
 `;
 const BoxLayout = styled.div`
   width: 50%;
@@ -115,39 +115,39 @@ const HorizonLayout = styled.div`
   flex-direction: row; /* 수정: 가로로 나란히 배치하도록 변경 */
   align-items: center; /* 세로 정렬을 가운데로 맞춤 */
   justify-content: space-between; /* 왼쪽과 오른쪽에 공간을 나누어 배치 */
-  margin-top: 20px; /* 수정: 상단 마진 조정 */
+  margin-top: 1.5em; /* 수정: 상단 마진 조정 */
 `;
 
 const Headline = styled.h1`
   text-align: center;
-  font-size: 24px;
-  margin-top: 15px;
+  font-size: 1.5em;
+  margin-top: 1em;
 `;
 const Text = styled.h2`
-  font-size: 16px;
-  margin-top: 30px;
+  font-size: 1em;
+  margin-top: 2em;
   text-align: left;
 `;
 const InputBox = styled.input`
-  font-size: 16px;
+  font-size: 1em;
   width: 100%;
-  height: 50px;
+  height: 3em;
   box-sizing: border-box; /* 추가 */
-  padding: 8px;
+  padding: 0.5em;
   border: 1px solid #d9d9d9;
-  border-radius: 10px;
+  border-radius: 0.75em;
 `;
 const DubButton = styled.button`
   background-color: #d9d9d9;
-  border-radius: 10px;
-  width: 80px;
-  height: 30px;
+  border-radius: 0.75em;
+  width: 6em;
+  height: 2.5em;
   border-color: transparent;
   :hover {
     background-color: #c8c8c8;
   }
   cursor: pointer;
-  margin-top: 15px;
+  margin-top: 1em;
   /* margin-left: 100px; */
 `;
 
@@ -155,13 +155,13 @@ const SignUpButton = styled.button`
   background-color: #788bff;
   border: none;
   color: #fff;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 10px;
-  margin-top: 30px;
+  padding: 1em 1.5em;
+  border-radius: 0.75em;
+  margin-top: 1.5em;
   width: 100%;
-  height: 50px;
+  height: 3em;
   box-sizing: border-box; /* 추가 */
 
   cursor: pointer;
@@ -170,8 +170,8 @@ const SignUpButton = styled.button`
   }
 `;
 const LogoImg = styled.img`
-  width: 150px;
-  margin: 10px auto;
+  width: 10em;
+  margin: 1em auto;
   display: flex;
   cursor: pointer;
 `;

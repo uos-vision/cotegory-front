@@ -19,33 +19,31 @@ function MainBox() {
 const Wrapper = styled.main`
   width: 80%;
   display: flex;
-  align-items: center;
   flex-direction: column;
+  margin-top: 1em;
 `;
 
 const TopBox = styled.div`
-  border-radius: 16px 16px 0px 0px;
+  border-radius: 1em 1em 0em 0em;
   background-color: #5465ff;
-  width: 1320px;
-  height: 100px;
+  box-sizing: border-box;
 `;
 
 const BottomBox = styled.div`
-  border-radius: 0px 0px 16px 16px;
+  border-radius: 0em 0em 1em 1em;
   background-color: #788bff;
-  height: 50px;
-  width: 1320px;
+  box-sizing: border-box;
 `;
 
 const TopText = styled.h1`
   color: white;
-  font-size: 24px;
+  font-size: 1.5em;
   text-align: center;
 `;
 
 const BottomText = styled.h2`
   color: white;
-  font-size: 16px;
+  font-size: 1em;
   text-align: center;
 `;
 
