@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import GlobalStyle from "../theme/GlobalStyle";
+
 import {
   BrowserRouter as Router,
   useNavigate,
@@ -21,6 +23,7 @@ function Header() {
   };
   return (
     <Wrapper>
+      <GlobalStyle />
       <Head>
         <LogoImg onClick={handleLogo} src="horizon.png" alt="cotegory logo" />
         <HeaderBox>

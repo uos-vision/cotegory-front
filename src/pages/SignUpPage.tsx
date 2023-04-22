@@ -47,18 +47,21 @@ function SignUpPage() {
           <InputBox
             type="text"
             value={email}
+            placeholder="아이디"
             onChange={(e) => setEmail(e.target.value)}
           />
           <Text>비밀번호 *</Text>
           <InputBox
             type="text"
             value={password}
+            placeholder="비밀번호"
             onChange={(e) => setPassword(e.target.value)}
           />
           <Text>비밀번호 확인 *</Text>
           <InputBox
             type="password"
             value={passwordCorrect}
+            placeholder="비밀번호 확인"
             onChange={(e) => setPasswordCorrect(e.target.value)}
           />
           <Text>Baekjoon ID</Text>
@@ -79,6 +82,7 @@ function SignUpPage() {
             src="vertical.png"
             alt="cotegory logo"
           />
+          <Text color="#acacac">*표시는 의무 입력 사항입니다.</Text>
         </BoxLayout>
       </SignInBox>
     </SignInWrapper>
@@ -146,22 +150,7 @@ const DubButton = styled.button`
   margin-top: 15px;
   /* margin-left: 100px; */
 `;
-const SubmitButton = styled.button`
-  background-color: #5465ff;
-  border: none;
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 10px;
-  margin-top: 30px;
-  width: 100%;
-  height: 50px;
-  cursor: pointer;
-  &:hover {
-    background-color: #005fa3;
-  }
-`;
+
 const SignUpButton = styled.button`
   background-color: #788bff;
   border: none;
