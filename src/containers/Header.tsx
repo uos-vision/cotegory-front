@@ -75,7 +75,9 @@ const HeaderBox = styled.button`
   cursor: pointer;
   background-color: transparent;
   :hover {
-    background-color: #ececec;
+    /* background-color: #5465ff;
+    color: #ffffff; */
+    color: #5465ff;
   }
   border-radius: 0.75em;
   border-color: transparent;
