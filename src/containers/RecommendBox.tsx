@@ -35,6 +35,7 @@ const Wrapper = styled.section`
   background-color: #eeeeee;
   border: #cdcdcd;
   border-style: solid;
+  box-shadow: 0 0 0 2px #cdcdcd inset;
 `;
 
 const RecommendTitle = styled.h1`

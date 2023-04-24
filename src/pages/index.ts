@@ -5,4 +5,5 @@ export { default as CotegoryPage } from "./CotegoryPage";
 export { default as RecommendPage } from "./RecommendPage";
 export { default as ProfilePage } from "./ProfilePage";
 export { default as ResultPage } from "./ResultPage";
+export { default as ProblemPage } from "./ProblemPage";
 export { default as NotFound } from "./NotFound";

@@ -10,6 +10,7 @@ import {
   RecommendPage,
   ProfilePage,
   ResultPage,
+  ProblemPage,
 } from "../pages";
 
 function Router() {
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/recommend" element={<RecommendPage />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/result" element={<ResultPage />} />
+      <Route path="/problem" element={<ProblemPage />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );

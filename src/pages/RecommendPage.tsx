@@ -10,6 +10,7 @@ function RecommendPage() {
 
   return (
     <Wrapper>
+      <GlobalStyle />
       <Background>
         <Header />
         <MainBox

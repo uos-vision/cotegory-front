@@ -77,12 +77,15 @@ function SignUpPage() {
             onChange={(e) => setNickname(e.target.value)}
           />
           <SignUpButton type="submit">가입하기</SignUpButton>
+          <body color="#ababab">
+            <br />
+            *표시는 의무 입력 사항입니다.
+          </body>
           <LogoImg
             onClick={handleLogo}
             src="vertical.png"
             alt="cotegory logo"
           />
-          <Text color="#acacac">*표시는 의무 입력 사항입니다.</Text>
         </BoxLayout>
       </SignInBox>
     </SignInWrapper>
