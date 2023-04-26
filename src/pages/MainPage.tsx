@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
+import { useNavigate } from "react-router-dom";
 
 import Header from "../containers/Header";
 import Slider from "react-slick";
@@ -16,12 +17,20 @@ function MainPage() {
     autoplay: true, // 자동 재생
     autoplaySpeed: 2000, // 자동 재생 속도 (ms)
   };
+  const navigate = useNavigate();
+  const handleProblem = () => {
+    navigate("/problem");
+  };
   return (
     <Wrapper>
       <GlobalStyle />
       <Background>
         <Header />
-        <BigImage src="Main.png" alt="큰이미지"></BigImage>
+        <BigImage
+          onClick={handleProblem}
+          src="Main.png"
+          alt="큰이미지"
+        ></BigImage>
       </Background>
     </Wrapper>
   );
@@ -52,6 +61,7 @@ const BigImage = styled.img`
   width: 100%;
   margin-top: 4em;
   border-radius: 1em;
+  cursor: pointer;
 `;
 
 export default MainPage;
