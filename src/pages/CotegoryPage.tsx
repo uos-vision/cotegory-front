@@ -3,9 +3,14 @@ import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import Header from "../containers/Header";
 import MainBox from "../containers/MainBox";
+import { useNavigate } from "react-router-dom";
 
 function CotegoryPage() {
   const [problem, setProblem] = React.useState<string>("");
+  const navigate = useNavigate();
+  const handleProblem = () => {
+    navigate("/problem");
+  };
 
   return (
     <Wrapper>
@@ -31,7 +36,7 @@ function CotegoryPage() {
         </CommentBox>
 
         <StartButton>
-          <ButtonText>지금 시작하기</ButtonText>
+          <ButtonText onClick={handleProblem}>지금 시작하기</ButtonText>
         </StartButton>
       </Background>
     </Wrapper>

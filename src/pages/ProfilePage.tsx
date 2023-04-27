@@ -111,7 +111,7 @@ const PictureUploadBox = styled.div`
 `;
 
 const WithdrawButton = styled.button`
-  width: 20%;
+  width: 15%;
   height: 3em;
   margin-top: 3em;
   margin-bottom: 3em;
@@ -125,7 +125,7 @@ const WithdrawButton = styled.button`
     color: #ffffff;
   }
   font-weight: 600;
-  font-size: 1.5em;
+  font-size: 1em;
   color: #f03547;
 `;
 
