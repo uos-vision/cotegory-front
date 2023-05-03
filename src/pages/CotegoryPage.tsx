@@ -16,7 +16,7 @@ function CotegoryPage() {
     <Wrapper>
       <Background>
         <Header />
-        <MainBox topText={"코테고리 풀기"} bottomText={""} />
+        <MainBox topText={"코테고리 풀기"}></MainBox>{" "}
         <CommentBox>
           <Text>
             <h2>코딩테스트 공부의 유쾌한 반란.</h2>
@@ -34,7 +34,6 @@ function CotegoryPage() {
             <h3>Cotegory 검사로 나의 코딩테스트 역량을 확인해보세요.</h3>
           </Text>
         </CommentBox>
-
         <StartButton>
           <ButtonText onClick={handleProblem}>지금 시작하기</ButtonText>
         </StartButton>

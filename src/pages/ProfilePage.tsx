@@ -13,7 +13,7 @@ function ProfilePage() {
       <GlobalStyle />
       <Background>
         <Header />
-        <MainBox topText={"내 정보"} bottomText={"개인정보 수정"} />
+        <MainBox topText={"내 정보"} bottomText="개인정보 수정"></MainBox>
         <ProfileBox>
           <PictureBoxLeft>
             <Text>프로필 사진</Text>

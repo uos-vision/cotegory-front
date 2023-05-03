@@ -13,10 +13,7 @@ function RecommendPage() {
       <GlobalStyle />
       <Background>
         <Header />
-        <MainBox
-          topText={"문제 추천"}
-          bottomText={"오늘의 추천을 받아보세요"}
-        />
+        <MainBox topText={"문제 추천"}></MainBox>
         <RecommendList>
           <RecommendBox
             recommendTitle="오늘의 추천"

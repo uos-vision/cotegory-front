@@ -14,7 +14,7 @@ function ResultPage() {
 
       <Background>
         <Header />
-        <MainBox topText={"코테고리 결과"} bottomText={"문제 히스토리"} />
+        <MainBox topText={"코테고리 결과"}></MainBox>{" "}
       </Background>
     </Wrapper>
   );
