@@ -1,7 +1,7 @@
-import { colors, palette } from "./Color";
+// // import { colors, palette } from "./Color";
 
-const theme = { palette, colors } as const;
+// const theme = { palette, colors } as const;
 
-export type Theme = typeof theme;
+// export type Theme = typeof theme;
 
-export default theme;
+// export default theme;
