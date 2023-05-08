@@ -9,6 +9,24 @@ import AnswerBox from "../containers/AnswerBox";
 
 function ProblemPage() {
   const [problem, setProblem] = React.useState<string>("");
+  const [time, setTime] = React.useState<number>(0);
+  const [input, setInput] = React.useState<string>("");
+  const [output, setOutput] = React.useState<string>("");
+
+  const visitTimeStr = localStorage.getItem("visitTime");
+  if (visitTimeStr) {
+    const visitTime = new Date(visitTimeStr);
+    const now = new Date();
+    const elapsedSeconds = Math.floor(
+      (now.getTime() - visitTime.getTime()) / 1000
+    );
+    const elapsedMinutes = Math.floor(elapsedSeconds / 60);
+    const remainingSeconds = elapsedSeconds % 60;
+    const elapsedTimeString = `${elapsedMinutes}분 ${remainingSeconds}초`;
+    // elapsedTimeString 변수를 HeadText로 표시
+  } else {
+    localStorage.setItem("visitTime", new Date().toString());
+  }
 
   const navigate = useNavigate();
   const handleHome = () => {
@@ -21,7 +39,7 @@ function ProblemPage() {
         <HeadWrapper>
           <HeadText>코테고리 검사</HeadText>
           <HeadTime>진행 시간 </HeadTime>
-          <HeadText> 1분 10초</HeadText>
+          {/* <HeadText>{elapsedTimeString}</HeadText> */}
           <QuitText onClick={handleHome}>나가기</QuitText>
         </HeadWrapper>
       </Head>

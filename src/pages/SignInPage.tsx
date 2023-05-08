@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../containers/Header";
 import GlobalStyle from "../theme/GlobalStyle";
 
 import {
@@ -15,14 +14,6 @@ function SignInPage() {
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const navigate = useNavigate();
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
 
   const handleLogo = () => {
     navigate("/");

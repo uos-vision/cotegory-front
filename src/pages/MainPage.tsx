@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 import Header from "../containers/Header";
 import Slider from "react-slick";
+// import Cookies from "js-cookie";
+
 // import color from "../theme/"
 
 function MainPage() {
@@ -21,6 +23,7 @@ function MainPage() {
   const handleProblem = () => {
     navigate("/problem");
   };
+
   return (
     <Wrapper>
       <GlobalStyle />

@@ -38,7 +38,7 @@ const BottomBox = styled.div`
 `;
 
 const TopText = styled.h1`
-  color: white;
+  color: black;
   font-size: 1em;
   margin-top: 1em;
   margin-bottom: 1em;

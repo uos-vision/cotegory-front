@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
-import { typeOf, isElement, isValidElementType } from "react-is";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useNavigate,
 } from "react-router-dom";
+import RegisterService from "../api/RegisterService";
 
 function SignUpPage() {
   const [email, setEmail] = React.useState<string>("");
@@ -16,17 +16,19 @@ function SignUpPage() {
   const [baekjoon, setBaekjoon] = React.useState<string>("");
   const [nickname, setNickname] = React.useState<string>("");
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handleClickLoginButton = async () => {
+  const handleClickButton = async () => {
     try {
-    } catch {}
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+      const res = await RegisterService.register({
+        loginId: email,
+        pw: password,
+        baekjoonHandle: baekjoon,
+        nickName: nickname,
+      });
+      navigate("/");
+      alert("회원가입 완료");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const navigate = useNavigate(); // useNavigate로 변경
@@ -52,7 +54,7 @@ function SignUpPage() {
           />
           <Text>비밀번호 *</Text>
           <InputBox
-            type="text"
+            type="password"
             value={password}
             placeholder="비밀번호"
             onChange={(e) => setPassword(e.target.value)}
@@ -76,11 +78,9 @@ function SignUpPage() {
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
-          <SignUpButton type="submit">가입하기</SignUpButton>
-          <body color="#ababab">
-            <br />
-            *표시는 의무 입력 사항입니다.
-          </body>
+          <SignUpButton type="submit" onClick={handleClickButton}>
+            가입하기
+          </SignUpButton>
           <LogoImg
             onClick={handleLogo}
             src="vertical.png"

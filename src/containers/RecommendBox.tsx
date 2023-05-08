@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   recommendTitle?: string;
   problemNumber?: string;
   problemTitle?: string;
+  problemLink?: string;
 }
-function RecommendBox({ recommendTitle, problemNumber, problemTitle }: Props) {
+function RecommendBox({
+  recommendTitle,
+  problemNumber,
+  problemTitle,
+  problemLink,
+}: Props) {
+  const navigate = useNavigate();
+  // navigate(problemLink);
+
   return (
     <Wrapper>
       <GlobalStyle />
