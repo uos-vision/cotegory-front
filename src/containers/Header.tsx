@@ -16,10 +16,10 @@ function Header() {
     } catch {}
   };
 
-  const jwtToken = Cookies.get("jwtToken");
+  const jwtToken = Cookies.get("accessToken");
   const isLoggedIn = !!jwtToken;
 
-  const buttonText = isLoggedIn ? "내정보" : "로그인";
+  const buttonText = isLoggedIn ? "프로필" : "로그인";
 
   const navigate = useNavigate();
   const handleSignin = () => {

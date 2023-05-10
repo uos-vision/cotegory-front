@@ -54,33 +54,33 @@ function ProblemPage() {
             <ProblemContentBox // 좌측 문제 설명
               topText="문제 설명"
               bottomText="소수를 유난히도 좋아하는 창영이는 게임 아이디 비밀번호를 4자리 '소수'로 정해놓았다.
-            어느 날 창영이는 친한 친구와 대화를 나누었는데: "
+            어느 날 창영이는 친한 친구와 대화를 나누었는데: 입력은 항상 네 자리 소수만 주어진다고 가정하자. 주어진 두 소수 A에서 B로 바꾸는 과정도 항상 네 자리 소수를 유지해야 하고, '네 자리 수'라 하였기 때문에 0039와 같은 1000미만의 비밀번호는 허용되지 않는다 "
             ></ProblemContentBox>
             <ProblemExanple>
               <ProblemInput>
                 <ProblemContentBox
                   topText="입력"
-                  bottomText="123"
+                  bottomText="첫 줄에 TEST CASE의 수 T가 주어진다. 다음 T줄에 걸쳐 각 줄에 1쌍씩 네 자리 소수가 주어진다"
                 ></ProblemContentBox>
               </ProblemInput>
               <ProblemCase>
                 <ProblemContentBox
                   topText="입력예제"
-                  bottomText="123"
+                  bottomText="1033 8179"
                 ></ProblemContentBox>
               </ProblemCase>
             </ProblemExanple>
             <ProblemExanple>
               <ProblemInput>
                 <ProblemContentBox
-                  topText="입력"
-                  bottomText="123"
+                  topText="출력"
+                  bottomText="각 TEST CASE에 대해 두 소수 사이의 변환에 필요한 최소 회수를 출력한다. 불가능한 경우 Impossible을 출력한다."
                 ></ProblemContentBox>
               </ProblemInput>
               <ProblemCase>
                 <ProblemContentBox
                   topText="출력예제"
-                  bottomText="123"
+                  bottomText="6"
                 ></ProblemContentBox>
               </ProblemCase>
             </ProblemExanple>

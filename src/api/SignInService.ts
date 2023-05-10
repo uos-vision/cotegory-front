@@ -40,6 +40,7 @@ class SignInService extends ApiBase {
           "Authorization"
         ] = `Bearer ${accessToken}`;
         this.jwtToken = accessToken;
+        Cookies.set("accessToken", accessToken);
         return response.data;
       })
       .catch(ApiBase.handleError);
