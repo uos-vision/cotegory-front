@@ -3,10 +3,21 @@ import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import Header from "../containers/Header";
 import MainBox from "../containers/MainBox";
+import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import RecommendBox from "../containers/RecommendBox";
+import Cookies from "js-cookie";
 
 function ProfilePage() {
+  // const history = useHistory();
   const [problem, setProblem] = React.useState<string>("");
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    const confirmLogout = window.confirm("정말로 로그아웃하시겠습니까?");
+    if (confirmLogout) {
+      Cookies.remove("accessToken");
+      navigate("/");
+    }
+  };
 
   return (
     <Wrapper>
@@ -31,7 +42,8 @@ function ProfilePage() {
             </MiniBox>
           </PictureBoxRight>
         </ProfileBox>
-        <WithdrawButton>탈퇴하기</WithdrawButton>
+        <WithdrawButton onClick={handleLogout}>로그아웃</WithdrawButton>
+        {/* <WithdrawButton>탈퇴하기</WithdrawButton> */}
       </Background>
     </Wrapper>
   );
@@ -48,11 +60,6 @@ const Text = styled.h1`
   font-size: 1.25em;
   line-height: 4em;
   text-align: center;
-`;
-
-const WithdrawText = styled.h2`
-  font-size: 1.5em;
-  color: #f03547;
 `;
 
 const Background = styled.div`
@@ -113,8 +120,8 @@ const PictureUploadBox = styled.div`
 const WithdrawButton = styled.button`
   width: 15%;
   height: 3em;
-  margin-top: 3em;
-  margin-bottom: 3em;
+  margin-top: 2em;
+  margin-bottom: 2em;
   border: #f03547;
   border-radius: 1em;
   background-color: #ffffff;

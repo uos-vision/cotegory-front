@@ -19,7 +19,7 @@ class SignInService extends ApiBase {
 
   public constructor() {
     super();
-    const jwtToken = Cookies.get("jwtToken");
+    const jwtToken = Cookies.get("accessToken");
     this.jwtToken = jwtToken !== undefined ? jwtToken : null;
     if (this.jwtToken) {
       axios.defaults.headers.common[

@@ -1,29 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
-import {
-  BrowserRouter as Router,
-  useNavigate,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import MemberService from "../api/MemberService";
+import { isAuth as RecoilIsAuth, userState } from "../store";
 
 function Header() {
-  const [selectedLinkIndex, setSelectedLinkIndex] = useState(-1);
-  const handleClickLoginButton = async () => {
-    try {
-    } catch {}
-  };
-
+  const me = useRecoilValue(RecoilIsAuth);
+  const [memberInfo, setMemberInfo] = useState<MemberResponse>(
+    {} as MemberResponse
+  );
+  // const [selectedLinkIndex, setSelectedLinkIndex] = useState(-1);
+  // const handleClickLoginButton = async () => {
+  //   try {
+  //   } catch {}
+  // };
   const jwtToken = Cookies.get("accessToken");
   const isLoggedIn = !!jwtToken;
 
-  const buttonText = isLoggedIn ? "프로필" : "로그인";
+  async function getUserInfo() {
+    try {
+      const response = await MemberService.information();
+      const userInfo = {
+        id: response.id,
+        baekjoonHandle: response.baekjoonHandle,
+        imgUrl: response.imgUrl,
+        nickName: response.nickName,
+        roles: response.roles,
+      };
+      setMemberInfo(userInfo);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  const buttonText = isLoggedIn ? memberInfo.nickName : "로그인";
+  const buttonHandle = isLoggedIn ? "/profile" : "/signin";
 
   const navigate = useNavigate();
   const handleSignin = () => {
-    navigate("/signin");
+    navigate(buttonHandle);
   };
   const handleLogo = () => {
     navigate("/");
@@ -34,9 +56,7 @@ function Header() {
   const handleRecommend = () => {
     navigate("/recommend");
   };
-  const handleProfile = () => {
-    navigate("/profile");
-  };
+
   const handleResult = () => {
     navigate("/result");
   };
@@ -51,9 +71,6 @@ function Header() {
         </HeaderBox>
         <HeaderBox onClick={handleRecommend}>
           <HeadText>문제 추천</HeadText>
-        </HeaderBox>
-        <HeaderBox onClick={handleProfile}>
-          <HeadText>내 정보</HeadText>
         </HeaderBox>
         <HeaderBox onClick={handleResult}>
           <HeadText>코테고리 결과</HeadText>
@@ -77,7 +94,6 @@ const Wrapper = styled.main`
 const Head = styled.section`
   display: flex;
   justify-content: space-between; /* 왼쪽과 오른쪽에 공간을 나누어 배치 */
-
   text-align: center;
   margin-top: 2em;
 `;
