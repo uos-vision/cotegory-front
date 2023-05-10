@@ -1,45 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
-import MainBox from "../containers/MainBox";
+import { css } from "@emotion/css";
 import ProblemBox from "../containers/ProblemBox";
 import ProblemContentBox from "../containers/ProblemContentBox";
 import { useNavigate } from "react-router-dom";
 import AnswerBox from "../containers/AnswerBox";
 
 function ProblemPage() {
-  const [problem, setProblem] = React.useState<string>("");
-  const [time, setTime] = React.useState<number>(0);
-  const [input, setInput] = React.useState<string>("");
-  const [output, setOutput] = React.useState<string>("");
-
-  const visitTimeStr = localStorage.getItem("visitTime");
-  if (visitTimeStr) {
-    const visitTime = new Date(visitTimeStr);
-    const now = new Date();
-    const elapsedSeconds = Math.floor(
-      (now.getTime() - visitTime.getTime()) / 1000
-    );
-    const elapsedMinutes = Math.floor(elapsedSeconds / 60);
-    const remainingSeconds = elapsedSeconds % 60;
-    const elapsedTimeString = `${elapsedMinutes}분 ${remainingSeconds}초`;
-    // elapsedTimeString 변수를 HeadText로 표시
-  } else {
-    localStorage.setItem("visitTime", new Date().toString());
-  }
-
   const navigate = useNavigate();
   const handleHome = () => {
     navigate("/");
   };
+
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
+
+  useEffect(() => {
+    setStartTime(Date.now());
+  }, []);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (startTime !== null) {
+      interval = setInterval(() => {
+        const now = Date.now();
+        setElapsedTime(now - startTime);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [startTime]);
+
+  const seconds = Math.floor(elapsedTime / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+
   return (
     <Wrapper>
       <GlobalStyle />
       <Head>
         <HeadWrapper>
           <HeadText>코테고리 검사</HeadText>
-          <HeadTime>진행 시간 </HeadTime>
-          {/* <HeadText>{elapsedTimeString}</HeadText> */}
+          <HeadTime>진행 시간</HeadTime>
+          <HeadTime>
+            {minutes % 60}분 {seconds % 60}초
+          </HeadTime>
           <QuitText onClick={handleHome}>나가기</QuitText>
         </HeadWrapper>
       </Head>
@@ -151,7 +156,7 @@ const HeadTime = styled.h2`
   font-size: 1em;
   font-weight: 400;
   color: #ffff00;
-  margin-left: 2em;
+  margin-left: 1em;
   margin-right: 1em;
 `;
 
