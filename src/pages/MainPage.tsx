@@ -2,27 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import { useNavigate } from "react-router-dom";
-
 import Header from "../containers/Header";
 import Slider from "react-slick";
-// import Cookies from "js-cookie";
-
-// import color from "../theme/"
+import Cookies from "js-cookie";
 
 function MainPage() {
-  const sliderSettings = {
-    dots: true, // 하단의 점(dot)을 보여줄지 여부
-    infinite: true, // 무한 루프
-    speed: 500, // 애니메이션 속도 (ms)
-    slidesToShow: 1, // 한 번에 보여줄 슬라이드 개수
-    slidesToScroll: 1, // 한 번에 스크롤할 슬라이드 개수
-    autoplay: true, // 자동 재생
-    autoplaySpeed: 2000, // 자동 재생 속도 (ms)
-  };
   const navigate = useNavigate();
   const handleProblem = () => {
     navigate("/problem");
   };
+  // const jwtToken = Cookies.get("jwtToken");
+  // const isLoggedIn = !!jwtToken;
 
   return (
     <Wrapper>

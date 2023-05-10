@@ -9,6 +9,7 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
+import SignInService from "../api/SignInService";
 
 function SignInPage() {
   const [email, setEmail] = React.useState<string>("");
@@ -23,9 +24,18 @@ function SignInPage() {
     navigate("/signup");
   };
 
-  // const handleHomeButtonClick = () => {
-  //   navigate("/MainPage"); // Call navigate with the desired path
-  // };
+  const handleClickButton = async () => {
+    try {
+      const res = await SignInService.signin({
+        loginId: email,
+        pw: password,
+      });
+      navigate("/"); // Call navigate with the desired path
+      alert("로그인 완료");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <SignInWrapper>
@@ -45,7 +55,9 @@ function SignInPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <SubmitButton type="submit">로그인</SubmitButton>
+          <SubmitButton type="submit" onClick={handleClickButton}>
+            로그인
+          </SubmitButton>
           <SignUpButton type="submit" onClick={handleSignUpButton}>
             회원가입
           </SignUpButton>

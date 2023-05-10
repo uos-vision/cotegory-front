@@ -7,12 +7,19 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import Cookies from "js-cookie";
+
 function Header() {
   const [selectedLinkIndex, setSelectedLinkIndex] = useState(-1);
   const handleClickLoginButton = async () => {
     try {
     } catch {}
   };
+
+  const jwtToken = Cookies.get("jwtToken");
+  const isLoggedIn = !!jwtToken;
+
+  const buttonText = isLoggedIn ? "내정보" : "로그인";
 
   const navigate = useNavigate();
   const handleSignin = () => {
@@ -33,6 +40,7 @@ function Header() {
   const handleResult = () => {
     navigate("/result");
   };
+
   return (
     <Wrapper>
       <GlobalStyle />
@@ -51,7 +59,7 @@ function Header() {
           <HeadText>코테고리 결과</HeadText>
         </HeaderBox>
         <SignInButton type="button" onClick={handleSignin}>
-          <HeadText>로그인</HeadText>
+          <HeadText>{buttonText}</HeadText>
         </SignInButton>
       </Head>
     </Wrapper>
