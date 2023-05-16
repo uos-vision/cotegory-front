@@ -15,6 +15,10 @@ function ProblemPage() {
 
   const [startTime, setStartTime] = useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<string>("");
+  const handleAnswerClick = (answer: string) => {
+    setSelectedAnswer(answer);
+  };
 
   useEffect(() => {
     setStartTime(Date.now());
@@ -40,11 +44,13 @@ function ProblemPage() {
       <GlobalStyle />
       <Head>
         <HeadWrapper>
-          <HeadText>코테고리 검사</HeadText>
-          <HeadTime>진행 시간</HeadTime>
-          <HeadTime>
-            {minutes % 60}분 {seconds % 60}초
-          </HeadTime>
+          <HeadWrapper>
+            <HeadText>코테고리 검사</HeadText>
+            <HeadTime>진행 시간</HeadTime>
+            <HeadText>
+              {minutes % 60}분 {seconds % 60}초
+            </HeadText>
+          </HeadWrapper>
           <QuitText onClick={handleHome}>나가기</QuitText>
         </HeadWrapper>
       </Head>
@@ -93,11 +99,33 @@ function ProblemPage() {
           <AnswerContent>
             <AnswerBox topText="답안" bottomText="선택"></AnswerBox>
             <AnswerBottomBox>
-              <AnswerButton>너비 우선 탐색</AnswerButton>
-              <AnswerButton>깊이 우선 탐색</AnswerButton>
-              <AnswerButton>브루트포스 알고리즘</AnswerButton>
-              <AnswerButton>다이나믹 프로그래밍</AnswerButton>
+              <AnswerButton
+                onClick={() => handleAnswerClick("너비 우선 탐색")}
+                selected={selectedAnswer === "너비 우선 탐색"}
+              >
+                너비 우선 탐색
+              </AnswerButton>
+              <AnswerButton
+                onClick={() => handleAnswerClick("깊이 우선 탐색")}
+                selected={selectedAnswer === "깊이 우선 탐색"}
+              >
+                깊이 우선 탐색
+              </AnswerButton>
+              <AnswerButton
+                onClick={() => handleAnswerClick("브루트포스 알고리즘")}
+                selected={selectedAnswer === "브루트포스 알고리즘"}
+              >
+                브루트포스 알고리즘
+              </AnswerButton>
+              <AnswerButton
+                onClick={() => handleAnswerClick("다이나믹 프로그래밍")}
+                selected={selectedAnswer === "다이나믹 프로그래밍"}
+              >
+                다이나믹 프로그래밍
+              </AnswerButton>
             </AnswerBottomBox>
+            <SubmitButton>제출하기</SubmitButton>
+            <PassButton>넘어가기</PassButton>
           </AnswerContent>
         </ProblemWrapper>
       </Background>
@@ -147,8 +175,7 @@ const QuitText = styled.h2`
   font-weight: 200;
   color: #cdcdcd;
   align-items: end;
-  justify-content: end;
-  margin-left: 70%;
+  justify-content: flex-end;
   cursor: pointer;
 `;
 
@@ -156,7 +183,7 @@ const HeadTime = styled.h2`
   font-size: 1em;
   font-weight: 400;
   color: #ffff00;
-  margin-left: 1em;
+  margin-left: 2em;
   margin-right: 1em;
 `;
 
@@ -204,10 +231,10 @@ const AnswerBottomBox = styled.div`
   align-items: center;
 `;
 
-const AnswerButton = styled.div`
+const AnswerButton = styled.div<{ selected?: boolean }>`
   width: 80%;
   justify-content: center;
-  background-color: #d9d9d9;
+  background-color: ${({ selected }) => (selected ? "#13c4a3" : "#d9d9d9")};
   border-radius: 1em 1em 1em 1em;
   text-align: center;
   margin-bottom: 1em;
@@ -215,11 +242,46 @@ const AnswerButton = styled.div`
   padding-bottom: 1.5em;
   font-size: 1em;
   font-weight: 700;
-  color: #000000;
+  color: ${({ selected }) => (selected ? "#ffffff" : "#000000")};
   :hover {
-    background-color: #13c4a3;
-    color: #ffffff;
+    background-color: #36f1cd;
+    color: #000000;
   }
   cursor: pointer;
+`;
+const SubmitButton = styled.button`
+  //제출버튼
+  background-color: #5465ff;
+  border: none;
+  color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+  box-sizing: border-box; /* 추가 */
+  border-radius: 0.75em;
+  width: 100%;
+  height: 3em;
+  cursor: pointer;
+  &:hover {
+    background-color: #005fa3;
+  }
+`;
+
+const PassButton = styled.button`
+  //제출버튼
+  background-color: #788bff;
+  border: none;
+  color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+  box-sizing: border-box; /* 추가 */
+  border-radius: 0.75em;
+  width: 100%;
+  height: 3em;
+  margin-top: 1em;
+  margin-bottom: 2em;
+  cursor: pointer;
+  &:hover {
+    background-color: #005fa3;
+  }
 `;
 export default ProblemPage;
