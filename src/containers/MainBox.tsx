@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   topText?: string;
   bottomText?: string;
+  secondText?: string;
+  textLink?: string;
 }
 
-function MainBox({ topText, bottomText }: Props) {
+function MainBox({ topText, bottomText, secondText }: Props) {
+  const navigate = useNavigate();
+  const handleNavigate = (event: React.MouseEvent<HTMLHeadingElement>) => {
+    navigate(`/${secondText}`);
+  };
+
   return (
     <Wrapper>
       <GlobalStyle />
@@ -15,7 +23,7 @@ function MainBox({ topText, bottomText }: Props) {
         <TopText>{topText}</TopText>
       </TopBox>
       <BottomBox>
-        <BottomText>{bottomText}</BottomText>
+        <BottomText onClick={handleNavigate}>{bottomText}</BottomText>
       </BottomBox>
     </Wrapper>
   );
@@ -39,6 +47,8 @@ const BottomBox = styled.div`
   height: 3em;
   background-color: #5465ff;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
 `;
 
 const TopText = styled.h1`
@@ -53,6 +63,8 @@ const BottomText = styled.h2`
   color: white;
   font-size: 1em;
   text-align: center;
+  cursor: pointer;
+  margin-left: 2em;
 `;
 
 export default MainBox;

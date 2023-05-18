@@ -32,6 +32,9 @@ function SignInPage() {
       });
       navigate("/"); // Call navigate with the desired path
       alert("로그인 완료");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1);
     } catch (error) {
       console.error(error);
     }

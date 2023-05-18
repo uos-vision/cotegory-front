@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import Header from "../containers/Header";
 import MainBox from "../containers/MainBox";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
-import RecommendBox from "../containers/RecommendBox";
 import Cookies from "js-cookie";
+import MemberService from "../api/MemberService";
+import { useRecoilValue } from "recoil";
+import { isAuth as RecoilIsAuth } from "../store";
 
 function ProfilePage() {
-  // const history = useHistory();
-  const [problem, setProblem] = React.useState<string>("");
+  const me = useRecoilValue(RecoilIsAuth);
+  const [memberInfo, setMemberInfo] = useState<MemberResponse>(
+    {} as MemberResponse
+  );
+  const [image, setImage] = React.useState<string | undefined>(undefined);
   const navigate = useNavigate();
   const handleLogout = () => {
     const confirmLogout = window.confirm("정말로 로그아웃하시겠습니까?");
@@ -19,17 +24,84 @@ function ProfilePage() {
     }
   };
 
+  //유저 정보 가져오기
+  async function getUserInfo() {
+    try {
+      const response = await MemberService.information();
+      const userInfo = {
+        id: response.id,
+        baekjoonHandle: response.baekjoonHandle,
+        imgUrl: response.imgUrl,
+        nickName: response.nickName,
+        roles: response.roles,
+      };
+      setMemberInfo(userInfo);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  const nickname = memberInfo.nickName;
+  const baekjoonHandle = memberInfo.baekjoonHandle;
+
+  //이미지 업로드
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageDelete = () => {
+    setImage(undefined);
+  };
+
   return (
     <Wrapper>
       <GlobalStyle />
       <Background>
         <Header />
-        <MainBox topText={"내 정보"} bottomText="개인정보 수정"></MainBox>
+        <MainBox
+          topText={"내 정보"}
+          bottomText="개인정보 수정"
+          secondText="profile"
+        ></MainBox>
         <ProfileBox>
           <PictureBoxLeft>
             <Text>프로필 사진</Text>
           </PictureBoxLeft>
-          <PictureUploadBox></PictureUploadBox>
+          <PictureUploadBox>
+            <PictureUploadBox>
+              {image ? (
+                <ProfileImage src={image} alt="프로필 사진" />
+              ) : (
+                <ProfileImagePlaceholder>
+                  이미지가 없습니다
+                </ProfileImagePlaceholder>
+              )}
+              <ImageButtonWrapper>
+                <ImageButton>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                  />
+                  업로드 하기
+                </ImageButton>
+                {image && (
+                  <ImageButton onClick={handleImageDelete}>삭제</ImageButton>
+                )}
+              </ImageButtonWrapper>
+            </PictureUploadBox>
+          </PictureUploadBox>
           <PictureBoxRight>
             <MiniBox>
               <Text>닉네임</Text>
@@ -37,11 +109,17 @@ function ProfilePage() {
             <MiniBox>
               <Text>백준 ID</Text>
             </MiniBox>
-            <MiniBox>
-              <Text>가입일</Text>
-            </MiniBox>
           </PictureBoxRight>
+          <ProfileTextBox>
+            <TopMiniBox>
+              <Text>{nickname}</Text>
+            </TopMiniBox>
+            <BottomMiniBox>
+              <Text>{baekjoonHandle}</Text>
+            </BottomMiniBox>
+          </ProfileTextBox>
         </ProfileBox>
+        <SubmitButton>수정하기</SubmitButton>
         <WithdrawButton onClick={handleLogout}>로그아웃</WithdrawButton>
         {/* <WithdrawButton>탈퇴하기</WithdrawButton> */}
       </Background>
@@ -58,8 +136,9 @@ const Wrapper = styled.div`
 
 const Text = styled.h1`
   font-size: 1.25em;
-  line-height: 4em;
+  line-height: 6.5em;
   text-align: center;
+  border: 1px #ececec;
 `;
 
 const Background = styled.div`
@@ -99,14 +178,51 @@ const PictureBoxRight = styled.div`
   flex-direction: column;
 `;
 
+const ProfileTextBox = styled.div`
+  width: 30%;
+  height: 100%;
+  border-radius: 0 1em 1em 0;
+  border: #cdcdcd;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+`;
+
 const MiniBox = styled.div`
   width: 100%;
   height: 100%;
   background-color: #ececec;
-  border: 2px #aaaaaa;
+  border: 1px #cdcdcd;
+  border-style: solid;
+  border-collapse: collapse;
   text-align: center;
   justify-content: center;
 `;
+
+const TopMiniBox = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border: 1px #cdcdcd;
+  border-style: solid;
+  border-collapse: collapse;
+  border-radius: 0 1em 0 0;
+  text-align: center;
+  justify-content: center;
+`;
+
+const BottomMiniBox = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border: 1px #cdcdcd;
+  border-style: solid;
+  border-collapse: collapse;
+  border-radius: 0 0 1em 0;
+  text-align: center;
+  justify-content: center;
+`;
+
 const PictureUploadBox = styled.div`
   width: 30%;
   height: 100%;
@@ -115,6 +231,8 @@ const PictureUploadBox = styled.div`
   align-items: center;
   text-align: center;
   display: flex;
+  justify-content: space-around;
+  flex-direction: column;
 `;
 
 const WithdrawButton = styled.button`
@@ -136,4 +254,59 @@ const WithdrawButton = styled.button`
   color: #f03547;
 `;
 
+const SubmitButton = styled.button`
+  width: 15%;
+  height: 3em;
+  margin-top: 2em;
+  border: #5465ff;
+  border-radius: 1em;
+  background-color: #ffffff;
+  border-style: solid;
+  cursor: pointer;
+  :hover {
+    background-color: #788bff;
+    color: #ffffff;
+  }
+  font-weight: 600;
+  font-size: 1em;
+  color: #5465ff;
+`;
+
+const ImageButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`;
+const ImageButton = styled.button`
+  width: 300px;
+  height: 100px;
+  border: transparent;
+  background-color: #ececec;
+  color: #000000;
+  padding-left: 1em;
+  padding-right: 1em;
+  position: relative;
+  overflow: hidden;
+
+  cursor: pointer;
+  :hover {
+    background-color: #cdcdcd;
+  }
+  border-radius: 1em;
+`;
+
+const ProfileImagePlaceholder = styled.div`
+  width: 200px;
+  height: 200px;
+  background-color: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+`;
+const ProfileImage = styled.img`
+  width: 40%;
+  height: 40%;
+`;
 export default ProfilePage;

@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import MemberService from "../api/MemberService";
-import { isAuth as RecoilIsAuth, userState } from "../store";
+import { isAuth as RecoilIsAuth } from "../store";
 
 function Header() {
   const me = useRecoilValue(RecoilIsAuth);
   const [memberInfo, setMemberInfo] = useState<MemberResponse>(
     {} as MemberResponse
   );
-  // const [selectedLinkIndex, setSelectedLinkIndex] = useState(-1);
-  // const handleClickLoginButton = async () => {
-  //   try {
-  //   } catch {}
-  // };
+
   const jwtToken = Cookies.get("accessToken");
   const isLoggedIn = !!jwtToken;
 
