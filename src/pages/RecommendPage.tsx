@@ -15,8 +15,8 @@ function RecommendPage() {
         <Header />
         <MainBox
           topText={"문제 추천"}
-          bottomText={"나의 추천"}
-          secondText={"recommend"}
+          firstText={"나의 추천"}
+          firstLink={"recommend"}
         ></MainBox>
         <RecommendList>
           <RecommendBox

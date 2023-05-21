@@ -5,15 +5,25 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
   topText?: string;
-  bottomText?: string;
+  firstText?: string;
   secondText?: string;
-  textLink?: string;
+  firstLink?: string;
+  secondLink?: string;
 }
 
-function MainBox({ topText, bottomText, secondText }: Props) {
+function MainBox({
+  topText,
+  firstText,
+  firstLink,
+  secondText,
+  secondLink,
+}: Props) {
   const navigate = useNavigate();
   const handleNavigate = (event: React.MouseEvent<HTMLHeadingElement>) => {
-    navigate(`/${secondText}`);
+    navigate(`/${firstLink}`);
+  };
+  const handleNavigate2 = (event: React.MouseEvent<HTMLHeadingElement>) => {
+    navigate(`/${secondLink}`);
   };
 
   return (
@@ -23,7 +33,8 @@ function MainBox({ topText, bottomText, secondText }: Props) {
         <TopText>{topText}</TopText>
       </TopBox>
       <BottomBox>
-        <BottomText onClick={handleNavigate}>{bottomText}</BottomText>
+        <BottomText onClick={handleNavigate}>{firstText}</BottomText>
+        <BottomText onClick={handleNavigate2}>{secondText}</BottomText>
       </BottomBox>
     </Wrapper>
   );

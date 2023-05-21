@@ -72,7 +72,7 @@ function ProfilePage() {
         <MainBox
           topText={"내 정보"}
           bottomText="개인정보 수정"
-          secondText="profile"
+          textLink="profile"
         ></MainBox>
         <ProfileBox>
           <PictureBoxLeft>
