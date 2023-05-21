@@ -71,8 +71,8 @@ function ProfilePage() {
         <Header />
         <MainBox
           topText={"내 정보"}
-          bottomText="개인정보 수정"
-          textLink="profile"
+          firstText="개인정보 수정"
+          firstLink="profile"
         ></MainBox>
         <ProfileBox>
           <PictureBoxLeft>

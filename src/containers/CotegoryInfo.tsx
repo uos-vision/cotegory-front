@@ -10,12 +10,15 @@ function CotegoryInfo({}: Props) {
     <Wrapper>
       <TitleWithLine title="요약" />
       <ContentBox></ContentBox>
+      <TitleWithLine title="세부 결과" />
     </Wrapper>
   );
 }
 
 const Wrapper = styled.main`
   width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ContentBox = styled.div`
