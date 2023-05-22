@@ -44,15 +44,13 @@ function ProblemPage() {
       <GlobalStyle />
       <Head>
         <HeadWrapper>
-          <HeadWrapper>
-            <HeadText>코테고리 검사</HeadText>
-            <HeadTime>진행 시간</HeadTime>
-            <HeadText>
-              {minutes % 60}분 {seconds % 60}초
-            </HeadText>
-          </HeadWrapper>
-          <QuitText onClick={handleHome}>나가기</QuitText>
+          <HeadText>코테고리 검사</HeadText>
+          <HeadTime>진행 시간</HeadTime>
+          <HeadText>
+            {minutes % 60}분 {seconds % 60}초
+          </HeadText>
         </HeadWrapper>
+        <QuitText onClick={handleHome}>나가기</QuitText>
       </Head>
       <Background>
         {" "}
@@ -140,14 +138,15 @@ const ProblemWrapper = styled.div`
 const Head = styled.div`
   width: 100%;
   height: 3em;
-  justify-content: center;
+  justify-content: start;
   display: flex;
   background-color: #0c2b64;
 `;
 
 const HeadWrapper = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
+  margin-left: 10%;
 `;
 const Wrapper = styled.main`
   width: 100%;
@@ -171,11 +170,11 @@ const HeadText = styled.h2`
 `;
 
 const QuitText = styled.h2`
+  width: 5em;
   font-size: 1em;
   font-weight: 200;
+  margin-right: 10%;
   color: #cdcdcd;
-  align-items: end;
-  justify-content: flex-end;
   cursor: pointer;
 `;
 

@@ -83,9 +83,7 @@ function ProfilePage() {
               {image ? (
                 <ProfileImage src={image} alt="프로필 사진" />
               ) : (
-                <ProfileImagePlaceholder>
-                  이미지가 없습니다
-                </ProfileImagePlaceholder>
+                <ProfileImagePlaceholder>no image</ProfileImagePlaceholder>
               )}
               <ImageButtonWrapper>
                 <ImageButton>
@@ -297,16 +295,23 @@ const ImageButton = styled.button`
 `;
 
 const ProfileImagePlaceholder = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1em;
+  margin-top: 1em;
   background-color: lightgray;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
 `;
 const ProfileImage = styled.img`
-  width: 40%;
-  height: 40%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1em;
+  margin-top: 1em;
 `;
 export default ProfilePage;
