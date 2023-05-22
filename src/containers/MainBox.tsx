@@ -23,7 +23,7 @@ function MainBox({
   onClick2,
 }: Props) {
   const navigate = useNavigate();
-  const [selectedText, setSelectedText] = useState(""); // 초기값은 ""
+  const [selectedText, setSelectedText] = useState(firstText || ""); // 초기값은 ""
 
   const handleNavigate = (event: React.MouseEvent<HTMLHeadingElement>) => {
     navigate(`/${firstLink}`);
@@ -92,11 +92,11 @@ const TopText = styled.h1`
 `;
 
 const BottomText = styled.h2<{ isSelected: boolean }>`
-  color: ${({ isSelected }) => (isSelected ? "yellow" : "white")};
+  color: ${({ isSelected }) => (isSelected ? "#ffffff" : "#cdcdcd")};
   font-size: 1em;
   text-align: center;
   cursor: pointer;
-  margin-left: 2em;
+  margin-left: 3em;
 `;
 
 export default MainBox;
