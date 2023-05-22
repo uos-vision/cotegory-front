@@ -9,7 +9,7 @@ function CotegoryInfo({}: Props) {
   return (
     <Wrapper>
       <TitleWithLine title="요약" />
-      <ContentBox></ContentBox>
+      <ContentBox>아녕</ContentBox>
       <TitleWithLine title="세부 결과" />
     </Wrapper>
   );

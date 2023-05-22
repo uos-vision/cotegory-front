@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import Header from "../containers/Header";
@@ -7,7 +7,16 @@ import ProblemHistory from "../containers/ProblemHistory";
 import CotegoryInfo from "../containers/CotegoryInfo";
 
 function ResultPage() {
-  const [option, setOption] = React.useState<number>(0);
+  const [option, setOption] = useState<number>(0);
+
+  const handleFirstTextClick = () => {
+    setOption(0);
+  };
+
+  const handleSecondTextClick = () => {
+    setOption(1);
+  };
+
   return (
     <Wrapper>
       <GlobalStyle />
@@ -19,7 +28,9 @@ function ResultPage() {
           firstLink="result"
           secondText="코테고리 정보"
           secondLink="result"
-        ></MainBox>{" "}
+          onClick={handleFirstTextClick}
+          onClick2={handleSecondTextClick}
+        />
         {option === 0 && <ProblemHistory />}
         {option === 1 && <CotegoryInfo />}
       </Background>
@@ -41,4 +52,5 @@ const Background = styled.div`
   display: flex;
   align-items: center;
 `;
+
 export default ResultPage;

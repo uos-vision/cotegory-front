@@ -9,6 +9,8 @@ interface Props {
   secondText?: string;
   firstLink?: string;
   secondLink?: string;
+  onClick?: (event: React.MouseEvent<HTMLHeadingElement>) => void;
+  onClick2?: (event: React.MouseEvent<HTMLHeadingElement>) => void;
 }
 
 function MainBox({
@@ -17,13 +19,22 @@ function MainBox({
   firstLink,
   secondText,
   secondLink,
+  onClick,
+  onClick2,
 }: Props) {
   const navigate = useNavigate();
+  const [selectedText, setSelectedText] = useState(""); // 초기값은 ""
+
   const handleNavigate = (event: React.MouseEvent<HTMLHeadingElement>) => {
     navigate(`/${firstLink}`);
+    onClick?.(event);
+    setSelectedText(firstText || ""); // 선택된 텍스트가 없을 경우 빈 문자열로 설정
   };
+
   const handleNavigate2 = (event: React.MouseEvent<HTMLHeadingElement>) => {
     navigate(`/${secondLink}`);
+    onClick2?.(event);
+    setSelectedText(secondText || ""); // 선택된 텍스트가 없을 경우 빈 문자열로 설정
   };
 
   return (
@@ -33,8 +44,18 @@ function MainBox({
         <TopText>{topText}</TopText>
       </TopBox>
       <BottomBox>
-        <BottomText onClick={handleNavigate}>{firstText}</BottomText>
-        <BottomText onClick={handleNavigate2}>{secondText}</BottomText>
+        <BottomText
+          onClick={handleNavigate}
+          isSelected={selectedText === firstText}
+        >
+          {firstText}
+        </BottomText>
+        <BottomText
+          onClick={handleNavigate2}
+          isSelected={selectedText === secondText}
+        >
+          {secondText}
+        </BottomText>
       </BottomBox>
     </Wrapper>
   );
@@ -70,8 +91,8 @@ const TopText = styled.h1`
   text-align: center;
 `;
 
-const BottomText = styled.h2`
-  color: white;
+const BottomText = styled.h2<{ isSelected: boolean }>`
+  color: ${({ isSelected }) => (isSelected ? "yellow" : "white")};
   font-size: 1em;
   text-align: center;
   cursor: pointer;
