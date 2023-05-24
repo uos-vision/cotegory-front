@@ -4,7 +4,7 @@ import GlobalStyle from "../theme/GlobalStyle";
 
 interface Props {
   topText?: string;
-  bottomText?: string;
+  bottomText?: string | any;
 }
 function ProblemContentBox({ topText, bottomText }: Props) {
   return (

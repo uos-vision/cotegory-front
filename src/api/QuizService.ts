@@ -22,6 +22,12 @@ interface QuizResponse {
   timeLimit: number;
   memoryLimit: number;
 }
+interface SubmissionRequest {
+  quizId: number;
+  selectTag: string;
+  submitTime: string;
+  playTime: number;
+}
 class QuizService extends ApiBase {
   private jwtToken: string | null = null;
 
@@ -41,6 +47,19 @@ class QuizService extends ApiBase {
       .get("api/quiz")
       .then((response) => {
         console.log("response data", response.data);
+        return response.data;
+      })
+      .catch(ApiBase.handleError);
+  }
+
+  public SubmissionQuiz({ ...submissionInfo }: SubmissionRequest) {
+    console.log("request data : ", submissionInfo);
+    return this.baseHTTP
+      .post("/api/submission", {
+        ...submissionInfo,
+      })
+      .then((response) => {
+        console.log("response.data", response.data);
         return response.data;
       })
       .catch(ApiBase.handleError);

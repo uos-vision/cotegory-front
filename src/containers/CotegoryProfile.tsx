@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import MmrBar from "./MmrBar";
+import { MemberService } from "../api";
 
 interface Props {}
 
@@ -11,10 +12,35 @@ function CotegoryProfile({}: Props) {
   const [mmr1, setMmr1] = React.useState<number>(0);
   const [mmr2, setMmr2] = React.useState<number>(0);
   const [mmr3, setMmr3] = React.useState<number>(0);
+
+  const [memberInfo, setMemberInfo] = useState<MemberResponse>(
+    {} as MemberResponse
+  );
+
+  async function getUserInfo() {
+    try {
+      const response = await MemberService.information();
+      const userInfo = {
+        id: response.id,
+        baekjoonHandle: response.baekjoonHandle,
+        imgUrl: response.imgUrl,
+        nickName: response.nickName,
+        roles: response.roles,
+      };
+      setMemberInfo(userInfo);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
   return (
     <ContentBox>
       <LeftBox>
-        <Nickname>홍길동</Nickname>
+        <Nickname>{`${memberInfo.nickName}`}</Nickname>
         <ProfileImage src="logo.png" alt="Profile Image" />
         <Rank>Gold 1</Rank>
       </LeftBox>

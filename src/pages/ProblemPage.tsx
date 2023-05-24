@@ -118,7 +118,10 @@ function ProblemPage() {
           <ProblemContent>
             <ProblemContentBox
               topText="문제 설명"
-              bottomText={`${problemBody}`}
+              // bottomText={`${problemBody}`}
+              bottomText={
+                <div dangerouslySetInnerHTML={{ __html: problemBody }} />
+              }
             ></ProblemContentBox>
 
             <ProblemExanple>
