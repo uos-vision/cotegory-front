@@ -2,31 +2,33 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import Header from "../containers/Header";
+import { useNavigate } from "react-router-dom";
 import MainBox from "../containers/MainBox";
 import RecommendBox from "../containers/RecommendBox";
 import ProblemService from "../api/ProblemService";
 
 function RecommendPage() {
+  const navigate = useNavigate();
   const [todayProblem, setTodayProblem] = useState<ProblemResponse>(
     {} as ProblemResponse
   );
-  async function getTodayProblem() {
-    try {
-      const todayResponse = await ProblemService.TodayProblem();
-      const today: ProblemResponse = {
-        title: todayResponse.title,
-        problemNum: todayResponse.problemNum,
-        url: todayResponse.url,
-      };
-      setTodayProblem(today);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   useEffect(() => {
+    async function getTodayProblem() {
+      try {
+        const todayResponse = await ProblemService.TodayProblem();
+        const today: ProblemResponse = {
+          title: todayResponse.title,
+          problemNum: todayResponse.problemNum,
+          url: todayResponse.url,
+        };
+        setTodayProblem(today);
+      } catch (error) {
+        console.error(error);
+        navigate("/signin"); // jwt 토큰이 없을 때 signin 페이지로 이동
+      }
+    }
     getTodayProblem();
-  }, []);
+  }, [navigate]); // 빈 배열을 의존성 배열로 전달하여 컴포넌트가 마운트될 때 한 번만 실행되도록 설정
 
   const todayTitle = todayProblem.title;
   const todayProblemNum = todayProblem.problemNum;

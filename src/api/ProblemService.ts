@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import ApiBase from "./ApiBase";
+
 class ProblemService extends ApiBase {
   private jwtToken: string | null = null;
 
@@ -8,16 +9,15 @@ class ProblemService extends ApiBase {
     super();
     const jwtToken = Cookies.get("accessToken");
     this.jwtToken = jwtToken !== undefined ? jwtToken : null;
-    if (this.jwtToken) {
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${this.jwtToken}`;
-    }
   }
 
   async TodayProblem(): Promise<ProblemResponse> {
+    const headers = this.jwtToken
+      ? { Authorization: `Bearer ${this.jwtToken}` }
+      : undefined;
+
     return this.baseHTTP
-      .get("/api/recommend/today")
+      .get("/api/recommend/today", { headers })
       .then((response) => {
         console.log("response.data", response.data);
         return response.data;
