@@ -16,7 +16,9 @@ function RecommendBox({
   problemLink,
 }: Props) {
   const navigate = useNavigate();
-  // navigate(problemLink);
+  const handleButtonClick = () => {
+    window.open(problemLink, "_blank");
+  };
 
   return (
     <Wrapper>
@@ -24,7 +26,7 @@ function RecommendBox({
       <RecommendTitle>{recommendTitle}</RecommendTitle>
       <ProblemNumber>{problemNumber}번 문제</ProblemNumber>
       <ProblemTitle>{problemTitle}</ProblemTitle>
-      <RecommendButton>
+      <RecommendButton onClick={handleButtonClick}>
         <ButtonText>문제 풀기</ButtonText>
       </RecommendButton>
       <RefreshButton>

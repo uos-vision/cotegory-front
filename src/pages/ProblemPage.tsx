@@ -1,18 +1,70 @@
 import React, { useState, useEffect } from "react";
+// import Parser from "react-html-parser";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
-import { css } from "@emotion/css";
 import ProblemBox from "../containers/ProblemBox";
 import ProblemContentBox from "../containers/ProblemContentBox";
 import { useNavigate } from "react-router-dom";
 import AnswerBox from "../containers/AnswerBox";
+import QuizService from "../api/QuizService";
 
 function ProblemPage() {
   const navigate = useNavigate();
   const handleHome = () => {
     navigate("/");
   };
+  const [quizInfo, setQuizInfo] = useState<QuizResponse>({} as QuizResponse);
 
+  //문제 불러오기
+  async function getQuiz() {
+    try {
+      const response = await QuizService.GetQuiz();
+      const quiz: QuizResponse = {
+        quizId: response.quizId,
+        answerTag: response.answerTag,
+        tagGroupResponse: {
+          tagGroupId: response.tagGroupResponse.tagGroupId, // Assign directly from response
+          tagGroupName: response.tagGroupResponse.tagGroupName,
+          tags: response.tagGroupResponse.tags,
+        },
+        problemNumber: response.problemNumber,
+        origin: response.origin,
+        title: response.title,
+        url: response.url,
+        mmr: response.mmr,
+        problemBody: response.problemBody,
+        problemInput: response.problemInput,
+        problemOutput: response.problemOutput,
+        sampleInput: response.sampleInput,
+        sampleOutput: response.sampleOutput,
+        timeLimit: response.timeLimit,
+        memoryLimit: response.memoryLimit,
+      };
+      setQuizInfo(quiz);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getQuiz();
+  }, []);
+
+  const quizId = quizInfo.quizId;
+  const answerTag = quizInfo.answerTag;
+  const problemNumber = quizInfo.problemNumber;
+  const origin = quizInfo.origin;
+  const title = quizInfo.title;
+  const url = quizInfo.url;
+  const problemBody = quizInfo.problemBody;
+  const problemInput = quizInfo.problemInput;
+  const problemOutput = quizInfo.problemOutput;
+  const sampleInput = quizInfo.sampleInput;
+  const sampleOutput = quizInfo.sampleOutput;
+  const timeLimit = quizInfo.timeLimit;
+  const memoryLimit = quizInfo.memoryLimit;
+
+  //타이머 변수들
   const [startTime, setStartTime] = useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string>("");
@@ -38,10 +90,14 @@ function ProblemPage() {
   const seconds = Math.floor(elapsedTime / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
+  const parseHTML = (htmlString: string) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, "text/html");
+    return { __html: doc.documentElement.textContent };
+  };
 
   return (
     <Wrapper>
-      <GlobalStyle />
       <Head>
         <HeadWrapper>
           <HeadText>코테고리 검사</HeadText>
@@ -56,40 +112,40 @@ function ProblemPage() {
         {" "}
         <ProblemBox // 상단 문제바
           topText="아래 문제에 사용할 적절한 알고리즘은 무엇인가요?"
-          bottomText="메모리 제한 : 256MB 시간 제한 : 2초"
+          bottomText={`메모리 제한 : ${memoryLimit}MB 시간 제한 : ${timeLimit}초`}
         ></ProblemBox>
         <ProblemWrapper>
           <ProblemContent>
-            <ProblemContentBox // 좌측 문제 설명
+            <ProblemContentBox
               topText="문제 설명"
-              bottomText="소수를 유난히도 좋아하는 창영이는 게임 아이디 비밀번호를 4자리 '소수'로 정해놓았다.
-            어느 날 창영이는 친한 친구와 대화를 나누었는데: 입력은 항상 네 자리 소수만 주어진다고 가정하자. 주어진 두 소수 A에서 B로 바꾸는 과정도 항상 네 자리 소수를 유지해야 하고, '네 자리 수'라 하였기 때문에 0039와 같은 1000미만의 비밀번호는 허용되지 않는다 "
+              bottomText={`${problemBody}`}
             ></ProblemContentBox>
+
             <ProblemExanple>
-              <ProblemInput>
+              <ProblemInputBox>
                 <ProblemContentBox
                   topText="입력"
-                  bottomText="첫 줄에 TEST CASE의 수 T가 주어진다. 다음 T줄에 걸쳐 각 줄에 1쌍씩 네 자리 소수가 주어진다"
+                  bottomText={`${problemInput}`}
                 ></ProblemContentBox>
-              </ProblemInput>
+              </ProblemInputBox>
               <ProblemCase>
                 <ProblemContentBox
                   topText="입력예제"
-                  bottomText="1033 8179"
+                  bottomText={`${sampleInput}`}
                 ></ProblemContentBox>
               </ProblemCase>
             </ProblemExanple>
             <ProblemExanple>
-              <ProblemInput>
+              <ProblemInputBox>
                 <ProblemContentBox
                   topText="출력"
-                  bottomText="각 TEST CASE에 대해 두 소수 사이의 변환에 필요한 최소 회수를 출력한다. 불가능한 경우 Impossible을 출력한다."
+                  bottomText={`${problemOutput}`}
                 ></ProblemContentBox>
-              </ProblemInput>
+              </ProblemInputBox>
               <ProblemCase>
                 <ProblemContentBox
                   topText="출력예제"
-                  bottomText="6"
+                  bottomText={`${sampleOutput}`}
                 ></ProblemContentBox>
               </ProblemCase>
             </ProblemExanple>
@@ -194,7 +250,7 @@ const ProblemContent = styled.div`
   flex-direction: column;
 `;
 
-const ProblemInput = styled.div`
+const ProblemInputBox = styled.div`
   width: 65%;
 `;
 

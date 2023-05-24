@@ -1,12 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import Header from "../containers/Header";
 import MainBox from "../containers/MainBox";
 import RecommendBox from "../containers/RecommendBox";
+import ProblemService from "../api/ProblemService";
 
 function RecommendPage() {
-  const [problem, setProblem] = React.useState<string>("");
+  const [todayProblem, setTodayProblem] = useState<ProblemResponse>(
+    {} as ProblemResponse
+  );
+  async function getTodayProblem() {
+    try {
+      const todayResponse = await ProblemService.TodayProblem();
+      const today: ProblemResponse = {
+        title: todayResponse.title,
+        problemNum: todayResponse.problemNum,
+        url: todayResponse.url,
+      };
+      setTodayProblem(today);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getTodayProblem();
+  }, []);
+
+  const todayTitle = todayProblem.title;
+  const todayProblemNum = todayProblem.problemNum;
+  const todayUrl = todayProblem.url;
 
   return (
     <Wrapper>
@@ -21,8 +45,9 @@ function RecommendPage() {
         <RecommendList>
           <RecommendBox
             recommendTitle="오늘의 추천"
-            problemNumber="1000"
-            problemTitle="오늘의 사과는 몇개 일까?"
+            problemNumber={`${todayProblemNum}`}
+            problemTitle={`${todayTitle}`}
+            problemLink={`${todayUrl}`}
           />
           <RecommendBox
             recommendTitle="백준 추천"
