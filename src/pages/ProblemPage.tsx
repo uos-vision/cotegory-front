@@ -141,15 +141,21 @@ function ProblemPage() {
   }, []);
 
   useEffect(() => {
+    setStartTime(Date.now());
+  }, []);
+
+  useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (startTime !== null) {
+    if (startTime !== null && !isSubmissioned) {
       interval = setInterval(() => {
         const now = Date.now();
         setElapsedTime(now - startTime);
       }, 1000);
     }
-    return () => clearInterval(interval);
-  }, [startTime]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [startTime, isSubmissioned]);
 
   const seconds = Math.floor(elapsedTime / 1000);
   const minutes = Math.floor(seconds / 60);
@@ -246,30 +252,36 @@ function ProblemPage() {
               }
             ></AnswerBox>{" "}
             <AnswerBottomBox>
-              <AnswerButton
-                onClick={() => handleAnswerClick(tag1)}
-                selected={selectedAnswer === tag1}
-              >
-                {convertTag(tag1)}
-              </AnswerButton>
-              <AnswerButton
-                onClick={() => handleAnswerClick(tag2)}
-                selected={selectedAnswer === tag2}
-              >
-                {convertTag(tag2)}
-              </AnswerButton>
-              <AnswerButton
-                onClick={() => handleAnswerClick(tag3)}
-                selected={selectedAnswer === tag3}
-              >
-                {convertTag(tag3)}
-              </AnswerButton>
-              <AnswerButton
-                onClick={() => handleAnswerClick(tag4)}
-                selected={selectedAnswer === tag4}
-              >
-                {convertTag(tag4)}
-              </AnswerButton>
+              <AnswerBottomBox>
+                <AnswerButton
+                  onClick={() => handleAnswerClick(tag1)}
+                  selected={selectedAnswer === tag1}
+                  disabled={isSubmissioned ? true : undefined}
+                >
+                  {convertTag(tag1)}
+                </AnswerButton>
+                <AnswerButton
+                  onClick={() => handleAnswerClick(tag2)}
+                  selected={selectedAnswer === tag2}
+                  disabled={isSubmissioned ? true : undefined}
+                >
+                  {convertTag(tag2)}
+                </AnswerButton>
+                <AnswerButton
+                  onClick={() => handleAnswerClick(tag3)}
+                  selected={selectedAnswer === tag3}
+                  disabled={isSubmissioned ? true : undefined}
+                >
+                  {convertTag(tag3)}
+                </AnswerButton>
+                <AnswerButton
+                  onClick={() => handleAnswerClick(tag4)}
+                  selected={selectedAnswer === tag4}
+                  disabled={isSubmissioned ? true : undefined}
+                >
+                  {convertTag(tag4)}
+                </AnswerButton>
+              </AnswerBottomBox>
             </AnswerBottomBox>
             <SubmitButton
               onClick={
@@ -386,11 +398,11 @@ const AnswerBottomBox = styled.div`
   padding-top: 1em;
   align-items: center;
 `;
-
-const AnswerButton = styled.div<{ selected?: boolean }>`
+const AnswerButton = styled.div<{ selected?: boolean; disabled?: boolean }>`
   width: 80%;
   justify-content: center;
-  background-color: ${({ selected }) => (selected ? "#13c4a3" : "#d9d9d9")};
+  background-color: ${({ selected, disabled }) =>
+    selected ? "#13c4a3" : disabled ? "#d9d9d9" : "#ffffff"};
   border-radius: 1em 1em 1em 1em;
   text-align: center;
   margin-bottom: 1em;
@@ -398,13 +410,15 @@ const AnswerButton = styled.div<{ selected?: boolean }>`
   padding-bottom: 1.5em;
   font-size: 1em;
   font-weight: 700;
-  color: ${({ selected }) => (selected ? "#ffffff" : "#000000")};
+  color: ${({ selected, disabled }) =>
+    selected ? "#ffffff" : disabled ? "#808080" : "#000000"};
   :hover {
-    background-color: #36f1cd;
-    color: #000000;
+    background-color: ${({ disabled }) => (disabled ? "#d9d9d9" : "#36f1cd")};
+    color: ${({ disabled }) => (disabled ? "#808080" : "#000000")};
   }
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
 `;
+
 const SubmitButton = styled.button`
   //제출버튼
   background-color: #5465ff;
