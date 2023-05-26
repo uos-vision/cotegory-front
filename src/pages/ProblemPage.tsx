@@ -1,54 +1,84 @@
 import React, { useState, useEffect } from "react";
 // import Parser from "react-html-parser";
 import styled from "styled-components";
-import GlobalStyle from "../theme/GlobalStyle";
 import ProblemBox from "../containers/ProblemBox";
 import ProblemContentBox from "../containers/ProblemContentBox";
 import { useNavigate } from "react-router-dom";
 import AnswerBox from "../containers/AnswerBox";
 import QuizService from "../api/QuizService";
 
+function convertTag(tag: string) {
+  switch (tag) {
+    case "DP":
+      return "다이나믹 프로그래밍";
+    case "BRUTE_FORCE":
+      return "브루트포스";
+    case "BINARY_SEARCH":
+      return "이진 탐색";
+    case "GREEDY":
+      return "그리디";
+    case "BIT_MASKING":
+      return "비트마스킹";
+    case "FLOYD_WARSHALL":
+      return "플로이드 워셜";
+    case "DIJKSTRA":
+      return "다익스트라 알고리즘";
+    case "UNION_FIND":
+      return "유니온 파인드";
+
+    default:
+      return tag;
+  }
+}
+
 function ProblemPage() {
+  const [isSubmissioned, setIsSubmissioned] = useState<Boolean>(false);
   const navigate = useNavigate();
   const handleHome = () => {
     navigate("/");
   };
   const [quizInfo, setQuizInfo] = useState<QuizResponse>({} as QuizResponse);
-
+  const [submissionInfo, setSubmissionInfo] = useState<SubmissionResponse>(
+    {} as SubmissionResponse
+  );
   //문제 불러오기
-  async function getQuiz() {
-    try {
-      const response = await QuizService.GetQuiz();
-      const quiz: QuizResponse = {
-        quizId: response.quizId,
-        answerTag: response.answerTag,
-        tagGroupResponse: {
-          tagGroupId: response.tagGroupResponse.tagGroupId, // Assign directly from response
-          tagGroupName: response.tagGroupResponse.tagGroupName,
-          tags: response.tagGroupResponse.tags,
-        },
-        problemNumber: response.problemNumber,
-        origin: response.origin,
-        title: response.title,
-        url: response.url,
-        mmr: response.mmr,
-        problemBody: response.problemBody,
-        problemInput: response.problemInput,
-        problemOutput: response.problemOutput,
-        sampleInput: response.sampleInput,
-        sampleOutput: response.sampleOutput,
-        timeLimit: response.timeLimit,
-        memoryLimit: response.memoryLimit,
-      };
-      setQuizInfo(quiz);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   useEffect(() => {
-    getQuiz();
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await QuizService.GetQuiz();
+        if (!response.tagGroupResponse) {
+          throw new Error("tagGroupResponse is undefined");
+        }
+        const quiz: QuizResponse = {
+          quizId: response.quizId,
+          answerTag: response.answerTag,
+          tagGroupResponse: {
+            tagGroupId: response.tagGroupResponse.tagGroupId,
+            tagGroupName: response.tagGroupResponse.tagGroupName,
+            tags: response.tagGroupResponse.tags,
+          },
+          problemNumber: response.problemNumber,
+          origin: response.origin,
+          title: response.title,
+          url: response.url,
+          mmr: response.mmr,
+          problemBody: response.problemBody,
+          problemInput: response.problemInput,
+          problemOutput: response.problemOutput,
+          sampleInput: response.sampleInput,
+          sampleOutput: response.sampleOutput,
+          timeLimit: response.timeLimit,
+          memoryLimit: response.memoryLimit,
+        };
+        setQuizInfo(quiz);
+      } catch (error) {
+        console.error(error);
+        navigate("/signin");
+      }
+    };
+
+    fetchData();
+  }, [navigate]);
 
   const quizId = quizInfo.quizId;
   const answerTag = quizInfo.answerTag;
@@ -63,6 +93,40 @@ function ProblemPage() {
   const sampleOutput = quizInfo.sampleOutput;
   const timeLimit = quizInfo.timeLimit;
   const memoryLimit = quizInfo.memoryLimit;
+  const tag1 = quizInfo.tagGroupResponse?.tags[0];
+  const tag2 = quizInfo.tagGroupResponse?.tags[1];
+  const tag3 = quizInfo.tagGroupResponse?.tags[2];
+  const tag4 = quizInfo.tagGroupResponse?.tags[3];
+
+  //문제 제출하기
+  const handleSubmissionButton = async () => {
+    try {
+      const res = await QuizService.SubmissionQuiz({
+        quizId: quizId,
+        selectTag: selectedAnswer,
+        playTime: minutes / 60 + seconds,
+      });
+      const submission: SubmissionResponse = {
+        quizId: res.quizId,
+        submissionId: res.submissionId,
+        selectTag: res.selectTag,
+        answerTag: res.answerTag,
+        isCorrect: res.isCorrect,
+      };
+      setSubmissionInfo(submission);
+      setIsSubmissioned(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  //문제 넘어가기
+  const handlePass = () => {
+    setIsSubmissioned(false);
+    window.location.reload(); // 페이지 새로고침
+  };
+  const handleProblemLink = () => {
+    window.open(url, "_blank");
+  };
 
   //타이머 변수들
   const [startTime, setStartTime] = useState<number | null>(null);
@@ -90,11 +154,6 @@ function ProblemPage() {
   const seconds = Math.floor(elapsedTime / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
-  const parseHTML = (htmlString: string) => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlString, "text/html");
-    return { __html: doc.documentElement.textContent };
-  };
 
   return (
     <Wrapper>
@@ -111,7 +170,11 @@ function ProblemPage() {
       <Background>
         {" "}
         <ProblemBox // 상단 문제바
-          topText="아래 문제에 사용할 적절한 알고리즘은 무엇인가요?"
+          topText={
+            isSubmissioned
+              ? title
+              : "아래 문제에 사용할 적절한 알고리즘은 무엇인가요?"
+          }
           bottomText={`메모리 제한 : ${memoryLimit}MB 시간 제한 : ${timeLimit}초`}
         ></ProblemBox>
         <ProblemWrapper>
@@ -128,13 +191,18 @@ function ProblemPage() {
               <ProblemInputBox>
                 <ProblemContentBox
                   topText="입력"
-                  bottomText={`${problemInput}`}
+                  // bottomText={`${problemInput}`}
+                  bottomText={
+                    <div dangerouslySetInnerHTML={{ __html: problemInput }} />
+                  }
                 ></ProblemContentBox>
               </ProblemInputBox>
               <ProblemCase>
                 <ProblemContentBox
                   topText="입력예제"
-                  bottomText={`${sampleInput}`}
+                  bottomText={
+                    <div dangerouslySetInnerHTML={{ __html: sampleInput }} />
+                  }
                 ></ProblemContentBox>
               </ProblemCase>
             </ProblemExanple>
@@ -142,47 +210,77 @@ function ProblemPage() {
               <ProblemInputBox>
                 <ProblemContentBox
                   topText="출력"
-                  bottomText={`${problemOutput}`}
+                  bottomText={
+                    <div dangerouslySetInnerHTML={{ __html: problemOutput }} />
+                  }
                 ></ProblemContentBox>
               </ProblemInputBox>
               <ProblemCase>
                 <ProblemContentBox
                   topText="출력예제"
-                  bottomText={`${sampleOutput}`}
+                  bottomText={
+                    <div dangerouslySetInnerHTML={{ __html: sampleOutput }} />
+                  }
                 ></ProblemContentBox>
               </ProblemCase>
             </ProblemExanple>
+            <BottomMargin />
           </ProblemContent>
           <AnswerContent>
-            <AnswerBox topText="답안" bottomText="선택"></AnswerBox>
+            <AnswerBox
+              topText={
+                isSubmissioned === false
+                  ? "답안"
+                  : submissionInfo.isCorrect === true
+                  ? "정답입니다"
+                  : "오답입니다"
+              }
+              bottomText="선택"
+              topColor={isSubmissioned ? "#ffffff" : "#000000"}
+              topBoxColor={
+                isSubmissioned === false
+                  ? "#36F1CD"
+                  : submissionInfo.isCorrect === true
+                  ? "#5465FF"
+                  : "#F03547"
+              }
+            ></AnswerBox>{" "}
             <AnswerBottomBox>
               <AnswerButton
-                onClick={() => handleAnswerClick("너비 우선 탐색")}
-                selected={selectedAnswer === "너비 우선 탐색"}
+                onClick={() => handleAnswerClick(tag1)}
+                selected={selectedAnswer === tag1}
               >
-                너비 우선 탐색
+                {convertTag(tag1)}
               </AnswerButton>
               <AnswerButton
-                onClick={() => handleAnswerClick("깊이 우선 탐색")}
-                selected={selectedAnswer === "깊이 우선 탐색"}
+                onClick={() => handleAnswerClick(tag2)}
+                selected={selectedAnswer === tag2}
               >
-                깊이 우선 탐색
+                {convertTag(tag2)}
               </AnswerButton>
               <AnswerButton
-                onClick={() => handleAnswerClick("브루트포스 알고리즘")}
-                selected={selectedAnswer === "브루트포스 알고리즘"}
+                onClick={() => handleAnswerClick(tag3)}
+                selected={selectedAnswer === tag3}
               >
-                브루트포스 알고리즘
+                {convertTag(tag3)}
               </AnswerButton>
               <AnswerButton
-                onClick={() => handleAnswerClick("다이나믹 프로그래밍")}
-                selected={selectedAnswer === "다이나믹 프로그래밍"}
+                onClick={() => handleAnswerClick(tag4)}
+                selected={selectedAnswer === tag4}
               >
-                다이나믹 프로그래밍
+                {convertTag(tag4)}
               </AnswerButton>
             </AnswerBottomBox>
-            <SubmitButton>제출하기</SubmitButton>
-            <PassButton>넘어가기</PassButton>
+            <SubmitButton
+              onClick={
+                isSubmissioned ? handleProblemLink : handleSubmissionButton
+              }
+            >
+              {isSubmissioned ? "백준에서 풀어보기" : "제출하기"}
+            </SubmitButton>
+            <PassButton onClick={handlePass}>
+              {isSubmissioned ? "다음 문제로" : "넘어가기"}
+            </PassButton>
           </AnswerContent>
         </ProblemWrapper>
       </Background>
@@ -341,5 +439,9 @@ const PassButton = styled.button`
   &:hover {
     background-color: #005fa3;
   }
+`;
+
+const BottomMargin = styled.div`
+  margin-bottom: 3em;
 `;
 export default ProblemPage;

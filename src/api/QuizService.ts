@@ -25,7 +25,6 @@ interface QuizResponse {
 interface SubmissionRequest {
   quizId: number;
   selectTag: string;
-  submitTime: string;
   playTime: number;
 }
 class QuizService extends ApiBase {
@@ -52,7 +51,9 @@ class QuizService extends ApiBase {
       .catch(ApiBase.handleError);
   }
 
-  public SubmissionQuiz({ ...submissionInfo }: SubmissionRequest) {
+  public SubmissionQuiz({
+    ...submissionInfo
+  }: SubmissionRequest): Promise<SubmissionResponse> {
     console.log("request data : ", submissionInfo);
     return this.baseHTTP
       .post("/api/submission", {
