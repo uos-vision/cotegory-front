@@ -24,6 +24,19 @@ class ProblemService extends ApiBase {
       })
       .catch(ApiBase.handleError);
   }
+
+  async AiProblem(): Promise<ProblemResponse> {
+    const headers = this.jwtToken
+      ? { Authorization: `Bearer ${this.jwtToken}` }
+      : undefined;
+    return this.baseHTTP
+      .get("/api/recommend/ai", { headers })
+      .then((response) => {
+        console.log("response.data", response.data);
+        return response.data;
+      })
+      .catch(ApiBase.handleError);
+  }
 }
 
 export default new ProblemService();

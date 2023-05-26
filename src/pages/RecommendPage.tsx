@@ -12,6 +12,9 @@ function RecommendPage() {
   const [todayProblem, setTodayProblem] = useState<ProblemResponse>(
     {} as ProblemResponse
   );
+  const [aiProblem, setAiProblem] = useState<ProblemResponse>(
+    {} as ProblemResponse
+  );
   useEffect(() => {
     async function getTodayProblem() {
       try {
@@ -28,6 +31,21 @@ function RecommendPage() {
       }
     }
     getTodayProblem();
+    async function getAiProblem() {
+      try {
+        const aiResponse = await ProblemService.AiProblem();
+        const ai: ProblemResponse = {
+          title: aiResponse.title,
+          problemNum: aiResponse.problemNum,
+          url: aiResponse.url,
+        };
+        setAiProblem(ai);
+      } catch (error) {
+        console.error(error);
+        navigate("/signin"); // jwt 토큰이 없을 때 signin 페이지로 이동
+      }
+    }
+    getAiProblem();
   }, [navigate]); // 빈 배열을 의존성 배열로 전달하여 컴포넌트가 마운트될 때 한 번만 실행되도록 설정
 
   const todayTitle = todayProblem.title;
@@ -53,8 +71,9 @@ function RecommendPage() {
           />
           <RecommendBox
             recommendTitle="백준 추천"
-            problemNumber="2000"
-            problemTitle="chat GPT를 찾아라!"
+            problemNumber={`${aiProblem.problemNum}`}
+            problemTitle={`${aiProblem.title}`}
+            problemLink={`${aiProblem.url}`}
           />
           <RecommendBox
             recommendTitle="기업 문제 추천"
