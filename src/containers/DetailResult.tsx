@@ -15,7 +15,7 @@ function DetailResult({ mmrTitle, mmrScore }: Props) {
         <LeftBox>
           <Text>Score</Text>
           <ScoreBox>
-            <Score>{mmrScore}</Score>
+            <Score mmr={mmrScore}>{mmrScore}</Score>
           </ScoreBox>
         </LeftBox>
         <RightBox></RightBox>
@@ -91,9 +91,21 @@ const ScoreBox = styled.div`
   margin-bottom: 1em;
 `;
 
-const Score = styled.h1`
+const getColor = (mmr?: number) => {
+  if (mmr && mmr <= 25) {
+    return "#13c4a3";
+  } else if (mmr && mmr <= 50) {
+    return "#36f1cd";
+  } else if (mmr && mmr <= 75) {
+    return "#788bff";
+  } else {
+    return "#5465ff";
+  }
+};
+
+const Score = styled.h1<{ mmr?: number }>`
   font-size: 2em;
-  color: #5465ff;
+  color: ${({ mmr }) => getColor(mmr)};
   font-weight: 700;
 `;
 export default DetailResult;

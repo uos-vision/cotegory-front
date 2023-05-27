@@ -38,10 +38,23 @@ const BlankBar = styled.div`
   background-color: #d9d9d9;
 `;
 
+const getColor = (mmr?: number) => {
+  if (mmr && mmr <= 25) {
+    return "#13c4a3";
+  } else if (mmr && mmr <= 50) {
+    return "#36f1cd";
+  } else if (mmr && mmr <= 75) {
+    return "#788bff";
+  } else {
+    return "#5465ff";
+  }
+};
+
 const ColorBar = styled.div<{ mmr?: number }>`
   width: ${({ mmr }) => (mmr ? `${(mmr / 2400) * 100}%` : "0%")};
   height: 1em;
-  background-color: #5465ff;
+  background-color: ${({ mmr }) =>
+    getColor(mmr ? (mmr / 2400) * 100 : undefined)};
 `;
 
 export default MmrBar;

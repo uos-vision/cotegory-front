@@ -29,7 +29,7 @@ function Header() {
       setMemberInfo(userInfo);
     } catch (error) {
       console.error(error);
-      Cookies.remove("accessToken");
+      // Cookies.remove("accessToken");
     }
   }
 

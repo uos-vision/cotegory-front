@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import { useNavigate } from "react-router-dom";
+import ProblemService from "../api/ProblemService";
 
 interface Props {
   recommendTitle?: string;
@@ -19,6 +20,14 @@ function RecommendBox({
   const handleButtonClick = () => {
     window.open(problemLink, "_blank");
   };
+  const handleResetClick = async () => {
+    try {
+      const res = await ProblemService.PostToday();
+    } catch (error) {
+      console.error(error);
+    }
+    window.location.reload();
+  };
 
   return (
     <Wrapper>
@@ -29,7 +38,7 @@ function RecommendBox({
       <RecommendButton onClick={handleButtonClick}>
         <ButtonText>문제 풀기</ButtonText>
       </RecommendButton>
-      <RefreshButton>
+      <RefreshButton onClick={handleResetClick}>
         <ButtonText>다시 추천 받기</ButtonText>
       </RefreshButton>
     </Wrapper>
