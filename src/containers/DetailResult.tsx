@@ -1,15 +1,22 @@
 import styled from "styled-components";
 
-function DetailResult() {
+interface Props {
+  mmrTitle?: string;
+  mmrScore?: number;
+}
+function DetailResult({ mmrTitle, mmrScore }: Props) {
   return (
     <Wrapper>
       <TitleBox>
-        <TypeTitle>Type 1</TypeTitle>
+        <TypeTitle>{mmrTitle}</TypeTitle>
         <TypeBody>깊이 우선 탐색, 너비 우선 탐색, 그리디 알고리즘</TypeBody>
       </TitleBox>
       <ContentBox>
         <LeftBox>
-          <TypeTitle>Score</TypeTitle>
+          <Text>Score</Text>
+          <ScoreBox>
+            <Score>{mmrScore}</Score>
+          </ScoreBox>
         </LeftBox>
         <RightBox></RightBox>
       </ContentBox>
@@ -32,6 +39,11 @@ const TypeTitle = styled.h1`
   font-size: 1.25em;
   margin-left: 1em;
   color: black;
+`;
+
+const Text = styled.h2`
+  font-size: 1.25em;
+  color: #000000;
 `;
 
 const TypeBody = styled.body`
@@ -68,5 +80,20 @@ const RightBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
+`;
+
+const ScoreBox = styled.div`
+  width: 60%;
+  height: 5em;
+  background-color: #ffffff;
+  border-radius: 1em;
+  align-items: center;
+  margin-bottom: 1em;
+`;
+
+const Score = styled.h1`
+  font-size: 2em;
+  color: #5465ff;
+  font-weight: 700;
 `;
 export default DetailResult;

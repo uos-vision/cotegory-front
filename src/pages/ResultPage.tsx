@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../theme/GlobalStyle";
 import Header from "../containers/Header";
 import MainBox from "../containers/MainBox";
 import ProblemHistory from "../containers/ProblemHistory";
 import CotegoryInfo from "../containers/CotegoryInfo";
+import { MemberService } from "../api";
 
 function ResultPage() {
   const [option, setOption] = useState<number>(0);

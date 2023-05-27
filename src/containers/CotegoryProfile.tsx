@@ -4,50 +4,36 @@ import GlobalStyle from "../theme/GlobalStyle";
 import MmrBar from "./MmrBar";
 import { MemberService } from "../api";
 
-interface Props {}
+interface Props {
+  mmr1?: number;
+  mmr2?: number;
+  mmr3?: number;
+  mmrName1?: string;
+  mmrName2?: string;
+  mmrName3?: string;
+  nickname?: string;
+}
 
-function CotegoryProfile({}: Props) {
-  const [nickname, setNickname] = React.useState<string>("");
-  const [rank, setRank] = React.useState<string>("");
-  const [mmr1, setMmr1] = React.useState<number>(1200);
-  const [mmr2, setMmr2] = React.useState<number>(1200);
-  const [mmr3, setMmr3] = React.useState<number>(1200);
-
-  const [memberInfo, setMemberInfo] = useState<MemberResponse>(
-    {} as MemberResponse
-  );
-
-  async function getUserInfo() {
-    try {
-      const response = await MemberService.information();
-      const userInfo = {
-        id: response.id,
-        baekjoonHandle: response.baekjoonHandle,
-        imgUrl: response.imgUrl,
-        nickName: response.nickName,
-        roles: response.roles,
-      };
-      setMemberInfo(userInfo);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
-
+function CotegoryProfile({
+  mmr1,
+  mmr2,
+  mmr3,
+  mmrName1,
+  mmrName2,
+  mmrName3,
+  nickname,
+}: Props) {
   return (
     <ContentBox>
       <LeftBox>
-        <Nickname>{`${memberInfo.nickName}`}</Nickname>
+        <Nickname>{`${nickname}`}</Nickname>
         <ProfileImage src="logo.png" alt="Profile Image" />
         <Rank>Gold 1</Rank>
       </LeftBox>
       <RightBox>
-        <MmrBar mmrTitle="Type1" mmrScore={mmr1}></MmrBar>
-        <MmrBar mmrTitle="Type2" mmrScore={mmr2}></MmrBar>
-        <MmrBar mmrTitle="Type3" mmrScore={mmr3}></MmrBar>
+        <MmrBar mmrTitle={mmrName1} mmrScore={mmr1}></MmrBar>
+        <MmrBar mmrTitle={mmrName2} mmrScore={mmr2}></MmrBar>
+        <MmrBar mmrTitle={mmrName3} mmrScore={mmr3}></MmrBar>
       </RightBox>
     </ContentBox>
   );
