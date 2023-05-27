@@ -37,6 +37,32 @@ class ProblemService extends ApiBase {
       })
       .catch(ApiBase.handleError);
   }
+
+  async PostToday() {
+    const headers = this.jwtToken
+      ? { Authorization: `Bearer ${this.jwtToken}` }
+      : undefined;
+    return this.baseHTTP
+      .post("/api/recommend/today", { headers })
+      .then((response) => {
+        console.log("response.data", response.data);
+        return response.data;
+      })
+      .catch(ApiBase.handleError);
+  }
+
+  async PostAi() {
+    const headers = this.jwtToken
+      ? { Authorization: `Bearer ${this.jwtToken}` }
+      : undefined;
+    return this.baseHTTP
+      .post("/api/recommend/ai", { headers })
+      .then((response) => {
+        console.log("response.data", response.data);
+        return response.data;
+      })
+      .catch(ApiBase.handleError);
+  }
 }
 
 export default new ProblemService();

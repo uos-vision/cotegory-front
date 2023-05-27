@@ -1,11 +1,16 @@
 import styled from "styled-components";
 
-function MmrBar() {
+interface Props {
+  mmrTitle?: string;
+  mmrScore?: number;
+}
+
+function MmrBar({ mmrTitle, mmrScore }: Props) {
   return (
     <Wrapper>
-      <MmrTitle>Type1</MmrTitle>
+      <MmrTitle>{mmrTitle}</MmrTitle>
       <BlankBar>
-        <ColorBar />
+        <ColorBar mmr={mmrScore} />
       </BlankBar>
     </Wrapper>
   );
@@ -33,9 +38,10 @@ const BlankBar = styled.div`
   background-color: #d9d9d9;
 `;
 
-const ColorBar = styled.div`
-  width: 70%;
+const ColorBar = styled.div<{ mmr?: number }>`
+  width: ${({ mmr }) => (mmr ? `${(mmr / 2400) * 100}%` : "0%")};
   height: 1em;
   background-color: #5465ff;
 `;
+
 export default MmrBar;

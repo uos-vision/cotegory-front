@@ -31,6 +31,28 @@ function SignUpPage() {
     }
   };
 
+  const handleDuplicateCheck = async () => {
+    try {
+      const res = await RegisterService.duplication({
+        loginId: email,
+      });
+      alert("사용 가능한 이메일입니다");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleBaekjoonHandle = async () => {
+    try {
+      const res = await RegisterService.baekjoon({
+        baekjoonHandle: baekjoon,
+      });
+      alert("존재하는 백준 ID 입니다");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const navigate = useNavigate(); // useNavigate로 변경
   const handleLogo = () => {
     navigate("/");
@@ -44,7 +66,7 @@ function SignUpPage() {
           <Headline>회원가입</Headline>
           <HorizonLayout>
             <Text>아이디 *</Text>
-            <DubButton>중복확인</DubButton>
+            <DubButton onClick={handleDuplicateCheck}>중복확인</DubButton>
           </HorizonLayout>
           <InputBox
             type="text"
@@ -66,7 +88,10 @@ function SignUpPage() {
             placeholder="비밀번호 확인"
             onChange={(e) => setPasswordCorrect(e.target.value)}
           />
-          <Text>Baekjoon ID</Text>
+          <HorizonLayout>
+            <Text>Baekjoon ID *</Text>
+            <DubButton onClick={handleBaekjoonHandle}>인증하기</DubButton>
+          </HorizonLayout>{" "}
           <InputBox
             type="text"
             value={baekjoon}
@@ -118,7 +143,7 @@ const HorizonLayout = styled.div`
   flex-direction: row; /* 수정: 가로로 나란히 배치하도록 변경 */
   align-items: center; /* 세로 정렬을 가운데로 맞춤 */
   justify-content: space-between; /* 왼쪽과 오른쪽에 공간을 나누어 배치 */
-  margin-top: 1.5em; /* 수정: 상단 마진 조정 */
+  margin-top: 1em; /* 수정: 상단 마진 조정 */
 `;
 
 const Headline = styled.h1`

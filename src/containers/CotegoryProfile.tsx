@@ -9,9 +9,9 @@ interface Props {}
 function CotegoryProfile({}: Props) {
   const [nickname, setNickname] = React.useState<string>("");
   const [rank, setRank] = React.useState<string>("");
-  const [mmr1, setMmr1] = React.useState<number>(0);
-  const [mmr2, setMmr2] = React.useState<number>(0);
-  const [mmr3, setMmr3] = React.useState<number>(0);
+  const [mmr1, setMmr1] = React.useState<number>(1200);
+  const [mmr2, setMmr2] = React.useState<number>(1200);
+  const [mmr3, setMmr3] = React.useState<number>(1200);
 
   const [memberInfo, setMemberInfo] = useState<MemberResponse>(
     {} as MemberResponse
@@ -45,9 +45,9 @@ function CotegoryProfile({}: Props) {
         <Rank>Gold 1</Rank>
       </LeftBox>
       <RightBox>
-        <MmrBar></MmrBar>
-        <MmrBar></MmrBar>
-        <MmrBar></MmrBar>
+        <MmrBar mmrTitle="Type1" mmrScore={mmr1}></MmrBar>
+        <MmrBar mmrTitle="Type2" mmrScore={mmr2}></MmrBar>
+        <MmrBar mmrTitle="Type3" mmrScore={mmr3}></MmrBar>
       </RightBox>
     </ContentBox>
   );

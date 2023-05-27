@@ -13,7 +13,6 @@ interface SignInResponse {
   expTimeRefreshToken: string;
   expTimeAccessToken: string;
 }
-
 class SignInService extends ApiBase {
   private jwtToken: string | null = null;
 
@@ -46,5 +45,4 @@ class SignInService extends ApiBase {
       .catch(ApiBase.handleError);
   }
 }
-
 export default new SignInService();
