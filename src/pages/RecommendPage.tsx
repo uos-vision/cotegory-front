@@ -47,6 +47,7 @@ function RecommendPage() {
     }
     getAiProblem();
   }, [navigate]); // 빈 배열을 의존성 배열로 전달하여 컴포넌트가 마운트될 때 한 번만 실행되도록 설정
+
   const handleTodayResetClick = async () => {
     try {
       const res = await ProblemService.PostToday();

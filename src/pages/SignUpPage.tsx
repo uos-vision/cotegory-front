@@ -11,9 +11,11 @@ import RegisterService from "../api/RegisterService";
 
 function SignUpPage() {
   const [email, setEmail] = React.useState<string>("");
+  const [duplicated, setDuplicated] = React.useState<boolean>(true);
   const [password, setPassword] = React.useState<string>("");
   const [passwordCorrect, setPasswordCorrect] = React.useState<string>("");
   const [baekjoon, setBaekjoon] = React.useState<string>("");
+  const [exist, setExist] = React.useState<boolean>(false);
   const [nickname, setNickname] = React.useState<string>("");
 
   const handleClickButton = async () => {
@@ -36,7 +38,17 @@ function SignUpPage() {
       const res = await RegisterService.duplication({
         loginId: email,
       });
-      alert("사용 가능한 이메일입니다");
+
+      if (res.duplicated) {
+        console.log("존재하는 id입니다.");
+        alert("존재하는 id입니다.");
+        setEmail("");
+        setDuplicated(true);
+      } else {
+        console.log("사용 가능한 id입니다.");
+        alert("사용 가능한 id입니다.");
+        setDuplicated(false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -47,7 +59,16 @@ function SignUpPage() {
       const res = await RegisterService.baekjoon({
         baekjoonHandle: baekjoon,
       });
-      alert("존재하는 백준 ID 입니다");
+      if (res.exist) {
+        console.log("존재하는 백준 ID입니다");
+        alert("존재하는 백준 ID 입니다");
+        setExist(true);
+      } else {
+        console.log("존재하지 않는 백준 ID 입니다");
+        alert("존재하지 않는 백준 ID 입니다");
+        setExist(false);
+        setBaekjoon("");
+      }
     } catch (error) {
       console.error(error);
     }
@@ -66,7 +87,15 @@ function SignUpPage() {
           <Headline>회원가입</Headline>
           <HorizonLayout>
             <Text>아이디 *</Text>
-            <DubButton onClick={handleDuplicateCheck}>중복확인</DubButton>
+            <DubButton
+              onClick={handleDuplicateCheck}
+              style={{
+                backgroundColor: duplicated ? "#d9d9d9" : "#788bff",
+                color: duplicated ? "#000000" : "#ffffff",
+              }}
+            >
+              {duplicated ? "중복확인" : "확인완료"}
+            </DubButton>
           </HorizonLayout>
           <InputBox
             type="text"
@@ -90,7 +119,15 @@ function SignUpPage() {
           />
           <HorizonLayout>
             <Text>Baekjoon ID *</Text>
-            <DubButton onClick={handleBaekjoonHandle}>인증하기</DubButton>
+            <DubButton
+              onClick={handleBaekjoonHandle}
+              style={{
+                backgroundColor: exist ? "#788bff" : "#d9d9d9",
+                color: exist ? "#ffffff" : "#000000",
+              }}
+            >
+              {exist ? "인증완료" : "인증하기"}
+            </DubButton>
           </HorizonLayout>{" "}
           <InputBox
             type="text"
@@ -170,6 +207,7 @@ const DubButton = styled.button`
   border-radius: 0.75em;
   width: 6em;
   height: 2.5em;
+  font-weight: 700;
   border-color: transparent;
   :hover {
     background-color: #c8c8c8;

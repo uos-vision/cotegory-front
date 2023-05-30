@@ -187,7 +187,6 @@ function ProblemPage() {
           <ProblemContent>
             <ProblemContentBox
               topText="문제 설명"
-              // bottomText={`${problemBody}`}
               bottomText={
                 <div dangerouslySetInnerHTML={{ __html: problemBody }} />
               }
@@ -197,7 +196,6 @@ function ProblemPage() {
               <ProblemInputBox>
                 <ProblemContentBox
                   topText="입력"
-                  // bottomText={`${problemInput}`}
                   bottomText={
                     <div dangerouslySetInnerHTML={{ __html: problemInput }} />
                   }
