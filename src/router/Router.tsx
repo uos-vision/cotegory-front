@@ -12,6 +12,7 @@ import {
   ResultPage,
   ProblemPage,
 } from "../pages";
+import RequiredAuthGuard from "./RequiredAuthGuard";
 
 function Router() {
   React.useEffect(() => {});
@@ -21,11 +22,47 @@ function Router() {
       <Route path="/" element={<MainPage />} />
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/signup" element={<SignUpPage />} />
-      <Route path="/cotegory" element={<CotegoryPage />} />
-      <Route path="/recommend" element={<RecommendPage />} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/result" element={<ResultPage />} />
-      <Route path="/problem" element={<ProblemPage />} />
+      <Route
+        path="/cotegory"
+        element={
+          <RequiredAuthGuard>
+            <CotegoryPage />
+          </RequiredAuthGuard>
+        }
+      />
+      <Route
+        path="/recommend"
+        element={
+          <RequiredAuthGuard>
+            <RecommendPage />
+          </RequiredAuthGuard>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <RequiredAuthGuard>
+            <ProfilePage />
+          </RequiredAuthGuard>
+        }
+      />
+      <Route
+        path="/result"
+        element={
+          <RequiredAuthGuard>
+            <ResultPage />
+          </RequiredAuthGuard>
+        }
+      />
+      <Route
+        path="/problem"
+        element={
+          <RequiredAuthGuard>
+            <ProblemPage />
+          </RequiredAuthGuard>
+        }
+      />
+
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );
