@@ -3,7 +3,8 @@ import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
 class ApiBase {
   protected readonly baseHTTP: AxiosInstance;
   constructor(url?: string) {
-    const baseServerURL = "http://localhost:8080";
+    // const baseServerURL = "http://localhost:8080";
+    const baseServerURL = "http://3.35.115.92:8080";
     this.baseHTTP = axios.create({
       baseURL: `${baseServerURL}/${url ?? ""}`,
       timeout: 5000,

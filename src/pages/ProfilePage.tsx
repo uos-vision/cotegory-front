@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import MemberService from "../api/MemberService";
 import { useRecoilValue } from "recoil";
 import { isAuth as RecoilIsAuth } from "../store";
+import Footer from "../containers/Footer";
 
 function ProfilePage() {
   const me = useRecoilValue(RecoilIsAuth);
@@ -121,6 +122,7 @@ function ProfilePage() {
         <WithdrawButton onClick={handleLogout}>로그아웃</WithdrawButton>
         {/* <WithdrawButton>탈퇴하기</WithdrawButton> */}
       </Background>
+      <Footer />
     </Wrapper>
   );
 }
