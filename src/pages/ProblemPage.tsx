@@ -6,10 +6,7 @@ import ProblemContentBox from "../containers/ProblemContentBox";
 import { useNavigate } from "react-router-dom";
 import AnswerBox from "../containers/AnswerBox";
 import QuizService from "../api/QuizService";
-import BetterReactMathjax, {
-  MathJax,
-  MathJaxContext,
-} from "better-react-mathjax";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 
 function convertTag(tag: string) {
   switch (tag) {
@@ -189,12 +186,12 @@ function ProblemPage() {
         ></ProblemBox>
         <ProblemWrapper>
           <ProblemContent>
-            <MathJaxContext>
-              <ProblemContentBox
-                topText="문제 설명"
-                bottomText={<MathJax>{problemBody}</MathJax>}
-              ></ProblemContentBox>
-            </MathJaxContext>
+            <ProblemContentBox
+              topText="문제 설명"
+              bottomText={
+                <div dangerouslySetInnerHTML={{ __html: problemBody }} />
+              }
+            ></ProblemContentBox>
 
             <ProblemExanple>
               <ProblemInputBox>
