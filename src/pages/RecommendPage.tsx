@@ -47,6 +47,22 @@ function RecommendPage() {
     }
     getAiProblem();
   }, [navigate]); // 빈 배열을 의존성 배열로 전달하여 컴포넌트가 마운트될 때 한 번만 실행되도록 설정
+  const handleTodayResetClick = async () => {
+    try {
+      const res = await ProblemService.PostToday();
+    } catch (error) {
+      console.error(error);
+    }
+    window.location.reload();
+  };
+  const handleAiResetClick = async () => {
+    try {
+      const res = await ProblemService.PostAi();
+    } catch (error) {
+      console.error(error);
+    }
+    window.location.reload();
+  };
 
   const todayTitle = todayProblem.title;
   const todayProblemNum = todayProblem.problemNum;
@@ -68,17 +84,20 @@ function RecommendPage() {
             problemNumber={`${todayProblemNum}`}
             problemTitle={`${todayTitle}`}
             problemLink={`${todayUrl}`}
+            onResetClick={handleTodayResetClick}
           />
           <RecommendBox
             recommendTitle="백준 추천"
             problemNumber={`${aiProblem.problemNum}`}
             problemTitle={`${aiProblem.title}`}
             problemLink={`${aiProblem.url}`}
+            onResetClick={handleAiResetClick}
           />
           <RecommendBox
             recommendTitle="기업 문제 추천"
             problemNumber="3000"
             problemTitle="실시간 유출 카카오 문제"
+            onResetClick={handleTodayResetClick}
           />
         </RecommendList>
       </Background>

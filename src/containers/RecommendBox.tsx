@@ -9,24 +9,21 @@ interface Props {
   problemNumber?: string;
   problemTitle?: string;
   problemLink?: string;
+  onResetClick: () => void;
 }
 function RecommendBox({
   recommendTitle,
   problemNumber,
   problemTitle,
   problemLink,
+  onResetClick,
 }: Props) {
   const navigate = useNavigate();
   const handleButtonClick = () => {
     window.open(problemLink, "_blank");
   };
   const handleResetClick = async () => {
-    try {
-      const res = await ProblemService.PostToday();
-    } catch (error) {
-      console.error(error);
-    }
-    window.location.reload();
+    onResetClick(); // prop 함수 호출
   };
 
   return (
