@@ -61,8 +61,10 @@
     "@types/axios": "^0.14.0",
     "@types/js-cookie": "^3.0.3",
     "@types/react-is": "^17.0.3",
+    "@types/react-mathjax": "^1.0.1",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
+    "better-react-mathjax": "^2.0.2",
     "tslint": "^6.1.3",
     "typescript": "^5.0.4"
   }

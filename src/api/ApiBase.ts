@@ -4,7 +4,7 @@ class ApiBase {
   protected readonly baseHTTP: AxiosInstance;
   constructor(url?: string) {
     // const baseServerURL = "http://localhost:8080";
-    const baseServerURL = "http://3.35.115.92:8080";
+    const baseServerURL = "http://3.35.115.92:8080"; //서버와 통신
     this.baseHTTP = axios.create({
       baseURL: `${baseServerURL}/${url ?? ""}`,
       timeout: 5000,
