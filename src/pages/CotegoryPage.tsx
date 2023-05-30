@@ -4,6 +4,7 @@ import GlobalStyle from "../theme/GlobalStyle";
 import Header from "../containers/Header";
 import MainBox from "../containers/MainBox";
 import { useNavigate } from "react-router-dom";
+import Footer from "../containers/Footer";
 
 function CotegoryPage() {
   const [problem, setProblem] = React.useState<string>("");
@@ -38,6 +39,7 @@ function CotegoryPage() {
           <ButtonText onClick={handleProblem}>지금 시작하기</ButtonText>
         </StartButton>
       </Background>
+      <Footer />
     </Wrapper>
   );
 }

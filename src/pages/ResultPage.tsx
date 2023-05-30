@@ -6,6 +6,7 @@ import MainBox from "../containers/MainBox";
 import ProblemHistory from "../containers/ProblemHistory";
 import CotegoryInfo from "../containers/CotegoryInfo";
 import { MemberService } from "../api";
+import Footer from "../containers/Footer";
 
 function ResultPage() {
   const [option, setOption] = useState<number>(0);
@@ -35,6 +36,7 @@ function ResultPage() {
         {option === 0 && <ProblemHistory />}
         {option === 1 && <CotegoryInfo />}
       </Background>
+      <Footer />
     </Wrapper>
   );
 }

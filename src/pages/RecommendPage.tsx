@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import MainBox from "../containers/MainBox";
 import RecommendBox from "../containers/RecommendBox";
 import ProblemService from "../api/ProblemService";
+import Footer from "../containers/Footer";
 
 function RecommendPage() {
   const navigate = useNavigate();
@@ -102,6 +103,7 @@ function RecommendPage() {
           />
         </RecommendList>
       </Background>
+      <Footer />
     </Wrapper>
   );
 }
