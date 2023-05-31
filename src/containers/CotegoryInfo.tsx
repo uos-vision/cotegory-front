@@ -32,25 +32,26 @@ function CotegoryInfo({}: Props) {
         nickName: response.nickName,
         roles: response.roles,
       };
+
       if (
         response.memberTagGroupInformationResponses &&
         response.memberTagGroupInformationResponses.length >= 3
       ) {
-        setNickname(response.nickName);
-        setMmr1(response.memberTagGroupInformationResponses[0].mmr);
-        setMmr2(response.memberTagGroupInformationResponses[1].mmr);
-        setMmr3(response.memberTagGroupInformationResponses[2].mmr);
-        setMmrName1(
-          response.memberTagGroupInformationResponses[0].tagGroupName
-        );
-        setMmrName2(
-          response.memberTagGroupInformationResponses[1].tagGroupName
-        );
-        setMmrName3(
-          response.memberTagGroupInformationResponses[2].tagGroupName
-        );
+        for (const tagGroup of response.memberTagGroupInformationResponses) {
+          if (tagGroup.tagGroupId === 1) {
+            setMmr1(tagGroup.mmr);
+            setMmrName1(tagGroup.tagGroupName);
+          } else if (tagGroup.tagGroupId === 2) {
+            setMmr2(tagGroup.mmr);
+            setMmrName2(tagGroup.tagGroupName);
+          } else if (tagGroup.tagGroupId === 3) {
+            setMmr3(tagGroup.mmr);
+            setMmrName3(tagGroup.tagGroupName);
+          }
+        }
       }
 
+      setNickname(response.nickName);
       setMemberInfo(userInfo);
     } catch (error) {
       console.error(error);
