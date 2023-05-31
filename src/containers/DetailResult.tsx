@@ -3,13 +3,14 @@ import styled from "styled-components";
 interface Props {
   mmrTitle?: string;
   mmrScore?: number;
+  tagList?: string;
 }
-function DetailResult({ mmrTitle, mmrScore }: Props) {
+function DetailResult({ mmrTitle, mmrScore, tagList }: Props) {
   return (
     <Wrapper>
       <TitleBox>
         <TypeTitle>{mmrTitle}</TypeTitle>
-        <TypeBody>깊이 우선 탐색, 너비 우선 탐색, 그리디 알고리즘</TypeBody>
+        <TypeBody>{tagList}</TypeBody>
       </TitleBox>
       <ContentBox>
         <LeftBox>
