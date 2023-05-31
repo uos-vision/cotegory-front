@@ -10,10 +10,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Helmet>
-      <title>Cotegory AI 기반 코딩테스트 문제 추천 서비스</title>
-      {/* Add other head tags here */}
-    </Helmet>
     <App />
   </React.StrictMode>
 );
