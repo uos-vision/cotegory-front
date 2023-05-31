@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 
@@ -21,15 +21,67 @@ const Footer = () => {
     navigate("/profile");
   };
 
+  useEffect(() => {
+    const handleScrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    // 링크 클릭 시 스크롤 이벤트 처리
+    document
+      .getElementById("logo-link")
+      ?.addEventListener("click", handleScrollToTop);
+    document
+      .getElementById("cotegory-link")
+      ?.addEventListener("click", handleScrollToTop);
+    document
+      .getElementById("recommend-link")
+      ?.addEventListener("click", handleScrollToTop);
+    document
+      .getElementById("result-link")
+      ?.addEventListener("click", handleScrollToTop);
+    document
+      .getElementById("profile-link")
+      ?.addEventListener("click", handleScrollToTop);
+
+    // Clean up
+    return () => {
+      document
+        .getElementById("logo-link")
+        ?.removeEventListener("click", handleScrollToTop);
+      document
+        .getElementById("cotegory-link")
+        ?.removeEventListener("click", handleScrollToTop);
+      document
+        .getElementById("recommend-link")
+        ?.removeEventListener("click", handleScrollToTop);
+      document
+        .getElementById("result-link")
+        ?.removeEventListener("click", handleScrollToTop);
+      document
+        .getElementById("profile-link")
+        ?.removeEventListener("click", handleScrollToTop);
+    };
+  }, []);
+
   return (
     <BarContainer>
       <BarContent>
-        <Logo onClick={handleLogo}>Cotegory</Logo>
+        <Logo id="logo-link" onClick={handleLogo}>
+          Cotegory
+        </Logo>
         <NavLinks>
-          <NavLink onClick={handleCotegory}>코테고리 풀기</NavLink>
-          <NavLink onClick={handleRecommend}>문제 추천</NavLink>
-          <NavLink onClick={handleResult}>코테고리 결과</NavLink>
-          <NavLink onClick={handleProfile}>내 정보</NavLink>
+          <NavLink id="cotegory-link" onClick={handleCotegory}>
+            코테고리 풀기
+          </NavLink>
+          <NavLink id="recommend-link" onClick={handleRecommend}>
+            문제 추천
+          </NavLink>
+          <NavLink id="result-link" onClick={handleResult}>
+            코테고리 결과
+          </NavLink>
+          <NavLink id="profile-link" onClick={handleProfile}>
+            내 정보
+          </NavLink>
         </NavLinks>
       </BarContent>
       <Text>서울특별시 동대문구 서울시립대로 163 정보기술관</Text>
@@ -43,8 +95,9 @@ const BarContainer = styled.footer`
   min-height: 10em;
   background-color: #333;
   color: #fff;
-  padding: 16px;
   margin-top: 3em;
+  padding-top: 1em;
+  padding-bottom: 1em;
 `;
 
 const BarContent = styled.div`

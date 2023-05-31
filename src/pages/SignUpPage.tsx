@@ -8,6 +8,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import RegisterService from "../api/RegisterService";
+import Footer from "../containers/Footer";
 
 function SignUpPage() {
   const [email, setEmail] = React.useState<string>("");
@@ -150,6 +151,7 @@ function SignUpPage() {
           />
         </BoxLayout>
       </SignInBox>
+      <Footer />
     </SignInWrapper>
   );
 }
@@ -157,6 +159,7 @@ function SignUpPage() {
 const SignInWrapper = styled.main`
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #cecece; /* Change background color */
@@ -166,7 +169,7 @@ const SignInBox = styled.section`
   justify-content: center;
   display: flex;
   width: 40%;
-  margin-block: 120px;
+  margin-block: 3em;
   background: #ffffff;
   border: 2px solid #d9d9d9;
   border-radius: 1em;

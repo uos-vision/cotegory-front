@@ -10,6 +10,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import SignInService from "../api/SignInService";
+import Footer from "../containers/Footer";
 
 function SignInPage() {
   const [email, setEmail] = React.useState<string>("");
@@ -71,6 +72,7 @@ function SignInPage() {
           />
         </BoxLayout>
       </SignInBox>
+      <Footer />
     </SignInWrapper>
   );
 }
@@ -82,6 +84,7 @@ const SignInWrapper = styled.main`
   align-items: center;
   background-color: #cecece; /* Change background color */
   font-family: "Roboto", sans-serif; // 'Roboto' 폰트 적용
+  flex-direction: column;
 `;
 
 const SignInBox = styled.section`
@@ -89,7 +92,7 @@ const SignInBox = styled.section`
   justify-content: center;
   display: flex;
   width: 40%;
-  margin-block: 120px;
+  margin-block: 3em;
   background: #ffffff;
   border: 2px solid #d9d9d9;
   border-radius: 1em;
