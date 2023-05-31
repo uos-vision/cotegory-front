@@ -32,6 +32,8 @@ const Footer = () => {
           <NavLink onClick={handleProfile}>내 정보</NavLink>
         </NavLinks>
       </BarContent>
+      <Text>서울특별시 동대문구 서울시립대로 163 정보기술관</Text>
+      <Text>2023-1 컴퓨터과학종합설계 Vision조</Text>
     </BarContainer>
   );
 };
@@ -67,4 +69,10 @@ const NavLink = styled.a`
   cursor: pointer;
 `;
 
+const Text = styled.body`
+  color: #fff;
+  font-size: 0.75em;
+  margin-left: 10%;
+  margin-top: 2em;
+`;
 export default Footer;
