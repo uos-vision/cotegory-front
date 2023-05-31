@@ -38,6 +38,19 @@ class ProblemService extends ApiBase {
       .catch(ApiBase.handleError);
   }
 
+  async CompanyProblem(): Promise<ProblemResponse> {
+    const headers = this.jwtToken
+      ? { Authorization: `Bearer ${this.jwtToken}` }
+      : undefined;
+    return this.baseHTTP
+      .get("/api/recommend/company", { headers })
+      .then((response) => {
+        console.log("response.data", response.data);
+        return response.data;
+      })
+      .catch(ApiBase.handleError);
+  }
+
   async PostToday() {
     const headers = this.jwtToken
       ? { Authorization: `Bearer ${this.jwtToken}` }
@@ -57,6 +70,19 @@ class ProblemService extends ApiBase {
       : undefined;
     return this.baseHTTP
       .post("/api/recommend/ai", { headers })
+      .then((response) => {
+        console.log("response.data", response.data);
+        return response.data;
+      })
+      .catch(ApiBase.handleError);
+  }
+
+  async PostCompany() {
+    const headers = this.jwtToken
+      ? { Authorization: `Bearer ${this.jwtToken}` }
+      : undefined;
+    return this.baseHTTP
+      .post("/api/recommend/company", { headers })
       .then((response) => {
         console.log("response.data", response.data);
         return response.data;

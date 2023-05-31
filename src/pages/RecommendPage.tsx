@@ -16,6 +16,9 @@ function RecommendPage() {
   const [aiProblem, setAiProblem] = useState<ProblemResponse>(
     {} as ProblemResponse
   );
+  const [companyProblem, setCompanyProblem] = useState<ProblemResponse>(
+    {} as ProblemResponse
+  );
   useEffect(() => {
     async function getTodayProblem() {
       try {
@@ -47,6 +50,22 @@ function RecommendPage() {
       }
     }
     getAiProblem();
+    getTodayProblem();
+    async function getCompanyProblem() {
+      try {
+        const companyResponse = await ProblemService.CompanyProblem();
+        const company: ProblemResponse = {
+          title: companyResponse.title,
+          problemNum: companyResponse.problemNum,
+          url: companyResponse.url,
+        };
+        setCompanyProblem(company);
+      } catch (error) {
+        console.error(error);
+        navigate("/signin"); // jwt 토큰이 없을 때 signin 페이지로 이동
+      }
+    }
+    getCompanyProblem();
   }, [navigate]); // 빈 배열을 의존성 배열로 전달하여 컴포넌트가 마운트될 때 한 번만 실행되도록 설정
 
   const handleTodayResetClick = async () => {
@@ -60,6 +79,14 @@ function RecommendPage() {
   const handleAiResetClick = async () => {
     try {
       const res = await ProblemService.PostAi();
+    } catch (error) {
+      console.error(error);
+    }
+    window.location.reload();
+  };
+  const handleCompanyResetClick = async () => {
+    try {
+      const res = await ProblemService.PostCompany();
     } catch (error) {
       console.error(error);
     }
@@ -97,9 +124,10 @@ function RecommendPage() {
           />
           <RecommendBox
             recommendTitle="기업 문제 추천"
-            problemNumber="3000"
-            problemTitle="실시간 유출 카카오 문제"
-            onResetClick={handleTodayResetClick}
+            problemNumber={`${companyProblem.problemNum}`}
+            problemTitle={`${companyProblem.title}`}
+            problemLink={`${companyProblem.url}`}
+            onResetClick={handleCompanyResetClick}
           />
         </RecommendList>
       </Background>

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import AnswerBox from "../containers/AnswerBox";
 import QuizService from "../api/QuizService";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
+import Spinner from "../containers/Spinner";
 
 function convertTag(tag: string) {
   switch (tag) {
@@ -42,10 +43,13 @@ function ProblemPage() {
   const [submissionInfo, setSubmissionInfo] = useState<SubmissionResponse>(
     {} as SubmissionResponse
   );
+  const [isLoading, setIsLoading] = useState<Boolean>(false); // 로딩 상태 추가
+
   //문제 불러오기
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const response = await QuizService.GetQuiz();
         if (!response.tagGroupResponse) {
           throw new Error("tagGroupResponse is undefined");
@@ -75,6 +79,8 @@ function ProblemPage() {
       } catch (error) {
         console.error(error);
         navigate("/signin");
+      } finally {
+        setIsLoading(false); // 로딩 종료
       }
     };
 
@@ -175,125 +181,138 @@ function ProblemPage() {
         <QuitText onClick={handleHome}>나가기</QuitText>
       </Head>
       <Background>
-        {" "}
-        <ProblemBox // 상단 문제바
-          topText={
-            isSubmissioned
-              ? title
-              : "아래 문제에 사용할 적절한 알고리즘은 무엇인가요?"
-          }
-          bottomText={`메모리 제한 : ${memoryLimit}MB 시간 제한 : ${timeLimit}초`}
-        ></ProblemBox>
-        <ProblemWrapper>
-          <ProblemContent>
-            <ProblemContentBox
-              topText="문제 설명"
-              bottomText={
-                <div dangerouslySetInnerHTML={{ __html: problemBody }} />
-              }
-            ></ProblemContentBox>
-
-            <ProblemExanple>
-              <ProblemInputBox>
-                <ProblemContentBox
-                  topText="입력"
-                  bottomText={
-                    <div dangerouslySetInnerHTML={{ __html: problemInput }} />
-                  }
-                ></ProblemContentBox>
-              </ProblemInputBox>
-              <ProblemCase>
-                <ProblemContentBox
-                  topText="입력예제"
-                  bottomText={
-                    <div dangerouslySetInnerHTML={{ __html: sampleInput }} />
-                  }
-                ></ProblemContentBox>
-              </ProblemCase>
-            </ProblemExanple>
-            <ProblemExanple>
-              <ProblemInputBox>
-                <ProblemContentBox
-                  topText="출력"
-                  bottomText={
-                    <div dangerouslySetInnerHTML={{ __html: problemOutput }} />
-                  }
-                ></ProblemContentBox>
-              </ProblemInputBox>
-              <ProblemCase>
-                <ProblemContentBox
-                  topText="출력예제"
-                  bottomText={
-                    <div dangerouslySetInnerHTML={{ __html: sampleOutput }} />
-                  }
-                ></ProblemContentBox>
-              </ProblemCase>
-            </ProblemExanple>
-            <BottomMargin />
-          </ProblemContent>
-          <AnswerContent>
-            <AnswerBox
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <ProblemBox // 상단 문제바
               topText={
-                isSubmissioned === false
-                  ? "답안"
-                  : submissionInfo.isCorrect === true
-                  ? "정답입니다"
-                  : "오답입니다"
+                isSubmissioned
+                  ? title
+                  : "아래 문제에 사용할 적절한 알고리즘은 무엇인가요?"
               }
-              bottomText="선택"
-              topColor={isSubmissioned ? "#ffffff" : "#000000"}
-              topBoxColor={
-                isSubmissioned === false
-                  ? "#36F1CD"
-                  : submissionInfo.isCorrect === true
-                  ? "#5465FF"
-                  : "#F03547"
-              }
-            ></AnswerBox>{" "}
-            <AnswerBottomBox>
-              <AnswerBottomBox>
-                <AnswerButton
-                  onClick={() => handleAnswerClick(tag1)}
-                  selected={selectedAnswer === tag1}
-                  disabled={isSubmissioned ? true : undefined}
+              bottomText={`메모리 제한 : ${memoryLimit}MB 시간 제한 : ${timeLimit}초`}
+            ></ProblemBox>
+            <ProblemWrapper>
+              <ProblemContent>
+                <ProblemContentBox
+                  topText="문제 설명"
+                  bottomText={
+                    <div dangerouslySetInnerHTML={{ __html: problemBody }} />
+                  }
+                ></ProblemContentBox>
+
+                <ProblemExanple>
+                  <ProblemInputBox>
+                    <ProblemContentBox
+                      topText="입력"
+                      bottomText={
+                        <div
+                          dangerouslySetInnerHTML={{ __html: problemInput }}
+                        />
+                      }
+                    ></ProblemContentBox>
+                  </ProblemInputBox>
+                  <ProblemCase>
+                    <ProblemContentBox
+                      topText="입력예제"
+                      bottomText={
+                        <div
+                          dangerouslySetInnerHTML={{ __html: sampleInput }}
+                        />
+                      }
+                    ></ProblemContentBox>
+                  </ProblemCase>
+                </ProblemExanple>
+                <ProblemExanple>
+                  <ProblemInputBox>
+                    <ProblemContentBox
+                      topText="출력"
+                      bottomText={
+                        <div
+                          dangerouslySetInnerHTML={{ __html: problemOutput }}
+                        />
+                      }
+                    ></ProblemContentBox>
+                  </ProblemInputBox>
+                  <ProblemCase>
+                    <ProblemContentBox
+                      topText="출력예제"
+                      bottomText={
+                        <div
+                          dangerouslySetInnerHTML={{ __html: sampleOutput }}
+                        />
+                      }
+                    ></ProblemContentBox>
+                  </ProblemCase>
+                </ProblemExanple>
+                <BottomMargin />
+              </ProblemContent>
+              <AnswerContent>
+                <AnswerBox
+                  topText={
+                    isSubmissioned === false
+                      ? "답안"
+                      : submissionInfo.isCorrect === true
+                      ? "정답입니다"
+                      : "오답입니다"
+                  }
+                  bottomText="선택"
+                  topColor={isSubmissioned ? "#ffffff" : "#000000"}
+                  topBoxColor={
+                    isSubmissioned === false
+                      ? "#36F1CD"
+                      : submissionInfo.isCorrect === true
+                      ? "#5465FF"
+                      : "#F03547"
+                  }
+                ></AnswerBox>{" "}
+                <AnswerBottomBox>
+                  <AnswerBottomBox>
+                    <AnswerButton
+                      onClick={() => handleAnswerClick(tag1)}
+                      selected={selectedAnswer === tag1}
+                      disabled={isSubmissioned ? true : undefined}
+                    >
+                      {convertTag(tag1)}
+                    </AnswerButton>
+                    <AnswerButton
+                      onClick={() => handleAnswerClick(tag2)}
+                      selected={selectedAnswer === tag2}
+                      disabled={isSubmissioned ? true : undefined}
+                    >
+                      {convertTag(tag2)}
+                    </AnswerButton>
+                    <AnswerButton
+                      onClick={() => handleAnswerClick(tag3)}
+                      selected={selectedAnswer === tag3}
+                      disabled={isSubmissioned ? true : undefined}
+                    >
+                      {convertTag(tag3)}
+                    </AnswerButton>
+                    <AnswerButton
+                      onClick={() => handleAnswerClick(tag4)}
+                      selected={selectedAnswer === tag4}
+                      disabled={isSubmissioned ? true : undefined}
+                    >
+                      {convertTag(tag4)}
+                    </AnswerButton>
+                  </AnswerBottomBox>
+                </AnswerBottomBox>
+                <SubmitButton
+                  onClick={
+                    isSubmissioned ? handleProblemLink : handleSubmissionButton
+                  }
                 >
-                  {convertTag(tag1)}
-                </AnswerButton>
-                <AnswerButton
-                  onClick={() => handleAnswerClick(tag2)}
-                  selected={selectedAnswer === tag2}
-                  disabled={isSubmissioned ? true : undefined}
-                >
-                  {convertTag(tag2)}
-                </AnswerButton>
-                <AnswerButton
-                  onClick={() => handleAnswerClick(tag3)}
-                  selected={selectedAnswer === tag3}
-                  disabled={isSubmissioned ? true : undefined}
-                >
-                  {convertTag(tag3)}
-                </AnswerButton>
-                <AnswerButton
-                  onClick={() => handleAnswerClick(tag4)}
-                  selected={selectedAnswer === tag4}
-                  disabled={isSubmissioned ? true : undefined}
-                >
-                  {convertTag(tag4)}
-                </AnswerButton>
-              </AnswerBottomBox>
-            </AnswerBottomBox>
-            <SubmitButton
-              onClick={
-                isSubmissioned ? handleProblemLink : handleSubmissionButton
-              }
-            >
-              {isSubmissioned ? "백준에서 풀어보기" : "제출하기"}
-            </SubmitButton>
-            <PassButton onClick={handlePass}>
-              {isSubmissioned ? "다음 문제로" : "넘어가기"}
-            </PassButton>
-          </AnswerContent>
-        </ProblemWrapper>
+                  {isSubmissioned ? "백준에서 풀어보기" : "제출하기"}
+                </SubmitButton>
+                <PassButton onClick={handlePass}>
+                  {isSubmissioned ? "다음 문제로" : "넘어가기"}
+                </PassButton>
+              </AnswerContent>
+            </ProblemWrapper>
+          </>
+        )}
       </Background>
     </Wrapper>
   );
