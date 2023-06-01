@@ -35,8 +35,8 @@ function CotegoryPage() {
             <h3>Cotegory 검사로 나의 코딩테스트 역량을 확인해보세요.</h3>
           </Text>
         </CommentBox>
-        <StartButton>
-          <ButtonText onClick={handleProblem}>지금 시작하기</ButtonText>
+        <StartButton onClick={handleProblem}>
+          <ButtonText>지금 시작하기</ButtonText>
         </StartButton>
       </Background>
       <Footer />
