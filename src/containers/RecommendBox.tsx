@@ -74,6 +74,7 @@ const RecommendButton = styled.button`
   width: 60%;
   height: 4em;
   border-radius: 1em;
+  font-size: 1em;
   background-color: #5465ff;
   color: #ffffff;
   margin-top: 3em;
@@ -88,6 +89,7 @@ const RefreshButton = styled.button`
   width: 60%;
   height: 4em;
   border-radius: 1em;
+  font-size: 1em;
   background-color: #ffffff;
   margin-top: 1em;
   color: #5465ff;

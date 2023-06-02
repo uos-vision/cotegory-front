@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import ProblemListBox from "./ProblemListBox";
 
 interface Props {
   date?: string;
@@ -10,5 +11,15 @@ interface Props {
 }
 
 function ProblemList({}: Props) {
-  return;
+  return (
+    <Wrapper>
+      <ProblemListBox></ProblemListBox>
+    </Wrapper>
+  );
 }
+
+export default ProblemList;
+
+const Wrapper = styled.div`
+  width: 100%;
+`;
