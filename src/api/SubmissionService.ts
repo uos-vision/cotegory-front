@@ -62,19 +62,23 @@ class SubmissionService extends ApiBase {
     }
   }
 
-  public SubmissionQuiz({
-    ...submissionListInfo
-  }: SubmissionListRequest): Promise<SubmissionListResponse> {
-    console.log("request data : ", submissionListInfo);
-    return this.baseHTTP
-      .post("/api/submission/list", {
-        ...submissionListInfo,
-      })
-      .then((response) => {
-        console.log("response.data", response.data);
-        return response.data;
-      })
-      .catch(ApiBase.handleError);
+  public async SubmissionQuiz(
+    submissionListInfo: SubmissionListRequest
+  ): Promise<SubmissionListResponse> {
+    console.log("request data:", submissionListInfo);
+    try {
+      const response = await this.baseHTTP.get<SubmissionListResponse>(
+        "/api/submission/list",
+        {
+          params: submissionListInfo,
+        }
+      );
+      console.log("response data:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error; // 또는 적절한 오류 처리
+    }
   }
 }
 

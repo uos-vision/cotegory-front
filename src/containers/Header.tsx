@@ -16,24 +16,24 @@ function Header() {
   const jwtToken = Cookies.get("accessToken");
   const isLoggedIn = !!jwtToken;
 
-  async function getUserInfo() {
-    try {
-      const response = await MemberService.information();
-      const userInfo = {
-        id: response.id,
-        baekjoonHandle: response.baekjoonHandle,
-        imgUrl: response.imgUrl,
-        nickName: response.nickName,
-        roles: response.roles,
-      };
-      setMemberInfo(userInfo);
-    } catch (error) {
-      console.error(error);
-      // Cookies.remove("accessToken");
-    }
-  }
-
   useEffect(() => {
+    async function getUserInfo() {
+      try {
+        const response = await MemberService.information();
+        const userInfo = {
+          id: response.id,
+          baekjoonHandle: response.baekjoonHandle,
+          imgUrl: response.imgUrl,
+          nickName: response.nickName,
+          roles: response.roles,
+        };
+        setMemberInfo(userInfo);
+      } catch (error) {
+        console.error(error);
+        // Cookies.remove("accessToken");
+      }
+    }
+
     getUserInfo();
   }, []);
 

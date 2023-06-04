@@ -49,6 +49,33 @@ class MemberService extends ApiBase {
       })
       .catch(ApiBase.handleError);
   }
+
+  public ChangeImage({ ...image }) {
+    return this.baseHTTP
+      .post("api/member/img/update", {
+        ...image,
+      })
+      .then(ApiBase.handleResponse)
+      .catch(ApiBase.handleError);
+  }
+
+  public ChangeNickname({ ...nickname }) {
+    return this.baseHTTP
+      .post("api/member/change-nickname", {
+        ...nickname,
+      })
+      .then(ApiBase.handleResponse)
+      .catch(ApiBase.handleError);
+  }
+
+  public ChangeBackjoonHandle({ ...backjoonHandle }) {
+    return this.baseHTTP
+      .post("api/member/change-backjoonhandle", {
+        ...backjoonHandle,
+      })
+      .then(ApiBase.handleResponse)
+      .catch(ApiBase.handleError);
+  }
 }
 
 export default new MemberService();
