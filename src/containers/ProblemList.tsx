@@ -18,9 +18,29 @@ function ProblemList({ pageSize }: Props) {
   }, [currentPage, pageSize]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await SubmissionService.SubmissionQuiz({
+          page: currentPage - 1,
+          size: pageSize,
+          sort: "DESC",
+        });
+        const { content, totalPages } = response;
+        setProblemList(content);
+        setPageCount(totalPages);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [currentPage, pageSize]);
+
+  useEffect(() => {
     const start = (currentPage - 1) * pageSize;
     const end = currentPage * pageSize;
     const slicedItems = problemList.slice(start, end);
+    console.log(slicedItems); // 확인용 로그
     setCurrentItems(slicedItems);
   }, [problemList, currentPage, pageSize]);
 
@@ -34,12 +54,14 @@ function ProblemList({ pageSize }: Props) {
       const { content, totalPages } = response;
       setProblemList(content);
       setPageCount(totalPages);
+      setCurrentItems(content);
     } catch (error) {
       console.error(error);
     }
   }
   const changePage = (page: number) => {
     setCurrentPage(page);
+    fetchProblemList();
   };
 
   const goToNextPage = () => {
@@ -102,6 +124,7 @@ const Pagination = styled.div`
 const PageNumber = styled.button<{ active: boolean }>`
   padding: 0.5em;
   margin: 0 0.5em;
+  border-radius: 0.25em;
   background-color: ${(props) => (props.active ? "#ececec" : "#ffffff")};
   border: none;
   cursor: pointer;
@@ -117,6 +140,8 @@ const PreviousButton = styled.button`
   padding: 0.5em 1em;
   background-color: #ececec;
   border: none;
+  border-radius: 0.25em;
+  margin-inline: 1em;
   cursor: pointer;
   &:disabled {
     background-color: #cccccc;
@@ -125,11 +150,12 @@ const PreviousButton = styled.button`
 `;
 
 const NextButton = styled.button<{ disabled: boolean }>`
+  border-radius: 0.25em;
   padding: 0.5em 1em;
   background-color: #ececec;
   border: none;
+  margin-inline: 1em;
   cursor: pointer;
-
   &:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
