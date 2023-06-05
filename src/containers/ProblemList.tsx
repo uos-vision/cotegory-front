@@ -112,36 +112,4 @@ const PageNumber = styled.button<{ active: boolean }>`
   cursor: pointer;
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 1em;
-`;
-
-const PreviousButton = styled.button`
-  padding: 0.5em 1em;
-  background-color: #ececec;
-  border: none;
-  border-radius: 0.25em;
-  margin-inline: 1em;
-  cursor: pointer;
-  &:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-`;
-
-const NextButton = styled.button<{ disabled: boolean }>`
-  border-radius: 0.25em;
-  padding: 0.5em 1em;
-  background-color: #ececec;
-  border: none;
-  margin-inline: 1em;
-  cursor: pointer;
-  &:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-`;
-
 export default ProblemList;

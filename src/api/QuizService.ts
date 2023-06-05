@@ -65,6 +65,18 @@ class QuizService extends ApiBase {
       })
       .catch(ApiBase.handleError);
   }
+
+  public SkipQuiz({ ...quizId }) {
+    return this.baseHTTP
+      .post("api/submission/skip", {
+        ...quizId,
+      })
+      .then((response) => {
+        console.log("response.data", response.data);
+        return response.data;
+      })
+      .catch(ApiBase.handleError);
+  }
 }
 
 export default new QuizService();

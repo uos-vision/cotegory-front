@@ -126,11 +126,19 @@ function ProblemPage() {
       console.error(error);
     }
   };
-  //문제 넘어가기
-  const handlePass = () => {
-    setIsSubmissioned(false);
-    window.location.reload(); // 페이지 새로고침
+  const handleSkipButton = async () => {
+    try {
+      const res = await QuizService.SkipQuiz({
+        quizId: quizId,
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmissioned(false);
+      window.location.reload(); // 페이지 새로고침
+    }
   };
+
   const handleProblemLink = () => {
     window.open(url, "_blank");
   };
@@ -142,10 +150,6 @@ function ProblemPage() {
   const handleAnswerClick = (answer: string) => {
     setSelectedAnswer(answer);
   };
-
-  useEffect(() => {
-    setStartTime(Date.now());
-  }, []);
 
   useEffect(() => {
     setStartTime(Date.now());
@@ -308,7 +312,7 @@ function ProblemPage() {
                 >
                   {isSubmissioned ? "백준에서 풀어보기" : "제출하기"}
                 </SubmitButton>
-                <PassButton onClick={handlePass}>
+                <PassButton onClick={handleSkipButton}>
                   {isSubmissioned ? "다음 문제로" : "넘어가기"}
                 </PassButton>
               </AnswerContent>
