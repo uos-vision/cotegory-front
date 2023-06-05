@@ -10,7 +10,7 @@ function ProblemHistory({}: Props) {
   return (
     <Wrapper>
       <TitleWithLine title="퀴즈 결과" />
-      <ProblemList pageSize={10} />
+      <ProblemList />
     </Wrapper>
   );
 }

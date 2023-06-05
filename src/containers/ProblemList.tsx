@@ -3,46 +3,16 @@ import styled from "styled-components";
 import ProblemListBox from "./ProblemListBox";
 import SubmissionService from "../api/SubmissionService";
 
-interface Props {
-  pageSize: number;
-}
-
-function ProblemList({ pageSize }: Props) {
-  const [problemList, setProblemList] = useState<SubmissionList[]>([]);
+function ProblemList() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageCount, setPageCount] = useState(0);
-  const [currentItems, setCurrentItems] = useState<SubmissionList[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [problemList, setProblemList] = useState<SubmissionList[]>([]);
+
+  const pageSize = 10; // 페이지당 아이템 개수
 
   useEffect(() => {
     fetchProblemList();
-  }, [currentPage, pageSize]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await SubmissionService.SubmissionQuiz({
-          page: currentPage - 1,
-          size: pageSize,
-          sort: "DESC",
-        });
-        const { content, totalPages } = response;
-        setProblemList(content);
-        setPageCount(totalPages);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, [currentPage, pageSize]);
-
-  useEffect(() => {
-    const start = (currentPage - 1) * pageSize;
-    const end = currentPage * pageSize;
-    const slicedItems = problemList.slice(start, end);
-    console.log(slicedItems); // 확인용 로그
-    setCurrentItems(slicedItems);
-  }, [problemList, currentPage, pageSize]);
+  }, [currentPage]);
 
   async function fetchProblemList() {
     try {
@@ -53,19 +23,23 @@ function ProblemList({ pageSize }: Props) {
       });
       const { content, totalPages } = response;
       setProblemList(content);
-      setPageCount(totalPages);
-      setCurrentItems(content);
+      setTotalPages(totalPages);
     } catch (error) {
       console.error(error);
     }
   }
+
+  useEffect(() => {
+    // 페이지 이동 시 기존 문제 정보 초기화
+    setProblemList([]);
+  }, [currentPage]);
+
   const changePage = (page: number) => {
     setCurrentPage(page);
-    fetchProblemList();
   };
 
   const goToNextPage = () => {
-    if (currentPage < pageCount) {
+    if (currentPage < totalPages) {
       changePage(currentPage + 1);
     }
   };
@@ -78,7 +52,7 @@ function ProblemList({ pageSize }: Props) {
 
   return (
     <Wrapper>
-      {currentItems.map((item) => (
+      {problemList.map((item) => (
         <ProblemListBox
           key={item.quizId}
           date={item.submitTime.split("T")[0]}
@@ -89,7 +63,14 @@ function ProblemList({ pageSize }: Props) {
         />
       ))}
       <Pagination>
-        {Array.from({ length: pageCount }, (_, index) => (
+        <PageNumber
+          onClick={goToPreviousPage}
+          disabled={currentPage === 1}
+          active
+        >
+          이전
+        </PageNumber>
+        {Array.from({ length: totalPages }, (_, index) => (
           <PageNumber
             key={index + 1}
             onClick={() => changePage(index + 1)}
@@ -98,18 +79,19 @@ function ProblemList({ pageSize }: Props) {
             {index + 1}
           </PageNumber>
         ))}
-      </Pagination>
-      <ButtonWrapper>
-        <PreviousButton onClick={goToPreviousPage} disabled={currentPage === 1}>
-          이전
-        </PreviousButton>
-        <NextButton onClick={goToNextPage} disabled={currentPage === pageCount}>
+        <PageNumber
+          onClick={goToNextPage}
+          disabled={currentPage === totalPages}
+          active
+        >
           다음
-        </NextButton>
-      </ButtonWrapper>
+        </PageNumber>
+      </Pagination>
     </Wrapper>
   );
 }
+
+// 스타일 컴포넌트 등 필요한 부분 생략
 
 const Wrapper = styled.div`
   width: 100%;
