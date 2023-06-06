@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import QuizService from "../api/QuizService";
+import convertTag from "../utils/converTag";
 
 interface Props {
   date?: string;
@@ -37,10 +38,10 @@ function ProblemListBox({
   return (
     <Wrapper>
       <Date>{date}</Date>
-      <Text>퀴즈 : {quizTitle}</Text>
-      <Text>선택한 답 : {selectTag}</Text>
-      <Text>정답 : {answerTag}</Text>
-      <Text>풀이 시간 : {playTime}초</Text>
+      <Text1>퀴즈 : {quizTitle}</Text1>
+      <Text1>선택한 답 : {convertTag(selectTag as string)}</Text1>
+      <Text1>정답 : {convertTag(answerTag as string)}</Text1>
+      <Text2>풀이 시간 : {playTime}초</Text2>
       {selectTag === answerTag ? (
         <CorrectText>정답</CorrectText>
       ) : (
@@ -65,22 +66,37 @@ const Date = styled.h2`
   font-size: 1em;
   color: blue;
   margin-left: 1em;
+  margin-right: 1em;
 `;
 
-const Text = styled.h2`
+const Text1 = styled.h2`
+  width: 15em;
   font-size: 1em;
   color: #000000;
   margin-left: 5px;
 `;
 
-const CorrectText = styled(Text)`
-  background-color: blue;
-  color: white;
+const Text2 = styled.h2`
+  width: 10em;
+  font-size: 1em;
+  color: #000000;
+  margin-left: 5px;
 `;
 
-const IncorrectText = styled(Text)`
+const CorrectText = styled(Text2)`
+  width: 3em;
+  background-color: blue;
+  color: white;
+  text-align: center;
+  border-radius: 0.25em;
+`;
+
+const IncorrectText = styled(Text2)`
+  width: 3em;
   background-color: red;
   color: white;
+  text-align: center;
+  border-radius: 0.25em;
 `;
 
 export default ProblemListBox;
