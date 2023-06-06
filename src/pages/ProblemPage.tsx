@@ -8,30 +8,7 @@ import AnswerBox from "../containers/AnswerBox";
 import QuizService from "../api/QuizService";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import Spinner from "../containers/Spinner";
-
-function convertTag(tag: string) {
-  switch (tag) {
-    case "DP":
-      return "다이나믹 프로그래밍";
-    case "BRUTE_FORCE":
-      return "브루트포스";
-    case "BINARY_SEARCH":
-      return "이진 탐색";
-    case "GREEDY":
-      return "그리디";
-    case "BIT_MASKING":
-      return "비트마스킹";
-    case "FLOYD_WARSHALL":
-      return "플로이드 워셜";
-    case "DIJKSTRA":
-      return "다익스트라 알고리즘";
-    case "UNION_FIND":
-      return "유니온 파인드";
-
-    default:
-      return tag;
-  }
-}
+import convertTag from "../utils/converTag";
 
 function ProblemPage() {
   const [isSubmissioned, setIsSubmissioned] = useState<Boolean>(false);
@@ -126,11 +103,19 @@ function ProblemPage() {
       console.error(error);
     }
   };
-  //문제 넘어가기
-  const handlePass = () => {
-    setIsSubmissioned(false);
-    window.location.reload(); // 페이지 새로고침
+  const handleSkipButton = async () => {
+    try {
+      const res = await QuizService.SkipQuiz({
+        quizId: quizId,
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmissioned(false);
+      window.location.reload(); // 페이지 새로고침
+    }
   };
+
   const handleProblemLink = () => {
     window.open(url, "_blank");
   };
@@ -142,10 +127,6 @@ function ProblemPage() {
   const handleAnswerClick = (answer: string) => {
     setSelectedAnswer(answer);
   };
-
-  useEffect(() => {
-    setStartTime(Date.now());
-  }, []);
 
   useEffect(() => {
     setStartTime(Date.now());
@@ -308,7 +289,7 @@ function ProblemPage() {
                 >
                   {isSubmissioned ? "백준에서 풀어보기" : "제출하기"}
                 </SubmitButton>
-                <PassButton onClick={handlePass}>
+                <PassButton onClick={handleSkipButton}>
                   {isSubmissioned ? "다음 문제로" : "넘어가기"}
                 </PassButton>
               </AnswerContent>
