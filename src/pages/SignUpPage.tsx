@@ -75,6 +75,17 @@ function SignUpPage() {
     }
   };
 
+  const isButtonDisabled = React.useMemo(() => {
+    return (
+      password !== passwordCorrect || // password와 passwordCorrect가 일치하지 않는 경우
+      !email || // email이 비어있는 경우
+      !password || // password가 비어있는 경우
+      !passwordCorrect || // passwordCorrect가 비어있는 경우
+      duplicated === true ||
+      exist === false
+    );
+  }, [email, password, passwordCorrect, duplicated, exist]);
+
   const navigate = useNavigate(); // useNavigate로 변경
   const handleLogo = () => {
     navigate("/");
@@ -141,7 +152,11 @@ function SignUpPage() {
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
-          <SignUpButton type="submit" onClick={handleClickButton}>
+          <SignUpButton
+            type="submit"
+            onClick={handleClickButton}
+            disabled={isButtonDisabled} // 버튼의 disabled 속성 설정
+          >
             가입하기
           </SignUpButton>
           <LogoImg
@@ -236,6 +251,11 @@ const SignUpButton = styled.button`
   cursor: pointer;
   &:hover {
     background-color: #005fa3;
+  }
+  &:disabled {
+    background-color: #ababab;
+    color: #ececec;
+    cursor: default;
   }
 `;
 const LogoImg = styled.img`
