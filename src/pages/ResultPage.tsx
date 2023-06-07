@@ -26,15 +26,15 @@ function ResultPage() {
         <Header />
         <MainBox
           topText={"코테고리 결과"}
-          firstText="문제 히스토리"
+          firstText="코테고리 정보"
           firstLink="result"
-          secondText="코테고리 정보"
+          secondText="퀴즈 결과"
           secondLink="result"
           onClick={handleFirstTextClick}
           onClick2={handleSecondTextClick}
         />
-        {option === 0 && <ProblemHistory />}
-        {option === 1 && <CotegoryInfo />}
+        {option === 0 && <CotegoryInfo />}
+        {option === 1 && <ProblemHistory />}
       </Background>
       <Footer />
     </Wrapper>
