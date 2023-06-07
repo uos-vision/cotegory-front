@@ -393,7 +393,7 @@ const AnswerBottomBox = styled.div`
   justify-content: center;
   display: flex;
   flex-direction: column;
-  background-color: #ececec;
+  background-color: #fafafa;
   border-radius: 0 0 1em 1em;
   margin-bottom: 2em;
   padding-top: 1em;
@@ -403,7 +403,7 @@ const AnswerButton = styled.div<{ selected?: boolean; disabled?: boolean }>`
   width: 80%;
   justify-content: center;
   background-color: ${({ selected, disabled }) =>
-    selected ? "#13c4a3" : disabled ? "#d9d9d9" : "#ffffff"};
+    selected ? "#13c4a3" : disabled ? "#d9d9d9" : "#ececec"};
   border-radius: 1em 1em 1em 1em;
   text-align: center;
   margin-bottom: 1em;

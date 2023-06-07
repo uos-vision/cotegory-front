@@ -35,7 +35,7 @@ const TopBox = styled.div`
 
 const BottomBox = styled.div`
   border-radius: 0em 0em 1em 1em;
-  background-color: #ececec;
+  background-color: #fafafa;
   box-sizing: border-box;
 `;
 
