@@ -51,7 +51,10 @@ const getColor = (mmr?: number) => {
 };
 
 const ColorBar = styled.div<{ mmr?: number }>`
-  width: ${({ mmr }) => (mmr ? `${(mmr / 2400) * 100}%` : "0%")};
+  width: ${({ mmr }) => {
+    const percentage = mmr ? (mmr / 2400) * 100 : 0;
+    return percentage >= 0 ? `${percentage}%` : "0%";
+  }};
   height: 1em;
   background-color: ${({ mmr }) =>
     getColor(mmr ? (mmr / 2400) * 100 : undefined)};
