@@ -77,17 +77,17 @@ function CotegoryInfo({}: Props) {
       <TitleWithLine title="세부 결과" />
       <DetailResult
         mmrTitle={mmrName1}
-        mmrScore={Math.round((mmr1 / 2400) * 100)}
+        mmrScore={Math.round(mmr1)}
         tagList={`그리디 알고리즘, 브루트 포스, 이진 탐색, 다이나믹 프로그래밍`}
       ></DetailResult>
       <DetailResult
         mmrTitle={mmrName2}
-        mmrScore={Math.round((mmr2 / 2400) * 100)}
+        mmrScore={Math.round(mmr2)}
         tagList={`브루트 포스, 깊이 우선 탐색, 너비 우선 탐색, 다이나믹 프로그래밍`}
       ></DetailResult>
       <DetailResult
         mmrTitle={mmrName3}
-        mmrScore={Math.round((mmr3 / 2400) * 100)}
+        mmrScore={Math.round(mmr3)}
         tagList={`유니온 파인드, 비트 마스킹, 다익스트라, 플로이드 워셜`}
       ></DetailResult>
     </Wrapper>
