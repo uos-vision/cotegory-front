@@ -85,7 +85,7 @@ const Text2 = styled.h2`
 
 const CorrectText = styled(Text2)`
   width: 3em;
-  background-color: blue;
+  background-color: #5465ff;
   color: white;
   text-align: center;
   border-radius: 0.25em;
@@ -93,7 +93,7 @@ const CorrectText = styled(Text2)`
 
 const IncorrectText = styled(Text2)`
   width: 3em;
-  background-color: red;
+  background-color: #f03547;
   color: white;
   text-align: center;
   border-radius: 0.25em;
