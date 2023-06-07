@@ -55,6 +55,29 @@ const BottomText = styled.p`
   text-align: left;
   padding-left: 1em;
   padding-right: 1em;
+  .table-bordered {
+    border: 1px solid #000;
+    border-color: black;
+  }
+  .table td {
+    border: 1px solid black;
+    border-collapse: separate;
+    padding: 2px;
+    text-align: center;
+  }
+  .table th {
+    border: 1px solid black;
+    border-collapse: separate;
+    padding: 2px;
+    text-align: center;
+  }
+  .table {
+    border-collapse: collapse;
+  }
+  .body {
+    color: black;
+    border: 1px solid #000;
+  }
 `;
 
 export default ProblemContentBox;

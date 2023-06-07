@@ -96,14 +96,14 @@ const Text1 = styled.h2`
 `;
 
 const TitleText = styled.h2`
-  width: 15em;
+  width: 20em;
   font-size: 1em;
   color: #000000;
   margin-left: 5px;
 `;
 
 const HeadlineBox = styled.div`
-  width: 15em;
+  width: 20em;
   background-color: #ffffff;
   margin-left: 1em;
   margin-right: 1em;
