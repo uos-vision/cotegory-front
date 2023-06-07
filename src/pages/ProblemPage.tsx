@@ -120,6 +120,10 @@ function ProblemPage() {
     window.open(url, "_blank");
   };
 
+  const handleNextProblem = () => {
+    window.location.reload();
+  };
+
   //타이머 변수들
   const [startTime, setStartTime] = useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
@@ -289,7 +293,11 @@ function ProblemPage() {
                 >
                   {isSubmissioned ? "백준에서 풀어보기" : "제출하기"}
                 </SubmitButton>
-                <PassButton onClick={handleSkipButton}>
+                <PassButton
+                  onClick={
+                    isSubmissioned ? handleNextProblem : handleSkipButton
+                  }
+                >
                   {isSubmissioned ? "다음 문제로" : "넘어가기"}
                 </PassButton>
               </AnswerContent>
