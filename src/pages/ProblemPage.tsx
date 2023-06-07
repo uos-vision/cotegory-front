@@ -288,17 +288,17 @@ function ProblemPage() {
                 </AnswerBottomBox>
                 <SubmitButton
                   onClick={
-                    isSubmissioned ? handleProblemLink : handleSubmissionButton
+                    isSubmissioned ? handleNextProblem : handleSubmissionButton
                   }
                 >
-                  {isSubmissioned ? "백준에서 풀어보기" : "제출하기"}
+                  {isSubmissioned ? "다음 문제로" : "제출하기"}
                 </SubmitButton>
                 <PassButton
                   onClick={
-                    isSubmissioned ? handleNextProblem : handleSkipButton
+                    isSubmissioned ? handleProblemLink : handleSkipButton
                   }
                 >
-                  {isSubmissioned ? "다음 문제로" : "넘어가기"}
+                  {isSubmissioned ? "백준에서 풀어보기" : "넘어가기"}
                 </PassButton>
               </AnswerContent>
             </ProblemWrapper>
