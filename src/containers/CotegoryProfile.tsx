@@ -14,6 +14,72 @@ interface Props {
   nickname?: string;
 }
 
+const calculateRank = (averageMmr: number) => {
+  const rankIndex = Math.floor(averageMmr / 500);
+  const ranks = ["Bronze", "Silver", "Gold", "Diamond", "Platinum"];
+  const subRanks = ["5", "4", "3", "2", "1"];
+  const rank = ranks[rankIndex];
+  const subRank = subRanks[Math.floor((averageMmr % 500) / 100)];
+  return `${rank}${subRank}`;
+};
+
+const calculateColor = (rank: string) => {
+  switch (rank) {
+    case "Bronze5":
+      return "brown";
+    case "Bronze4":
+      return "darkgoldenrod";
+    case "Bronze3":
+      return "saddlebrown";
+    case "Bronze2":
+      return "peru";
+    case "Bronze1":
+      return "sienna";
+    case "Silver5":
+      return "silver";
+    case "Silver4":
+      return "lightgray";
+    case "Silver3":
+      return "gainsboro";
+    case "Silver2":
+      return "darkgray";
+    case "Silver1":
+      return "dimgray";
+    case "Gold5":
+      return "gold";
+    case "Gold4":
+      return "goldenrod";
+    case "Gold3":
+      return "khaki";
+    case "Gold2":
+      return "lightgoldenrodyellow";
+    case "Gold1":
+      return "palegoldenrod";
+    case "Diamond5":
+      return "cyan";
+    case "Diamond4":
+      return "deepskyblue";
+    case "Diamond3":
+      return "dodgerblue";
+    case "Diamond2":
+      return "royalblue";
+    case "Diamond1":
+      return "mediumblue";
+    case "Platinum5":
+      return "lightcyan";
+    case "Platinum4":
+      return "lightskyblue";
+    case "Platinum3":
+      return "paleturquoise";
+    case "Platinum2":
+      return "mediumturquoise";
+    case "Platinum1":
+      return "darkturquoise";
+    default:
+      return "gold";
+  }
+};
+
 function CotegoryProfile({
   mmr1,
   mmr2,
@@ -23,12 +89,17 @@ function CotegoryProfile({
   mmrName3,
   nickname,
 }: Props) {
+  const mmrCount = (mmr1 ? 1 : 0) + (mmr2 ? 1 : 0) + (mmr3 ? 1 : 0);
+  const averageMmr = (mmr1 || 0) + (mmr2 || 0) + (mmr3 || 0);
+  const rank = calculateRank(averageMmr / mmrCount);
+  const rankColor = calculateColor(rank);
+
   return (
     <ContentBox>
       <LeftBox>
         <Nickname>{`${nickname}`}</Nickname>
         <ProfileImage src="logo.png" alt="Profile Image" />
-        <Rank>Gold 1</Rank>
+        <Rank color={rankColor}>{rank}</Rank>
       </LeftBox>
       <RightBox>
         <MmrBar mmrTitle={mmrName1} mmrScore={mmr1}></MmrBar>
@@ -81,7 +152,7 @@ const ProfileImage = styled.img`
 
 const Rank = styled.h2`
   font-size: 1.5em;
-  color: gold;
+  color: ${(props) => props.color || "gold"};
 `;
 
 export default CotegoryProfile;
