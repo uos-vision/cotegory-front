@@ -93,11 +93,11 @@ const ScoreBox = styled.div`
 `;
 
 const getColor = (mmr?: number) => {
-  if (mmr && mmr <= 25) {
+  if (mmr && mmr <= 600) {
     return "#13c4a3";
-  } else if (mmr && mmr <= 50) {
+  } else if (mmr && mmr <= 1200) {
     return "#36f1cd";
-  } else if (mmr && mmr <= 75) {
+  } else if (mmr && mmr <= 1800) {
     return "#788bff";
   } else {
     return "#5465ff";
