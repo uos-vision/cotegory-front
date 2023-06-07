@@ -82,7 +82,6 @@ function Header() {
 
 const Wrapper = styled.main`
   width: 100%;
-  /* display: flex; */
   justify-content: center;
   align-items: center;
   background-color: #ffffff; /* Change background color */
