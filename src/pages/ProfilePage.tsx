@@ -15,7 +15,7 @@ function ProfilePage() {
   const [memberInfo, setMemberInfo] = useState<MemberResponse>(
     {} as MemberResponse
   );
-  const [image, setImage] = React.useState<string | undefined>(undefined);
+  const [image, setImage] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
   const handleLogout = () => {
     const confirmLogout = window.confirm("정말로 로그아웃하시겠습니까?");
@@ -46,8 +46,23 @@ function ProfilePage() {
     getUserInfo();
   }, []);
 
-  const nickname = memberInfo.nickName;
-  const baekjoonHandle = memberInfo.baekjoonHandle;
+  const [nickname, setNickname] = useState<string>("");
+  const [baekjoonHandle, setBaekjoonHandle] = useState<string>("");
+
+  useEffect(() => {
+    setNickname(memberInfo.nickName);
+    setBaekjoonHandle(memberInfo.baekjoonHandle);
+  }, [memberInfo]);
+
+  const handleImageChange = async () => {
+    try {
+      const res = await MemberService.ChangeImage({
+        image: image,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   //이미지 업로드
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,6 +93,7 @@ function ProfilePage() {
         <ProfileBox>
           <PictureBoxLeft>
             <Text>프로필 사진</Text>
+            <SubmitButton onClick={handleImageChange}>수정하기</SubmitButton>
           </PictureBoxLeft>
           <PictureUploadBox>
             <PictureUploadBox>
@@ -87,38 +103,45 @@ function ProfilePage() {
                 <ProfileImagePlaceholder>no image</ProfileImagePlaceholder>
               )}
               <ImageButtonWrapper>
-                <ImageButton>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                  />
+                <FileUploadButton as="label" htmlFor="image-upload">
                   업로드 하기
-                </ImageButton>
-                {image && (
-                  <ImageButton onClick={handleImageDelete}>삭제</ImageButton>
-                )}
+                </FileUploadButton>
+                <HiddenInput
+                  id="image-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
               </ImageButtonWrapper>
             </PictureUploadBox>
           </PictureUploadBox>
           <PictureBoxRight>
             <MiniBox>
               <Text>닉네임</Text>
+              <SubmitButton>수정하기</SubmitButton>
             </MiniBox>
             <MiniBox>
               <Text>백준 ID</Text>
+              <SubmitButton>수정하기</SubmitButton>
             </MiniBox>
           </PictureBoxRight>
           <ProfileTextBox>
             <TopMiniBox>
-              <Text>{nickname}</Text>
+              <InputText
+                type="text"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+              />
             </TopMiniBox>
             <BottomMiniBox>
-              <Text>{baekjoonHandle}</Text>
+              <InputText
+                type="text"
+                value={baekjoonHandle}
+                onChange={(e) => setBaekjoonHandle(e.target.value)}
+              />
             </BottomMiniBox>
           </ProfileTextBox>
         </ProfileBox>
-        <SubmitButton>수정하기</SubmitButton>
         <WithdrawButton onClick={handleLogout}>로그아웃</WithdrawButton>
         {/* <WithdrawButton>탈퇴하기</WithdrawButton> */}
       </Background>
@@ -136,9 +159,17 @@ const Wrapper = styled.div`
 
 const Text = styled.h1`
   font-size: 1.25em;
-  line-height: 6.5em;
+  line-height: 3em;
   text-align: center;
   border: 1px #ececec;
+`;
+
+const InputText = styled.input`
+  font-size: 1.25em;
+  font-weight: 600;
+  line-height: 7.75em;
+  text-align: center;
+  border: transparent;
 `;
 
 const Background = styled.div`
@@ -164,6 +195,8 @@ const PictureBoxLeft = styled.div`
   height: 100%;
   border-radius: 1em 0 0 1em;
   align-items: center;
+  display: flex;
+  flex-direction: column;
   border: #cdcdcd;
   background-color: #eeeeee;
 `;
@@ -255,9 +288,8 @@ const WithdrawButton = styled.button`
 `;
 
 const SubmitButton = styled.button`
-  width: 15%;
+  width: 40%;
   height: 3em;
-  margin-top: 2em;
   border: #5465ff;
   border-radius: 1em;
   background-color: #ffffff;
@@ -268,7 +300,7 @@ const SubmitButton = styled.button`
     color: #ffffff;
   }
   font-weight: 600;
-  font-size: 1em;
+  font-size: 0.75em;
   color: #5465ff;
 `;
 
@@ -316,4 +348,23 @@ const ProfileImage = styled.img`
   margin-bottom: 1em;
   margin-top: 1em;
 `;
+
+const FileUploadButton = styled.button`
+  display: inline-block;
+  background: #5465ff;
+  color: white;
+  padding: 1em 0.5em;
+  cursor: pointer;
+  border-radius: 0.5em;
+  font-size: 1em;
+  font-weight: bold;
+  &:hover {
+    background: #788bff;
+  }
+`;
+
+const HiddenInput = styled.input`
+  display: none;
+`;
+
 export default ProfilePage;
