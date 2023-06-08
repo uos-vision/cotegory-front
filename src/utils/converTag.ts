@@ -1,7 +1,7 @@
 function convertTag(tag: string) {
   switch (tag) {
     case "DP":
-      return "다이나믹 프로그래밍";
+      return "DP";
     case "BRUTE_FORCE":
       return "브루트포스";
     case "BINARY_SEARCH":
@@ -13,7 +13,7 @@ function convertTag(tag: string) {
     case "FLOYD_WARSHALL":
       return "플로이드 워셜";
     case "DIJKSTRA":
-      return "다익스트라 알고리즘";
+      return "다익스트라";
     case "UNION_FIND":
       return "유니온 파인드";
 

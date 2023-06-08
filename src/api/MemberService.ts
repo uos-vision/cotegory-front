@@ -26,6 +26,16 @@ interface MemberResponse {
   };
 }
 
+interface RankResponse {
+  memberId: number;
+  rank?: {
+    groupA: number;
+    groupB: number;
+    groupC: number;
+  };
+  memberNum: number;
+}
+
 class MemberService extends ApiBase {
   private jwtToken: string | null = null;
 
@@ -45,6 +55,16 @@ class MemberService extends ApiBase {
       .get("api/member/information")
       .then((response) => {
         console.log("response data", response.data);
+        return response.data;
+      })
+      .catch(ApiBase.handleError);
+  }
+
+  public GetRank(): Promise<RankResponse> {
+    return this.baseHTTP
+      .get("api/member/rank")
+      .then((response) => {
+        console.log("response.data", response.data);
         return response.data;
       })
       .catch(ApiBase.handleError);

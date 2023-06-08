@@ -79,7 +79,7 @@ const Date = styled.h2`
 `;
 
 const DateBox = styled.div`
-  width: 8em;
+  width: 9em;
   background-color: #788bff;
   margin-left: 1em;
   margin-right: 1em;
@@ -88,7 +88,7 @@ const DateBox = styled.div`
 `;
 
 const Text1 = styled.h2`
-  width: 15em;
+  width: 12em;
   font-size: 1em;
   color: #121212;
   margin-left: 5px;
@@ -96,16 +96,15 @@ const Text1 = styled.h2`
 `;
 
 const TitleText = styled.h2`
-  width: 20em;
+  width: 18em;
   font-size: 1em;
   color: #000000;
   margin-left: 5px;
 `;
 
 const HeadlineBox = styled.div`
-  width: 20em;
+  width: 18em;
   background-color: #ffffff;
-  margin-left: 1em;
   margin-right: 1em;
   text-align: center;
   border-radius: 0.5em;
@@ -113,7 +112,7 @@ const HeadlineBox = styled.div`
 `;
 
 const Text2 = styled.h2`
-  width: 10em;
+  width: 8em;
   font-size: 1em;
   color: #000000;
   margin-left: 5px;

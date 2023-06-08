@@ -33,6 +33,8 @@ class ApiBase {
       // 이전 요청을 다시 시도
       return axios(error.config as AxiosRequestConfig); // 오류 부분 수정
     }
+    await SignInService.refreshToken();
+
     throw error;
   }
 }
