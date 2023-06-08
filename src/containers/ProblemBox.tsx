@@ -26,7 +26,7 @@ const Wrapper = styled.main`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 4em;
+  margin-top: 2em;
 `;
 
 const TopBox = styled.div<{ topBoxColor?: string }>`
