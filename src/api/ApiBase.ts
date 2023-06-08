@@ -34,7 +34,6 @@ class ApiBase {
       return axios(error.config as AxiosRequestConfig); // 오류 부분 수정
     }
     await SignInService.refreshToken();
-
     throw error;
   }
 }

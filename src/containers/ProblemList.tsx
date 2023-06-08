@@ -9,6 +9,7 @@ function ProblemList() {
   const [problemList, setProblemList] = useState<SubmissionList[]>([]);
 
   const pageSize = 10; // 페이지당 아이템 개수
+  const pagesPerGroup = 10; // 한 그룹당 페이지 개수
 
   useEffect(() => {
     fetchProblemList();
@@ -50,6 +51,28 @@ function ProblemList() {
     }
   };
 
+  const renderPageNumbers = () => {
+    const currentGroup = Math.ceil(currentPage / pagesPerGroup); // 현재 그룹
+    const startPage = (currentGroup - 1) * pagesPerGroup + 1; // 현재 그룹의 시작 페이지
+    const endPage = Math.min(startPage + pagesPerGroup - 1, totalPages); // 현재 그룹의 끝 페이지
+
+    const pageNumbers = [];
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(
+        <PageNumber
+          key={i}
+          onClick={() => changePage(i)}
+          active={i === currentPage}
+        >
+          {i}
+        </PageNumber>
+      );
+    }
+
+    return pageNumbers;
+  };
+
   return (
     <Wrapper>
       {problemList.map((item) => (
@@ -70,15 +93,7 @@ function ProblemList() {
         >
           이전
         </PageNumber>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <PageNumber
-            key={index + 1}
-            onClick={() => changePage(index + 1)}
-            active={index + 1 === currentPage}
-          >
-            {index + 1}
-          </PageNumber>
-        ))}
+        {renderPageNumbers()}
         <PageNumber
           onClick={goToNextPage}
           disabled={currentPage === totalPages}
