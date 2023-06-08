@@ -24,7 +24,7 @@ function DetailResult({
       </TitleBox>
       <ContentBox>
         <LeftBox>
-          <Text>SCORE</Text>
+          <Text>점수</Text>
           <ScoreBox>
             <Score mmr={mmrScore}>{mmrScore}</Score>
           </ScoreBox>
@@ -59,7 +59,7 @@ function DetailResult({
           </CorrectBox>
         </RightBox>
         <LeftBox>
-          <Text>RANK</Text>
+          <Text>순위</Text>
           <RankBox>
             <Rank>
               {rank} / {member}
