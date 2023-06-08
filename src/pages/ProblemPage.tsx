@@ -175,7 +175,9 @@ function ProblemPage() {
             <ProblemBox // 상단 문제바
               topText={
                 isSubmissioned
-                  ? title
+                  ? submissionInfo.isCorrect === true
+                    ? "정답입니다"
+                    : "오답입니다"
                   : "아래 문제에 사용할 적절한 알고리즘은 무엇인가요?"
               }
               topBoxColor={
@@ -249,9 +251,7 @@ function ProblemPage() {
                   topText={
                     isSubmissioned === false
                       ? "답안"
-                      : submissionInfo.isCorrect === true
-                      ? "정답입니다"
-                      : "오답입니다"
+                      : "[백준]" + " " + problemNumber + "번 문제 : " + title
                   }
                   bottomText="선택"
                   topColor={isSubmissioned ? "#ffffff" : "#000000"}
@@ -269,6 +269,8 @@ function ProblemPage() {
                       onClick={() => handleAnswerClick(tag1)}
                       selected={selectedAnswer === tag1}
                       disabled={isSubmissioned ? true : undefined}
+                      answerTag={answerTag} // Pass the answerTag prop
+                      tag={tag1}
                     >
                       {convertTag(tag1)}
                     </AnswerButton>
@@ -276,6 +278,8 @@ function ProblemPage() {
                       onClick={() => handleAnswerClick(tag2)}
                       selected={selectedAnswer === tag2}
                       disabled={isSubmissioned ? true : undefined}
+                      answerTag={answerTag} // Pass the answerTag prop
+                      tag={tag2}
                     >
                       {convertTag(tag2)}
                     </AnswerButton>
@@ -283,6 +287,8 @@ function ProblemPage() {
                       onClick={() => handleAnswerClick(tag3)}
                       selected={selectedAnswer === tag3}
                       disabled={isSubmissioned ? true : undefined}
+                      answerTag={answerTag} // Pass the answerTag prop
+                      tag={tag3}
                     >
                       {convertTag(tag3)}
                     </AnswerButton>
@@ -290,6 +296,8 @@ function ProblemPage() {
                       onClick={() => handleAnswerClick(tag4)}
                       selected={selectedAnswer === tag4}
                       disabled={isSubmissioned ? true : undefined}
+                      answerTag={answerTag} // Pass the answerTag prop
+                      tag={tag4}
                     >
                       {convertTag(tag4)}
                     </AnswerButton>
@@ -416,11 +424,23 @@ const AnswerBottomBox = styled.div`
   padding-top: 1em;
   align-items: center;
 `;
-const AnswerButton = styled.div<{ selected?: boolean; disabled?: boolean }>`
+const AnswerButton = styled.div<{
+  selected?: boolean;
+  disabled?: boolean;
+  submissioned?: boolean;
+  answerTag?: string;
+  tag: string;
+}>`
   width: 80%;
   justify-content: center;
-  background-color: ${({ selected, disabled }) =>
-    selected ? "#13c4a3" : disabled ? "#d9d9d9" : "#ececec"};
+  background-color: ${({ selected, disabled, answerTag, tag }) =>
+    selected
+      ? "#13c4a3"
+      : disabled
+      ? answerTag === tag
+        ? "#788bff"
+        : "#d9d9d9"
+      : "#ececec"}; // Change background color for matching answerTag
   border-radius: 1em 1em 1em 1em;
   text-align: center;
   margin-bottom: 1em;
@@ -428,8 +448,14 @@ const AnswerButton = styled.div<{ selected?: boolean; disabled?: boolean }>`
   padding-bottom: 1.5em;
   font-size: 1em;
   font-weight: 700;
-  color: ${({ selected, disabled }) =>
-    selected ? "#ffffff" : disabled ? "#808080" : "#000000"};
+  color: ${({ selected, disabled, answerTag, tag }) =>
+    selected
+      ? "#ffffff"
+      : disabled
+      ? answerTag === tag
+        ? "#ffffff"
+        : "#808080"
+      : "#000000"};
   :hover {
     background-color: ${({ disabled }) => (disabled ? "#d9d9d9" : "#36f1cd")};
     color: ${({ disabled }) => (disabled ? "#808080" : "#000000")};
