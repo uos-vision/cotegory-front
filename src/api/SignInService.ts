@@ -10,6 +10,7 @@ interface SignInRequest {
 interface RefreshTokenResponse {
   accessToken: string;
   refreshToken: string;
+  expTimeAccessToken: string;
 }
 interface SignInResponse {
   accessToken: string;
@@ -39,21 +40,26 @@ class SignInService extends ApiBase {
         ...signinInfo,
       })
       .then((response) => {
-        const { accessToken, refreshToken } = response.data;
+        const { accessToken, refreshToken, expTimeAccessToken } = response.data;
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${accessToken}`;
         this.jwtToken = accessToken;
         Cookies.set("accessToken", accessToken);
         Cookies.set("refreshToken", refreshToken); // Store the refresh token in a secure manner
+        Cookies.set("expTimeAccessToken", expTimeAccessToken);
+
+        this.refreshToken();
+
         return response.data;
       })
       .catch(ApiBase.handleError);
   }
 
   public refreshToken(): Promise<RefreshTokenResponse> {
-    const refreshToken = Cookies.get("refreshToken");
-    const accessToken = Cookies.get("accessToken");
+    const refreshToken: string | undefined = Cookies.get("refreshToken");
+    const accessToken: string | undefined = Cookies.get("accessToken");
+
     return this.baseHTTP
       .post("refreshToken", {
         accessToken: accessToken,
@@ -67,6 +73,7 @@ class SignInService extends ApiBase {
         this.jwtToken = accessToken;
         Cookies.set("accessToken", accessToken);
         Cookies.set("refreshToken", refreshToken);
+
         return response.data;
       })
       .catch(ApiBase.handleError);

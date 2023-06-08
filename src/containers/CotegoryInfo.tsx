@@ -17,6 +17,13 @@ function CotegoryInfo({}: Props) {
   const [mmrName1, setMmrName1] = React.useState<string>("");
   const [mmrName2, setMmrName2] = React.useState<string>("");
   const [mmrName3, setMmrName3] = React.useState<string>("");
+  const [rank1, setRank1] = React.useState<number>(0);
+  const [rank2, setRank2] = React.useState<number>(0);
+  const [rank3, setRank3] = React.useState<number>(0);
+  const [memberNum, setMemberNum] = React.useState<number>(0);
+  const [correctRate, setCorrectRate] = React.useState<
+    Record<string, number | null>
+  >({});
 
   const [memberInfo, setMemberInfo] = useState<MemberResponse>(
     {} as MemberResponse
@@ -31,6 +38,7 @@ function CotegoryInfo({}: Props) {
         imgUrl: response.imgUrl,
         nickName: response.nickName,
         roles: response.roles,
+        correctRate: response.correctRate,
       };
 
       if (
@@ -53,6 +61,26 @@ function CotegoryInfo({}: Props) {
 
       setNickname(response.nickName);
       setMemberInfo(userInfo);
+      setCorrectRate(response.correctRate || {});
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function getUserRank() {
+    try {
+      const response = await MemberService.GetRank();
+      const userRank = {
+        memberId: response.memberId,
+        memberNum: response.memberNum,
+        rank1: response.rank?.groupA,
+        rank2: response.rank?.groupB,
+        rank3: response.rank?.groupC,
+      };
+      setMemberNum(userRank.memberNum || 0);
+      setRank1(userRank.rank1 || 0);
+      setRank2(userRank.rank2 || 0);
+      setRank3(userRank.rank3 || 0);
     } catch (error) {
       console.error(error);
     }
@@ -60,6 +88,7 @@ function CotegoryInfo({}: Props) {
 
   useEffect(() => {
     getUserInfo();
+    getUserRank();
   }, []);
 
   return (
@@ -78,17 +107,46 @@ function CotegoryInfo({}: Props) {
       <DetailResult
         mmrTitle={mmrName1}
         mmrScore={Math.round(mmr1)}
-        tagList={`그리디 알고리즘, 브루트 포스, 이진 탐색, 다이나믹 프로그래밍`}
+        tagList={[`그리디 알고리즘`, `브루트 포스`, `이진 탐색`, `DP`]}
+        member={memberNum}
+        rank={rank1}
+        correctRate={[
+          Math.round((correctRate.GREEDY || 0) * 100 * 10) / 10,
+          Math.round((correctRate.BRUTE_FORCE || 0) * 100 * 10) / 10,
+          Math.round((correctRate.BINARY_SEARCH || 0) * 100 * 10) / 10,
+          Math.round((correctRate.DP || 0) * 100 * 10) / 10,
+        ]}
       ></DetailResult>
       <DetailResult
         mmrTitle={mmrName2}
         mmrScore={Math.round(mmr2)}
-        tagList={`브루트 포스, 깊이 우선 탐색, 너비 우선 탐색, 다이나믹 프로그래밍`}
+        tagList={[`브루트 포스`, `깊이 우선 탐색`, `너비 우선 탐색`, `DP`]}
+        member={memberNum}
+        rank={rank2}
+        correctRate={[
+          Math.round((correctRate.BRUTE_FORCE || 0) * 100 * 10) / 10,
+          Math.round((correctRate.DFS || 0) * 100 * 10) / 10,
+          Math.round((correctRate.BFS || 0) * 100 * 10) / 10,
+          Math.round((correctRate.DP || 0) * 100 * 10) / 10,
+        ]}
       ></DetailResult>
       <DetailResult
         mmrTitle={mmrName3}
         mmrScore={Math.round(mmr3)}
-        tagList={`유니온 파인드, 비트 마스킹, 다익스트라, 플로이드 워셜`}
+        tagList={[
+          `유니온 파인드`,
+          `비트 마스킹`,
+          `다익스트라`,
+          `플로이드 워셜`,
+        ]}
+        member={memberNum}
+        rank={rank3}
+        correctRate={[
+          Math.round((correctRate.UNION_FIND || 0) * 100 * 10) / 10,
+          Math.round((correctRate.BIT_MASKING || 0) * 100 * 10) / 10,
+          Math.round((correctRate.DIJKSTRA || 0) * 100 * 10) / 10,
+          Math.round((correctRate.FLOYD_WARSHALL || 0) * 100 * 10) / 10,
+        ]}
       ></DetailResult>
     </Wrapper>
   );

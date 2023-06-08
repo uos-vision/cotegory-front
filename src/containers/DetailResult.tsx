@@ -3,23 +3,69 @@ import styled from "styled-components";
 interface Props {
   mmrTitle?: string;
   mmrScore?: number;
-  tagList?: string;
+  tagList?: string[];
+  rank?: number;
+  member?: number;
+  correctRate?: number[];
 }
-function DetailResult({ mmrTitle, mmrScore, tagList }: Props) {
+function DetailResult({
+  mmrTitle,
+  mmrScore,
+  tagList,
+  rank,
+  member,
+  correctRate,
+}: Props) {
   return (
     <Wrapper>
       <TitleBox>
         <TypeTitle>{mmrTitle}</TypeTitle>
-        <TypeBody>{tagList}</TypeBody>
+        <TypeBody>{tagList?.join(", ")}</TypeBody>
       </TitleBox>
       <ContentBox>
         <LeftBox>
-          <Text>Score</Text>
+          <Text>SCORE</Text>
           <ScoreBox>
             <Score mmr={mmrScore}>{mmrScore}</Score>
           </ScoreBox>
         </LeftBox>
-        <RightBox></RightBox>
+        <RightBox>
+          <Text>알고리즘 별 정답률</Text>
+          <CorrectBox>
+            <CorrectInnerBox>
+              <CorrectTopBox>{tagList && tagList[0]}</CorrectTopBox>
+              <CorrectBottomBox>
+                {correctRate && correctRate[0]}%
+              </CorrectBottomBox>
+            </CorrectInnerBox>
+            <CorrectInnerBox>
+              <CorrectTopBox>{tagList && tagList[1]}</CorrectTopBox>
+              <CorrectBottomBox>
+                {correctRate && correctRate[1]}%
+              </CorrectBottomBox>
+            </CorrectInnerBox>
+            <CorrectInnerBox>
+              <CorrectTopBox>{tagList && tagList[2]}</CorrectTopBox>
+              <CorrectBottomBox>
+                {correctRate && correctRate[2]}%
+              </CorrectBottomBox>
+            </CorrectInnerBox>
+            <CorrectInnerBox>
+              <CorrectTopBox>{tagList && tagList[3]}</CorrectTopBox>
+              <CorrectBottomBox>
+                {correctRate && correctRate[3]}%
+              </CorrectBottomBox>
+            </CorrectInnerBox>
+          </CorrectBox>
+        </RightBox>
+        <LeftBox>
+          <Text>RANK</Text>
+          <RankBox>
+            <Rank>
+              {rank} / {member}
+            </Rank>
+          </RankBox>
+        </LeftBox>
       </ContentBox>
     </Wrapper>
   );
@@ -44,6 +90,11 @@ const TypeTitle = styled.h1`
 
 const Text = styled.h2`
   font-size: 1.25em;
+  color: #000000;
+`;
+
+const DetailText = styled.body`
+  font-size: 1em;
   color: #000000;
 `;
 
@@ -76,11 +127,11 @@ const LeftBox = styled.div`
 `;
 
 const RightBox = styled.div`
-  width: 80%;
+  width: 60%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
 `;
 
 const ScoreBox = styled.div`
@@ -105,8 +156,68 @@ const getColor = (mmr?: number) => {
 };
 
 const Score = styled.h1<{ mmr?: number }>`
-  font-size: 2em;
+  font-size: 1.75em;
   color: ${({ mmr }) => getColor(mmr)};
-  font-weight: 700;
+  font-weight: 600;
+`;
+
+const RankBox = styled.div`
+  width: 60%;
+  height: 5em;
+  background-color: #5465ff;
+  border-radius: 1em;
+  align-items: center;
+  margin-bottom: 1em;
+`;
+
+const Rank = styled.h1`
+  height: 5em;
+  font-size: 1.75em;
+  font-weight: 500;
+  color: #ffffff;
+`;
+
+const CorrectBox = styled.div`
+  width: 100%;
+  height: 5em;
+  background-color: #e9e9e9;
+  border-radius: 1em;
+  align-items: center;
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: row;
+`;
+const CorrectInnerBox = styled.div`
+  width: 25%;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 1em 1em 1em 1em;
+  margin-inline: 0.5em;
+`;
+const CorrectTopBox = styled.div`
+  width: 100%;
+  height: 30%;
+  border-radius: 1em 1em 0 0;
+  background-color: #788bff;
+  color: #ffffff;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-weight: 600;
+`;
+
+const CorrectBottomBox = styled.div`
+  width: 100%;
+  border-radius: 1em;
+  background-color: #ffffff;
+  color: #5465ff;
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-top: 0.25em;
+`;
+const Correct = styled.h1`
+  height: 5em;
+  font-size: 1.75em;
+  font-weight: 500;
+  color: #ffffff;
 `;
 export default DetailResult;

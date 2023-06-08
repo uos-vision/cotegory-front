@@ -99,7 +99,9 @@ function CotegoryProfile({
       <LeftBox>
         <Nickname>{`${nickname}`}</Nickname>
         <ProfileImage src="logo.png" alt="Profile Image" />
-        <Rank color={rankColor}>{rank}</Rank>
+        <RankBox>
+          <Rank color={rankColor}>{rank}</Rank>
+        </RankBox>
       </LeftBox>
       <RightBox>
         <MmrBar mmrTitle={mmrName1} mmrScore={mmr1}></MmrBar>
@@ -153,6 +155,16 @@ const ProfileImage = styled.img`
 const Rank = styled.h2`
   font-size: 1.5em;
   color: ${(props) => props.color || "gold"};
+`;
+
+const RankBox = styled.div`
+  background-color: #ffffff;
+  align-items: center;
+  border-radius: 1em;
+  margin-left: 10em;
+  margin-right: 10em;
+  padding-top: 1px;
+  padding-bottom: 1px;
 `;
 
 export default CotegoryProfile;
