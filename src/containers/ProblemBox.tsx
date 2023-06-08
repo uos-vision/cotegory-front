@@ -5,12 +5,14 @@ import GlobalStyle from "../theme/GlobalStyle";
 interface Props {
   topText?: string;
   bottomText?: string;
+  topBoxColor?: string; // New prop for topBox background color
 }
-function ProblemBox({ topText, bottomText }: Props) {
+
+function ProblemBox({ topText, bottomText, topBoxColor }: Props) {
   return (
     <Wrapper>
       <GlobalStyle />
-      <TopBox>
+      <TopBox topBoxColor={topBoxColor}>
         <TopText>{topText}</TopText>
       </TopBox>
       <BottomBox>
@@ -27,9 +29,9 @@ const Wrapper = styled.main`
   margin-top: 4em;
 `;
 
-const TopBox = styled.div`
+const TopBox = styled.div<{ topBoxColor?: string }>`
   border-radius: 1em 1em 0em 0em;
-  background-color: #5465ff;
+  background-color: ${(props) => props.topBoxColor || "#5465ff"};
   box-sizing: border-box;
 `;
 

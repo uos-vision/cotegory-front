@@ -129,7 +129,9 @@ function ProblemPage() {
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string>("");
   const handleAnswerClick = (answer: string) => {
-    setSelectedAnswer(answer);
+    if (!isSubmissioned) {
+      setSelectedAnswer(answer);
+    }
   };
 
   useEffect(() => {
@@ -175,6 +177,13 @@ function ProblemPage() {
                 isSubmissioned
                   ? title
                   : "아래 문제에 사용할 적절한 알고리즘은 무엇인가요?"
+              }
+              topBoxColor={
+                isSubmissioned
+                  ? submissionInfo.isCorrect
+                    ? "#5465ff"
+                    : "#F03547"
+                  : "#788bff"
               }
               bottomText={`메모리 제한 : ${memoryLimit}MB 시간 제한 : ${timeLimit}초`}
             ></ProblemBox>
