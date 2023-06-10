@@ -27,13 +27,12 @@ class ApiBase {
 
   protected static async handleError(error: AxiosError) {
     if (error.response && error.response.status === 403) {
-      // 403 에러가 발생한 경우
-      // 새로운 토큰을 받아오는 로직을 처리
-      await SignInService.refreshToken();
-      // 이전 요청을 다시 시도
-      return axios(error.config as AxiosRequestConfig); // 오류 부분 수정
+      const refreshTokenExists = document.cookie.includes("refreshToken");
+      if (refreshTokenExists) {
+        await SignInService.refreshToken();
+        return axios(error.config as AxiosRequestConfig); // 이전 요청을 다시 시도
+      }
     }
-    await SignInService.refreshToken();
     throw error;
   }
 }
