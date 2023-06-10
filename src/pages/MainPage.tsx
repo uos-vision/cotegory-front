@@ -25,7 +25,7 @@ function MainPage() {
           src="Main.png"
           alt="큰이미지"
         ></BigImage>
-        <CommentBox>
+        {/* <CommentBox>
           <Text>
             <h2>코딩테스트 공부의 유쾌한 반란.</h2>
             <br />
@@ -41,7 +41,8 @@ function MainPage() {
             <br />
             <h3>Cotegory 검사로 나의 코딩테스트 역량을 확인해보세요.</h3>
           </Text>
-        </CommentBox>
+        </CommentBox> */}
+        <MainImage src="cotegorymain.png"></MainImage>
       </Background>
       <Footer />
     </Wrapper>
@@ -72,8 +73,16 @@ const ImageSlide = styled.img`
 const BigImage = styled.img`
   width: 100%;
   margin-top: 4em;
+  margin-bottom: 2em;
   border-radius: 1em;
   cursor: pointer;
+`;
+
+const MainImage = styled.img`
+  width: 100%;
+  margin-top: 4em;
+  margin-bottom: 2em;
+  border-radius: 1em;
 `;
 const CommentBox = styled.div`
   width: 100%;
