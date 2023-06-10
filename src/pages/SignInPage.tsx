@@ -36,8 +36,12 @@ function SignInPage() {
       setTimeout(() => {
         window.location.reload();
       }, 1);
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.response && error.response.status === 401) {
+        alert("이메일 / 비밀번호를 확인하세요");
+      } else {
+        console.error(error);
+      }
     }
   };
 
