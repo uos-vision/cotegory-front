@@ -60,7 +60,6 @@ function Header() {
 
   return (
     <Wrapper>
-      <GlobalStyle />
       <Head>
         <LogoImg onClick={handleLogo} src="horizon.png" alt="cotegory logo" />
         <HeaderBox onClick={handleCotegory}>
@@ -85,13 +84,15 @@ const Wrapper = styled.main`
   justify-content: center;
   align-items: center;
   background-color: #ffffff; /* Change background color */
-  font-family: "Roboto", sans-serif; // 'Roboto' 폰트 적용
+  border-radius: 1em;
 `;
 const Head = styled.section`
   display: flex;
   justify-content: space-between; /* 왼쪽과 오른쪽에 공간을 나누어 배치 */
   text-align: center;
   margin-top: 2em;
+  border-radius: 1em;
+  padding: 0.5em;
 `;
 const HeaderBox = styled.button`
   width: 10em;
@@ -105,7 +106,7 @@ const HeaderBox = styled.button`
     color: #ffffff; */
     color: #5465ff;
   }
-  border-radius: 0.75em;
+  border-radius: 1em;
   border-color: transparent;
   margin-right: 10px;
   display: flex; /* 가로로 배치되도록 수정 */
@@ -117,7 +118,7 @@ const HeadText = styled.h1`
 const SignInButton = styled.button`
   width: 10em;
   height: 4em;
-  margin-left: 20em;
+  margin-left: 30em;
   cursor: pointer;
   background-color: #5465ff;
   :hover {
