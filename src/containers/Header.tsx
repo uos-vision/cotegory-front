@@ -30,6 +30,9 @@ function Header() {
         setMemberInfo(userInfo);
       } catch (error) {
         console.error(error);
+        if (error === 403) {
+          window.location.reload();
+        }
         // Cookies.remove("accessToken");
       }
     }

@@ -61,6 +61,7 @@ function ProfilePage() {
       });
     } catch (error) {
       console.error(error);
+      window.location.reload();
     }
   };
 
@@ -70,6 +71,7 @@ function ProfilePage() {
         nickname: nickname,
       });
       alert("변경완료");
+      window.location.reload();
     } catch (error) {
       console.error(error);
       alert("잘못된 닉네임 입니다");
