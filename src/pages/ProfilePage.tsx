@@ -64,6 +64,29 @@ function ProfilePage() {
     }
   };
 
+  const handleNicknameChange = async () => {
+    try {
+      const res = await MemberService.ChangeNickname({
+        nickname: nickname,
+      });
+      alert("변경완료");
+    } catch (error) {
+      console.error(error);
+      alert("잘못된 닉네임 입니다");
+    }
+  };
+
+  const handleBackjoonChange = async () => {
+    try {
+      const res = await MemberService.ChangeBackjoonHandle({
+        baekjoonHandle: baekjoonHandle,
+      });
+      alert("변경완료");
+    } catch (error) {
+      console.error(error);
+      alert("정확한 백준 아이디를 입력하세요");
+    }
+  };
   //이미지 업로드
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -118,11 +141,15 @@ function ProfilePage() {
           <PictureBoxRight>
             <MiniBox>
               <Text>닉네임</Text>
-              <SubmitButton>수정하기</SubmitButton>
+              <SubmitButton onClick={handleNicknameChange}>
+                수정하기
+              </SubmitButton>
             </MiniBox>
             <MiniBox>
               <Text>백준 ID</Text>
-              <SubmitButton>수정하기</SubmitButton>
+              <SubmitButton onClick={handleBackjoonChange}>
+                수정하기
+              </SubmitButton>
             </MiniBox>
           </PictureBoxRight>
           <ProfileTextBox>

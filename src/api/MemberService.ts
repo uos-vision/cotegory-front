@@ -90,7 +90,7 @@ class MemberService extends ApiBase {
 
   public ChangeBackjoonHandle({ ...backjoonHandle }) {
     return this.baseHTTP
-      .post("api/member/change-backjoonhandle", {
+      .post("api/member/change-baekjoonhandle", {
         ...backjoonHandle,
       })
       .then(ApiBase.handleResponse)
