@@ -129,6 +129,11 @@ function SignUpPage() {
             placeholder="비밀번호 확인"
             onChange={(e) => setPasswordCorrect(e.target.value)}
           />
+          {password === passwordCorrect ? (
+            ""
+          ) : (
+            <AlertText>비밀번호가 서로 다릅니다</AlertText>
+          )}
           <HorizonLayout>
             <Text>Baekjoon ID *</Text>
             <DubButton
@@ -152,6 +157,14 @@ function SignUpPage() {
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
+          {email === "" ||
+          password === "" ||
+          passwordCorrect === "" ||
+          baekjoon === "" ? (
+            <AlertText>*표시는 필수 입력 사항입니다</AlertText>
+          ) : (
+            ""
+          )}
           <SignUpButton
             type="submit"
             onClick={handleClickButton}
@@ -209,6 +222,12 @@ const Headline = styled.h1`
 const Text = styled.h2`
   font-size: 1em;
   margin-top: 2em;
+  text-align: left;
+`;
+const AlertText = styled.body`
+  font-size: 1em;
+  margin-top: 2em;
+  color: #f03547;
   text-align: left;
 `;
 const InputBox = styled.input`

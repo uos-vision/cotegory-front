@@ -19,6 +19,7 @@ function ProblemListBox({
   playTime,
 }: Props) {
   const [quizTitle, setQuizTitle] = useState<string>("");
+  const [url, setUrl] = useState<string>("");
 
   useEffect(() => {
     if (quizId !== undefined) {
@@ -30,17 +31,22 @@ function ProblemListBox({
     try {
       const response = await QuizService.GetQuizInfo(quizId!);
       setQuizTitle(response.title);
+      setUrl(response.url);
     } catch (error) {
       console.error(error);
     }
   }
+
+  const handleTitleClick = () => {
+    window.open(url, "_blank");
+  };
 
   return (
     <Wrapper>
       <DateBox>
         <Date>{date}</Date>
       </DateBox>
-      <HeadlineBox>
+      <HeadlineBox onClick={handleTitleClick}>
         <TitleText>{quizTitle}</TitleText>
       </HeadlineBox>
       <Text1>선택한 답 : {convertTag(selectTag as string)}</Text1>
@@ -109,6 +115,7 @@ const HeadlineBox = styled.div`
   text-align: center;
   border-radius: 0.5em;
   box-shadow: #acacac;
+  cursor: pointer;
 `;
 
 const Text2 = styled.h2`
