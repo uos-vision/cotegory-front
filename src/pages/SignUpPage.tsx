@@ -151,7 +151,7 @@ function SignUpPage() {
             value={baekjoon}
             onChange={(e) => setBaekjoon(e.target.value)}
           />
-          <Text>닉네임</Text>
+          <Text>닉네임 *</Text>
           <InputBox
             type="text"
             value={nickname}
@@ -160,7 +160,8 @@ function SignUpPage() {
           {email === "" ||
           password === "" ||
           passwordCorrect === "" ||
-          baekjoon === "" ? (
+          baekjoon === "" ||
+          nickname === "" ? (
             <AlertText>*표시는 필수 입력 사항입니다</AlertText>
           ) : (
             ""
