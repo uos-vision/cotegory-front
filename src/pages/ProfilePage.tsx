@@ -214,6 +214,7 @@ const ProfileBox = styled.div`
   height: 20em;
   margin-top: 3em;
   display: flex;
+  border-collapse: collapse;
   border: #cdcdcd;
   border-style: solid;
   border-radius: 1em;
@@ -236,6 +237,7 @@ const PictureBoxRight = styled.div`
   border-radius: 0 0 0 0;
   border: #cdcdcd;
   background-color: #eeeeee;
+  border-collapse: collapse;
   display: flex;
   flex-direction: column;
 `;
@@ -245,6 +247,7 @@ const ProfileTextBox = styled.div`
   height: 100%;
   border-radius: 0 1em 1em 0;
   border: #cdcdcd;
+  border-collapse: collapse;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -264,6 +267,7 @@ const MiniBox = styled.div`
 const TopMiniBox = styled.div`
   width: 100%;
   height: 100%;
+  border-collapse: collapse;
   background-color: #ffffff;
   border: 1px #cdcdcd;
   border-style: solid;
@@ -278,6 +282,7 @@ const BottomMiniBox = styled.div`
   height: 100%;
   background-color: #ffffff;
   border: 1px #cdcdcd;
+  border-collapse: collapse;
   border-style: solid;
   border-collapse: collapse;
   border-radius: 0 0 1em 0;
@@ -290,6 +295,7 @@ const PictureUploadBox = styled.div`
   height: 100%;
   border: #cdcdcd;
   background-color: #ffffff;
+  border-collapse: collapse;
   align-items: center;
   text-align: center;
   display: flex;
