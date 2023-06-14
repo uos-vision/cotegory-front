@@ -82,9 +82,10 @@ function SignUpPage() {
       !password || // password가 비어있는 경우
       !passwordCorrect || // passwordCorrect가 비어있는 경우
       duplicated === true ||
-      exist === false
+      exist === false ||
+      !nickname
     );
-  }, [email, password, passwordCorrect, duplicated, exist]);
+  }, [email, password, passwordCorrect, duplicated, exist, nickname]);
 
   const navigate = useNavigate(); // useNavigate로 변경
   const handleLogo = () => {
